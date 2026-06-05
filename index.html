@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陸吼天堂雲端版 — Lineage 1 私服</title>
+<style>
+:root {
+  --bg:      #05050f;
+  --bg2:     #0a0a1e;
+  --bg3:     #0f0f28;
+  --gold:    #c9a84c;
+  --gold2:   #f0c96e;
+  --teal:    #00e5aa;
+  --red:     #ff4455;
+  --text:    #e4e4f0;
+  --dim:     #7878a0;
+  --border:  #1c1c40;
+  --card:    #0d0d24;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Microsoft JhengHei','微軟正黑體',sans-serif;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,15,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px;}
+.nav-logo{font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:.06em;}
+.nav-links{display:flex;gap:1.6rem;list-style:none;}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:.88rem;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 2rem 4rem;position:relative;overflow:hidden;}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.08) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 20% 70%, rgba(0,229,170,.05) 0%, transparent 60%);pointer-events:none;}
+.hero-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:.78rem;letter-spacing:.15em;padding:.28rem .9rem;border-radius:999px;margin-bottom:1.4rem;}
+.hero-title{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:900;line-height:1.1;letter-spacing:.04em;background:linear-gradient(135deg,var(--gold2) 0%,var(--gold) 40%,#e8a020 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.6rem;}
+.hero-sub{font-size:clamp(1rem,2.4vw,1.35rem);color:var(--dim);margin-bottom:2.4rem;max-width:560px;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.btn{display:inline-block;padding:.75rem 1.9rem;border-radius:8px;font-size:.95rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:all .22s;}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#e8900a);color:#0a0a00;}
+.btn-gold:hover{filter:brightness(1.12);transform:translateY(-1px);}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3.5rem;flex-wrap:wrap;justify-content:center;}
+.hero-stat{text-align:center;}
+.hero-stat .val{font-size:1.9rem;font-weight:800;color:var(--gold);line-height:1;}
+.hero-stat .lab{font-size:.78rem;color:var(--dim);margin-top:.3rem;}
+
+/* ── SECTION COMMON ── */
+section{padding:5rem 2rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{font-size:.78rem;letter-spacing:.18em;color:var(--teal);margin-bottom:.6rem;}
+.section-title{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--text);margin-bottom:.8rem;}
+.section-desc{color:var(--dim);max-width:640px;line-height:1.7;margin-bottom:2.8rem;}
+hr.divider{border:none;border-top:1px solid var(--border);margin:0;}
+
+/* ── UNIQUE FEATURES ── */
+#unique{background:var(--bg);}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.2rem;}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .25s,transform .25s;}
+.feat-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+.feat-card.highlight{border-color:rgba(201,168,76,.35);}
+.feat-icon{font-size:2rem;margin-bottom:.9rem;display:block;}
+.feat-title{font-size:1.05rem;font-weight:700;color:var(--gold);margin-bottom:.5rem;}
+.feat-body{font-size:.875rem;color:var(--dim);line-height:1.65;}
+.feat-tag{position:absolute;top:.85rem;right:.85rem;font-size:.65rem;letter-spacing:.1em;padding:.18rem .55rem;border-radius:999px;font-weight:700;}
+.tag-exclusive{background:rgba(0,229,170,.15);color:var(--teal);}
+.tag-common{background:rgba(255,255,255,.06);color:var(--dim);}
+
+/* ── ECONOMY DETAIL ── */
+#economy{background:var(--bg2);}
+.eco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;}
+.eco-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem;}
+.eco-card .eco-name{font-size:.8rem;letter-spacing:.1em;color:var(--teal);margin-bottom:.5rem;}
+.eco-card .eco-title{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.7rem;}
+.eco-card ul{list-style:none;font-size:.83rem;color:var(--dim);line-height:1.8;}
+.eco-card li::before{content:'▸ ';color:var(--gold);}
+
+/* ── CLAN SYSTEM ── */
+#clan{background:var(--bg);}
+.clan-tabs{display:flex;gap:.6rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.clan-tab{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.55rem 1.1rem;font-size:.87rem;color:var(--dim);cursor:pointer;transition:all .2s;}
+.clan-tab.active,.clan-tab:hover{border-color:var(--gold);color:var(--gold);}
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:.84rem;}
+thead th{background:rgba(201,168,76,.1);color:var(--gold);padding:.7rem 1rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody td{padding:.65rem 1rem;border-bottom:1px solid rgba(28,28,64,.6);color:var(--dim);white-space:nowrap;}
+tbody tr:hover td{background:rgba(201,168,76,.04);color:var(--text);}
+.lv{color:var(--teal);font-weight:700;}
+
+/* ── ARMOR SETS ── */
+#gear{background:var(--bg2);}
+.gear-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;}
+.gear-set{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;}
+.gear-set-title{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.gear-set-title .tier{font-size:.7rem;padding:.15rem .5rem;border-radius:4px;font-weight:600;}
+.tier-s{background:rgba(255,68,85,.2);color:var(--red);}
+.tier-a{background:rgba(201,168,76,.2);color:var(--gold);}
+.tier-b{background:rgba(0,229,170,.15);color:var(--teal);}
+.gear-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid rgba(28,28,64,.5);font-size:.83rem;}
+.gear-row:last-child{border-bottom:none;}
+.gear-name{color:var(--text);}
+.gear-ac{color:var(--teal);font-weight:700;font-family:monospace;}
+.gear-class{display:flex;gap:.3rem;flex-wrap:wrap;}
+.cls{font-size:.65rem;padding:.1rem .35rem;border-radius:3px;background:rgba(255,255,255,.07);color:var(--dim);}
+
+/* ── WEAPONS ── */
+#weapons{background:var(--bg);}
+.weapon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
+.wpn-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;display:flex;align-items:center;gap:1rem;}
+.wpn-dmg{font-size:1.3rem;font-weight:900;color:var(--gold);line-height:1;min-width:64px;text-align:center;}
+.wpn-dmg .dmg-label{font-size:.6rem;color:var(--dim);font-weight:400;display:block;margin-bottom:.15rem;}
+.wpn-info .wpn-name{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.25rem;}
+.wpn-info .wpn-meta{font-size:.78rem;color:var(--dim);}
+
+/* ── DROP MAPS ── */
+#drops{background:var(--bg2);}
+.drop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem;}
+.drop-map{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem;}
+.drop-map-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
+.drop-map-name{font-size:1rem;font-weight:700;color:var(--gold);}
+.drop-map-cost{font-size:.75rem;color:var(--dim);background:rgba(255,255,255,.05);padding:.2rem .6rem;border-radius:4px;white-space:nowrap;}
+.drop-item{display:flex;justify-content:space-between;align-items:center;padding:.32rem 0;border-bottom:1px solid rgba(28,28,64,.5);font-size:.82rem;}
+.drop-item:last-child{border-bottom:none;}
+.drop-name{color:var(--text);}
+.drop-chance{font-family:monospace;font-size:.78rem;}
+.drop-chance.high{color:var(--teal);}
+.drop-chance.med{color:var(--gold);}
+.drop-chance.low{color:var(--dim);}
+.drop-qty{font-size:.7rem;color:var(--dim);margin-left:.4rem;}
+
+/* ── SERVER INFO ── */
+#info{background:var(--bg2);}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.3rem;text-align:center;}
+.info-card .i-val{font-size:2rem;font-weight:900;color:var(--gold2);line-height:1;margin-bottom:.35rem;}
+.info-card .i-label{font-size:.8rem;color:var(--dim);}
+
+/* ── JOIN ── */
+#join{background:var(--bg);text-align:center;}
+.join-inner{max-width:620px;margin:0 auto;}
+.join-steps{display:flex;flex-direction:column;gap:1rem;margin:2.5rem 0;text-align:left;}
+.join-step{display:flex;gap:1rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.4rem;}
+.step-num{font-size:1.3rem;font-weight:900;color:var(--gold);min-width:32px;}
+.step-txt .step-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.25rem;}
+.step-txt .step-body{font-size:.82rem;color:var(--dim);line-height:1.6;}
+.security-note{margin-top:2rem;padding:1rem 1.4rem;background:rgba(0,229,170,.06);border:1px solid rgba(0,229,170,.2);border-radius:8px;font-size:.82rem;color:var(--dim);line-height:1.6;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);text-align:center;padding:2rem;color:var(--dim);font-size:.8rem;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  nav .nav-links{display:none;}
+  .hero-stats{gap:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚔ 陸吼天堂雲端版</div>
+  <ul class="nav-links">
+    <li><a href="#unique">特色功能</a></li>
+    <li><a href="#economy">金融系統</a></li>
+    <li><a href="#clan">血盟系統</a></li>
+    <li><a href="#gear">套裝裝備</a></li>
+    <li><a href="#weapons">頂級武器</a></li>
+    <li><a href="#info">伺服器資訊</a></li>
+    <li><a href="#join">立即加入</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-badge">Lineage 1 · 天堂私服 · 長期穩定運營</div>
+  <h1 class="hero-title">陸吼天堂雲端版</h1>
+  <p class="hero-sub">這不是一般的天堂私服。<br>這裡有股票、期貨、銀行、貸款——你的冒險同時是一場金融博弈。</p>
+  <div class="hero-btns">
+    <a href="#join" class="btn btn-gold">立即加入</a>
+    <a href="#unique" class="btn btn-outline">探索特色</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="val">98</div><div class="lab">等級上限</div></div>
+    <div class="hero-stat"><div class="val">6×</div><div class="lab">經驗倍率</div></div>
+    <div class="hero-stat"><div class="val">3×</div><div class="lab">金幣倍率</div></div>
+    <div class="hero-stat"><div class="val">10</div><div class="lab">支股票標的</div></div>
+    <div class="hero-stat"><div class="val">24/7</div><div class="lab">雲端穩定運行</div></div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- UNIQUE FEATURES -->
+<section id="unique">
+  <div class="section-inner">
+    <div class="section-label">FEATURES</div>
+    <h2 class="section-title">我們有，別人沒有</h2>
+    <p class="section-desc">以下功能是本服原創開發，在其他天堂私服中你找不到。</p>
+    <div class="feat-grid">
+
+      <div class="feat-card highlight">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">📈</span>
+        <div class="feat-title">股票交易系統</div>
+        <div class="feat-body">10 支真實科技股（TSM、NVDA、AAPL、AMZN、GOOGL、META、MSFT、NFLX、SSNC、TSLA），每 5 分鐘報價更新，可持倉最多 500 張，5% 手續費。附隨身股票卡，隨時開盤。</div>
+      </div>
+
+      <div class="feat-card highlight">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">📊</span>
+        <div class="feat-title">期貨交易系統</div>
+        <div class="feat-body">10 個天堂主題標的，50% 保證金，支援做多/做空。48 小時自動結算，可手動平倉，多空自動對沖。累進獲利稅防止大鱷壟斷。</div>
+      </div>
+
+      <div class="feat-card highlight">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🤖</span>
+        <div class="feat-title">AI 市場操控系統</div>
+        <div class="feat-body">伺服器自動偵測全體玩家倉位，反向施壓。5 種市場模型（牛市 / 均值回歸 / 震盪 / 跳空 / 熊市陷阱），GM 可一鍵切換。</div>
+      </div>
+
+      <div class="feat-card highlight">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🏦</span>
+        <div class="feat-title">銀行存款系統</div>
+        <div class="feat-body">元寶存入銀行可自動累積利息（0.15%/小時複利），長期玩家的被動收益。</div>
+      </div>
+
+      <div class="feat-card highlight">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">💳</span>
+        <div class="feat-title">貸款系統</div>
+        <div class="feat-body">急需元寶時可向 NPC 貸款，按日計息，逾期滾複利，設有最高負債上限保護，絕不讓你爆倉到無法翻身。</div>
+      </div>
+
+      <div class="feat-card highlight">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">⚔️</span>
+        <div class="feat-title">血盟技能三線系統</div>
+        <div class="feat-body">血盟鬥志（攻擊強化）、血盟堅韌（HP/MP 強化）、血盟壁壘（防禦/魔防強化），三條技能線各 10 級，需要元寶＋金幣＋稀有製作秘笈升級。</div>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🌀</span>
+        <div class="feat-title">復仇卷軸</div>
+        <div class="feat-body">被 PK 後使用可對對方施加 8 秒強制暈眩。安全區無效，PK 玩家的剋星。分普通版與進階版。</div>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🦈</span>
+        <div class="feat-title">傭兵鯊魚</div>
+        <div class="feat-body">擁有城堡的血盟可使用傭兵符（藍色鯊魚）可召喚傭兵跟隨作戰，有效補足輸出火力，大型副本的好夥伴。</div>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🔮</span>
+        <div class="feat-title">裝備贖回系統</div>
+        <div class="feat-body">被怪物打爆裝備後別絕望——花費元寶可向 NPC 贖回已損毀的裝備，給你第二次機會。</div>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🎰</span>
+        <div class="feat-title">性感荷官賭場</div>
+        <div class="feat-body">本服有專屬賭場 NPC，元寶下注，機率公開透明。運氣好的話一夜致富；手氣差的話……至少有貸款系統。</div>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🧙</span>
+        <div class="feat-title">隨身祭司傭僱</div>
+        <div class="feat-body">個人祭司 NPC 可傭僱跟隨，自動回血回魔，讓你在副本中更加持久，適合單人挑戰高難度區域。</div>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-tag tag-exclusive">本服獨有</span>
+        <span class="feat-icon">🎵</span>
+        <div class="feat-title">魔法笛子（重製版）</div>
+        <div class="feat-body">使用後可吸引周圍 12 格內所有怪物的仇恨，集怪效果極強，搭配 AoE 法術效率翻倍。</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:3rem;">
+      <div class="section-label" style="margin-bottom:.6rem;">STANDARD</div>
+      <h3 style="font-size:1.2rem;color:var(--dim);font-weight:600;margin-bottom:1.2rem;">一般私服也有的功能——我們同樣具備</h3>
+      <div class="feat-grid">
+        <div class="feat-card"><span class="feat-tag tag-common">通用</span><span class="feat-icon">🏰</span><div class="feat-title">肯特城城戰</div><div class="feat-body">每週四 21:10 台灣時間，奪城即可獲得城堡稅收分紅，勝利血盟主獨得豐厚元寶獎勵。</div></div>
+        <div class="feat-card"><span class="feat-tag tag-common">通用</span><span class="feat-icon">💀</span><div class="feat-title">PK / PvP 系統</div><div class="feat-body">完整的正邪值系統，紅名玩家有掉裝風險，為你的每一次出手三思。</div></div>
+        <div class="feat-card"><span class="feat-tag tag-common">通用</span><span class="feat-icon">🪆</span><div class="feat-title">魔法娃娃</div><div class="feat-body">多種成長型魔法娃娃，升等後提供各種屬性加成，收集控的天堂。</div></div>
+        <div class="feat-card"><span class="feat-tag tag-common">通用</span><span class="feat-icon">🎭</span><div class="feat-title">變身卷軸</div><div class="feat-body">多種職業/怪物外觀變身，死亡騎士、大名、忍者等多款造型。</div></div>
+        <div class="feat-card"><span class="feat-tag tag-common">通用</span><span class="feat-icon">🛒</span><div class="feat-title">委託商店</div><div class="feat-body">玩家之間互相買賣裝備道具，市場活絡，好貨不愁沒出路。</div></div>
+        <div class="feat-card"><span class="feat-tag tag-common">通用</span><span class="feat-icon">⚡</span><div class="feat-title">祭司升級系統</div><div class="feat-body">祭司職業可透過專屬 NPC 進行升階，解鎖更強力的治療與輔助技能。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ECONOMY -->
+<section id="economy">
+  <div class="section-inner">
+    <div class="section-label">ECONOMY</div>
+    <h2 class="section-title">完整金融生態系</h2>
+    <p class="section-desc">四大金融系統環環相扣，讓你的元寶不只能花，還能錢滾錢。</p>
+    <div class="eco-grid">
+
+      <div class="eco-card">
+        <div class="eco-name">STOCK MARKET</div>
+        <div class="eco-title">📈 股票交易</div>
+        <ul>
+          <li>10 支真實科技股</li>
+          <li>每 5 分鐘自動更新報價</li>
+          <li>最多持倉 500 張/支</li>
+          <li>5% 買賣手續費</li>
+          <li>加權平均成本追蹤</li>
+          <li>浮動損益即時顯示</li>
+          <li>漲跌色彩符合台灣慣例（紅漲綠跌）</li>
+        </ul>
+      </div>
+
+      <div class="eco-card">
+        <div class="eco-name">FUTURES</div>
+        <div class="eco-title">📊 期貨交易</div>
+        <ul>
+          <li>10 個天堂主題標的</li>
+          <li>50% 保證金制</li>
+          <li>做多 / 做空雙向操作</li>
+          <li>48 小時自動結算</li>
+          <li>手動平倉隨時鎖利</li>
+          <li>多空倉位自動對沖</li>
+          <li>累進獲利稅（越賺稅越高）</li>
+          <li>個人保證金上限保護</li>
+        </ul>
+      </div>
+
+      <div class="eco-card">
+        <div class="eco-name">BANKING</div>
+        <div class="eco-title">🏦 銀行存款</div>
+        <ul>
+          <li>元寶存入銀行生息</li>
+          <li>0.15%/小時複利計算</li>
+          <li>隨時可提領本金+利息</li>
+          <li>長期玩家的穩定收益來源</li>
+        </ul>
+      </div>
+
+      <div class="eco-card">
+        <div class="eco-name">LENDING</div>
+        <div class="eco-title">💳 貸款系統</div>
+        <ul>
+          <li>向 NPC 即時借貸元寶</li>
+          <li>按日計息</li>
+          <li>逾期後滾複利（逾期第 6 天起）</li>
+          <li>最高負債上限保護</li>
+          <li>支援部分還款 / 全額清償</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- CLAN SYSTEM -->
+<section id="clan">
+  <div class="section-inner">
+    <div class="section-label">CLAN SYSTEM</div>
+    <h2 class="section-title">血盟系統</h2>
+    <p class="section-desc">血盟等級與技能相輔相成，強大的血盟需要長期資源投入才能達到巔峰。</p>
+
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">血盟等級升級材料（Lv.1 ~ Lv.10）</h3>
+    <div class="table-wrap" style="margin-bottom:2.5rem;">
+      <table>
+        <thead><tr><th>等級</th><th>金幣</th><th>元寶/紅寶石</th><th>藍/綠/鑽石 各</th><th>品質寶石×4 各</th><th>高品質寶石×4 各</th><th>血盟能量</th><th>血盟資金</th></tr></thead>
+        <tbody>
+          <tr><td class="lv">Lv.1</td><td>3,000萬</td><td>600</td><td>100</td><td>100</td><td>50</td><td>5,000</td><td>100萬</td></tr>
+          <tr><td class="lv">Lv.2</td><td>5,000萬</td><td>800</td><td>200</td><td>200</td><td>100</td><td>7,500</td><td>200萬</td></tr>
+          <tr><td class="lv">Lv.3</td><td>1億</td><td>1,500</td><td>300</td><td>300</td><td>150</td><td>15,000</td><td>300萬</td></tr>
+          <tr><td class="lv">Lv.4</td><td>1.3億</td><td>2,500</td><td>400</td><td>400</td><td>200</td><td>30,000</td><td>400萬</td></tr>
+          <tr><td class="lv">Lv.5</td><td>1.5億</td><td>3,500</td><td>500</td><td>500</td><td>250</td><td>60,000</td><td>500萬</td></tr>
+          <tr><td class="lv">Lv.6</td><td>1.8億</td><td>4,000</td><td>600</td><td>600</td><td>300</td><td>75,000</td><td>600萬</td></tr>
+          <tr><td class="lv">Lv.7</td><td>2億</td><td>5,500</td><td>700</td><td>700</td><td>350</td><td>90,000</td><td>700萬</td></tr>
+          <tr><td class="lv">Lv.8</td><td>2.5億</td><td>6,500</td><td>900</td><td>800</td><td>400</td><td>120,000</td><td>800萬</td></tr>
+          <tr><td class="lv">Lv.9</td><td>3億</td><td>7,500</td><td>1,000</td><td>900</td><td>450</td><td>150,000</td><td>900萬</td></tr>
+          <tr><td class="lv">Lv.10</td><td>4億</td><td>9,500</td><td>1,100</td><td>1,000</td><td>500</td><td>200,000</td><td>1,000萬</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">血盟技能三線加成（每線 Lv.1 ~ Lv.10）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>等級</th><th colspan="2">🗡 鬥志（攻擊）</th><th colspan="2">❤ 堅韌（生存）</th><th colspan="2">🛡 壁壘（防禦）</th></tr>
+        <tr><th></th><th>力/敏/智</th><th>攻擊</th><th>HP</th><th>MP</th><th>魔防</th><th>物理減傷/魔法減傷</th></tr></thead>
+        <tbody>
+          <tr><td class="lv">Lv.1</td><td>+1</td><td>+1</td><td>+100</td><td>+50</td><td>+3</td><td>+1 / +1</td></tr>
+          <tr><td class="lv">Lv.2</td><td>+2</td><td>+1</td><td>+200</td><td>+100</td><td>+6</td><td>+1 / +1</td></tr>
+          <tr><td class="lv">Lv.3</td><td>+2</td><td>+2</td><td>+300</td><td>+150</td><td>+9</td><td>+2 / +2</td></tr>
+          <tr><td class="lv">Lv.4</td><td>+3</td><td>+2</td><td>+400</td><td>+200</td><td>+12</td><td>+2 / +2</td></tr>
+          <tr><td class="lv">Lv.5</td><td>+3</td><td>+3</td><td>+500</td><td>+250</td><td>+15</td><td>+3 / +3</td></tr>
+          <tr><td class="lv">Lv.6</td><td>+4</td><td>+3</td><td>+600</td><td>+300</td><td>+18</td><td>+4 / +4</td></tr>
+          <tr><td class="lv">Lv.7</td><td>+4</td><td>+4</td><td>+700</td><td>+350</td><td>+21</td><td>+5 / +5</td></tr>
+          <tr><td class="lv">Lv.8</td><td>+5</td><td>+4</td><td>+800</td><td>+400</td><td>+24</td><td>+6 / +6</td></tr>
+          <tr><td class="lv">Lv.9</td><td>+5</td><td>+5</td><td>+900</td><td>+450</td><td>+27</td><td>+8 / +8</td></tr>
+          <tr><td class="lv">Lv.10</td><td>+6</td><td>+6</td><td>+1,000</td><td>+500</td><td>+30</td><td>+10 / +10</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.8rem;color:var(--dim);margin-top:.8rem;">※ 技能升級需要元寶＋金幣，高等級還需稀有/英雄/傳說製作秘笈。三條技能線可獨立升級，不互相干擾。</p>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- GEAR SETS -->
+<section id="gear">
+  <div class="section-inner">
+    <div class="section-label">ARMOR SETS</div>
+    <h2 class="section-title">頂級套裝裝備</h2>
+    <p class="section-desc">以下為本服防禦值最高的套裝盔甲，數字越小防禦越強。</p>
+    <div class="gear-grid">
+
+      <div class="gear-set">
+        <div class="gear-set-title">古老系列 <span class="tier tier-s">S 級</span></div>
+        <div class="gear-row"><span class="gear-name">古老的鱗甲</span><span class="gear-ac">AC -20</span><span class="gear-class"><span class="cls">王族</span></span></div>
+        <div class="gear-row"><span class="gear-name">古老的金屬盔甲</span><span class="gear-ac">AC -16</span><span class="gear-class"><span class="cls">騎士</span><span class="cls">妖精</span><span class="cls">黑妖</span></span></div>
+        <div class="gear-row"><span class="gear-name">古老的皮盔甲</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">妖精</span></span></div>
+      </div>
+
+      <div class="gear-set">
+        <div class="gear-set-title">真．林德拜爾系列 <span class="tier tier-s">S 級</span></div>
+        <div class="gear-row"><span class="gear-name">真．林德拜爾的力量</span><span class="gear-ac">AC -17</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+        <div class="gear-row"><span class="gear-name">真．林德拜爾的霸氣</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
+        <div class="gear-row"><span class="gear-name">真．林德拜爾的泉源</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
+      </div>
+
+      <div class="gear-set">
+        <div class="gear-set-title">真．安塔瑞斯系列 <span class="tier tier-a">A 級</span></div>
+        <div class="gear-row"><span class="gear-name">真．安塔瑞斯的力量</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+        <div class="gear-row"><span class="gear-name">真．安塔瑞斯的霸氣</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
+        <div class="gear-row"><span class="gear-name">真．安塔瑞斯的泉源</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
+      </div>
+
+      <div class="gear-set">
+        <div class="gear-set-title">真．法利昂系列 <span class="tier tier-a">A 級</span></div>
+        <div class="gear-row"><span class="gear-name">真．法利昂的力量</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+        <div class="gear-row"><span class="gear-name">真．法利昂的霸氣</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
+        <div class="gear-row"><span class="gear-name">真．法利昂的泉源</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
+      </div>
+
+      <div class="gear-set">
+        <div class="gear-set-title">古代龍鱗系列 <span class="tier tier-a">A 級</span></div>
+        <div class="gear-row"><span class="gear-name">古代火龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
+        <div class="gear-row"><span class="gear-name">古代風龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
+        <div class="gear-row"><span class="gear-name">古代地龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
+        <div class="gear-row"><span class="gear-name">古代水龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
+      </div>
+
+      <div class="gear-set">
+        <div class="gear-set-title">滅魔系列 <span class="tier tier-a">A 級</span></div>
+        <div class="gear-row"><span class="gear-name">滅魔的金屬盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+        <div class="gear-row"><span class="gear-name">滅魔的鱗甲</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
+        <div class="gear-row"><span class="gear-name">滅魔的小藤甲</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
+      </div>
+
+      <div class="gear-set">
+        <div class="gear-set-title">暗黑系列 <span class="tier tier-b">B 級</span></div>
+        <div class="gear-row"><span class="gear-name">黑暗執行者 金屬盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+        <div class="gear-row"><span class="gear-name">墮落長袍</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">法師</span></span></div>
+      </div>
+
+      <div class="gear-set">
+        <div class="gear-set-title">騎士專屬 <span class="tier tier-b">B 級</span></div>
+        <div class="gear-row"><span class="gear-name">騎士盔甲</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+        <div class="gear-row"><span class="gear-name">真、古老的金屬盔甲</span><span class="gear-ac">AC -16</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+      </div>
+
+    </div>
+    <p style="font-size:.8rem;color:var(--dim);margin-top:1.2rem;">※ 顯示部位為盔甲主體（armor 類型），完整套裝另含頭盔、手套、鞋子等部位。AC 值越小防禦越強。</p>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- WEAPONS -->
+<section id="weapons">
+  <div class="section-inner">
+    <div class="section-label">TOP WEAPONS</div>
+    <h2 class="section-title">頂級武器排行</h2>
+    <p class="section-desc">以最大傷害值排列。攻擊力格式為「最小 / 最大」。</p>
+    <div class="weapon-grid">
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>29 / 48</div><div class="wpn-info"><div class="wpn-name">古老的巨劍</div><div class="wpn-meta">雙手劍 · 鐵材質</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>45 / 43</div><div class="wpn-info"><div class="wpn-name">暗黑十字弓</div><div class="wpn-meta">弓 · 白金材質</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>42 / 42</div><div class="wpn-info"><div class="wpn-name">吉爾塔斯之劍</div><div class="wpn-meta">雙手劍 · 暗黑米鐵</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>38 / 40</div><div class="wpn-info"><div class="wpn-name">狂暴巨斧</div><div class="wpn-meta">雙手鈍器 · 鐵材質</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>42 / 40</div><div class="wpn-info"><div class="wpn-name">霜之哀傷</div><div class="wpn-meta">雙手劍 · 暗黑米鐵</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>38 / 38</div><div class="wpn-info"><div class="wpn-name">底比斯歐西里斯雙手劍</div><div class="wpn-meta">雙手劍 · 黃金材質</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>28 / 38</div><div class="wpn-info"><div class="wpn-name">冰之矛</div><div class="wpn-meta">長矛 · 白金材質</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>3 / 38</div><div class="wpn-info"><div class="wpn-name">戰士巨劍</div><div class="wpn-meta">雙手劍 · 鐵材質</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>34 / 37</div><div class="wpn-info"><div class="wpn-name">真．冥皇執行劍</div><div class="wpn-meta">雙手劍 · 暗黑米鐵</div></div></div>
+      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>32 / 37</div><div class="wpn-info"><div class="wpn-name">屠龍劍</div><div class="wpn-meta">雙手劍 · 鋼材質</div></div></div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- DROPS -->
+<section id="drops">
+  <div class="section-inner">
+    <div class="section-label">DROP INFO</div>
+    <h2 class="section-title">等級地區掉落資訊</h2>
+    <p class="section-desc">傳送師「等級地區」各地圖的特色掉落，已過濾一般金幣/元寶，僅顯示特色物品。</p>
+    <div class="drop-grid">
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">🗡 打幣區</div>
+          <div class="drop-map-cost">入場 5,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">推廣幣</span><span class="drop-chance high">30%<span class="drop-qty">×2~5</span></span></div>
+        <div class="drop-item"><span class="drop-name">狩獵幣</span><span class="drop-chance high">30%<span class="drop-qty">×3~5</span></span></div>
+        <div class="drop-item"><span class="drop-name">對盔甲施法的卷軸</span><span class="drop-chance med">1%</span></div>
+        <div class="drop-item"><span class="drop-name">對武器施法的卷軸</span><span class="drop-chance med">0.5%</span></div>
+        <div class="drop-item"><span class="drop-name">5%對盔甲/武器施法卷軸</span><span class="drop-chance low">0.01%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">🐾 可愛動物區</div>
+          <div class="drop-map-cost">入場 5,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">空的魔法卷軸(等級4)</span><span class="drop-chance high">5%</span></div>
+        <div class="drop-item"><span class="drop-name">空的魔法卷軸(等級5)</span><span class="drop-chance high">3.5%</span></div>
+        <div class="drop-item"><span class="drop-name">龍之紅/藍寶石</span><span class="drop-chance med">1% 各</span></div>
+        <div class="drop-item"><span class="drop-name">龍之鑽石</span><span class="drop-chance med">0.35%</span></div>
+        <div class="drop-item"><span class="drop-name">屬性武器強化卷軸×4</span><span class="drop-chance med">0.25% 各</span></div>
+        <div class="drop-item"><span class="drop-name">古代魔石的祝福強化卷</span><span class="drop-chance low">0.05%</span></div>
+        <div class="drop-item"><span class="drop-name">稀有製作秘笈</span><span class="drop-chance low">0.01%</span></div>
+        <div class="drop-item"><span class="drop-name">永恆變身卷軸：究極死亡騎士SSR</span><span class="drop-chance low">0.001%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">🏚 封印地窖一樓</div>
+          <div class="drop-map-cost">入場 50,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">龍珠碎片</span><span class="drop-chance high">25%<span class="drop-qty">×5~8</span></span></div>
+        <div class="drop-item"><span class="drop-name">對盔甲施法的卷軸</span><span class="drop-chance med">1%</span></div>
+        <div class="drop-item"><span class="drop-name">勇敢藥水 / 自我加速藥水</span><span class="drop-chance med">0.5% 各</span></div>
+        <div class="drop-item"><span class="drop-name">經驗藥水 150%</span><span class="drop-chance low">0.1%</span></div>
+        <div class="drop-item"><span class="drop-name">經驗藥水 250%</span><span class="drop-chance low">0.05%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">👻 鬼防部</div>
+          <div class="drop-map-cost">入場 50,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">古代終極體力恢復劑</span><span class="drop-chance high">8.5%<span class="drop-qty">×1~2</span></span></div>
+        <div class="drop-item"><span class="drop-name">屬性武器強化卷軸×4</span><span class="drop-chance med">0.25% 各</span></div>
+        <div class="drop-item"><span class="drop-name">受祝福 武器/盔甲卷軸</span><span class="drop-chance med">0.1% 各</span></div>
+        <div class="drop-item"><span class="drop-name">萬能藥（六種屬性）</span><span class="drop-chance low">0.01% 各</span></div>
+        <div class="drop-item"><span class="drop-name">稀有製作秘笈</span><span class="drop-chance low">0.01%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">🔥 團練區（卑劣火焰谷）</div>
+          <div class="drop-map-cost">入場 50,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">古代終極體力恢復劑</span><span class="drop-chance high">10%<span class="drop-qty">×3~5</span></span></div>
+        <div class="drop-item"><span class="drop-name">屬性武器強化卷軸×4</span><span class="drop-chance med">0.25% 各</span></div>
+        <div class="drop-item"><span class="drop-name">受祝福 武器/盔甲卷軸</span><span class="drop-chance med">0.1% 各</span></div>
+        <div class="drop-item"><span class="drop-name">暗黑雙刀 / 暗黑鋼爪 / 暗黑十字弓</span><span class="drop-chance low">0.05% / 0.01% / 0.01%</span></div>
+        <div class="drop-item"><span class="drop-name">死亡騎士的烈炎之劍</span><span class="drop-chance low">0.01%</span></div>
+        <div class="drop-item"><span class="drop-name">真．冥皇執行劍</span><span class="drop-chance low">0.001%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">🐉 龍神殿（打龍珠）</div>
+          <div class="drop-map-cost">入場 50,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">龍珠碎片</span><span class="drop-chance high">25%<span class="drop-qty">×5~8</span></span></div>
+        <div class="drop-item"><span class="drop-name">一～六星龍珠</span><span class="drop-chance med">0.05% 各</span></div>
+        <div class="drop-item"><span class="drop-name">對武器/盔甲施法的卷軸</span><span class="drop-chance med">1% 各</span></div>
+        <div class="drop-item"><span class="drop-name">經驗藥水 150% / 250%</span><span class="drop-chance low">0.1% / 0.05%</span></div>
+        <div class="drop-item"><span class="drop-name">七星龍珠</span><span class="drop-chance low">0.001%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">☁ 漂浮禁地（BOSS 區）</div>
+          <div class="drop-map-cost">入場 1,000,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">金幣</span><span class="drop-chance high">100%<span class="drop-qty">×12,500~125,000</span></span></div>
+        <div class="drop-item"><span class="drop-name">元寶</span><span class="drop-chance high">55%<span class="drop-qty">×50~80</span></span></div>
+        <div class="drop-item"><span class="drop-name">屬性武器強化卷軸×4</span><span class="drop-chance med">0.5%<span class="drop-qty">×1~3</span></span></div>
+        <div class="drop-item"><span class="drop-name">暗黑十字弓 / 暗黑雙刀 / 暗黑鋼爪</span><span class="drop-chance med">0.1% / 0.05% / 0.05%</span></div>
+        <div class="drop-item"><span class="drop-name">死亡騎士的烈炎之劍 / 巴風特魔杖</span><span class="drop-chance low">0.05% 各</span></div>
+        <div class="drop-item"><span class="drop-name">真．冥皇執行劍</span><span class="drop-chance low">0.05%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">❄ 冬季的麻匪村</div>
+          <div class="drop-map-cost">入場 50,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">狩獵幣</span><span class="drop-chance high">30%<span class="drop-qty">×5~8</span></span></div>
+        <div class="drop-item"><span class="drop-name">龍之鑽石</span><span class="drop-chance med">0.35%</span></div>
+        <div class="drop-item"><span class="drop-name">神力藥水600%</span><span class="drop-chance med">0.3%</span></div>
+        <div class="drop-item"><span class="drop-name">【剿匪證明】</span><span class="drop-chance med">3%</span></div>
+        <div class="drop-item"><span class="drop-name">稀有製作秘笈</span><span class="drop-chance low">0.01%</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">⚔ 羅馬世界（血盟能量地圖）</div>
+          <div class="drop-map-cost">入場 500,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">四色寶石（紅/藍/綠/鑽）</span><span class="drop-chance high">8% 各<span class="drop-qty">×1~3</span></span></div>
+        <div class="drop-item"><span class="drop-name">品質寶石×4</span><span class="drop-chance med">3.5% 各<span class="drop-qty">×1~2</span></span></div>
+        <div class="drop-item"><span class="drop-name">高品質寶石×4</span><span class="drop-chance med">0.8% 各</span></div>
+        <div class="drop-item"><span class="drop-name">※ 血盟能量主要獲取地圖</span><span class="drop-chance low" style="color:var(--teal)">專屬</span></div>
+      </div>
+
+      <div class="drop-map">
+        <div class="drop-map-header">
+          <div class="drop-map-name">🏔 隱藏之谷（倨傲的村落）</div>
+          <div class="drop-map-cost">入場 50,000 金</div>
+        </div>
+        <div class="drop-item"><span class="drop-name">狩獵幣</span><span class="drop-chance high">30%<span class="drop-qty">×5~8</span></span></div>
+        <div class="drop-item"><span class="drop-name">龍之鑽石</span><span class="drop-chance med">0.35%</span></div>
+        <div class="drop-item"><span class="drop-name">神力藥水600%</span><span class="drop-chance med">0.3%</span></div>
+        <div class="drop-item"><span class="drop-name">古代魔石的祝福強化卷</span><span class="drop-chance low">0.05%</span></div>
+        <div class="drop-item"><span class="drop-name">格蘭肯戒指（力量/魔力/敏捷）</span><span class="drop-chance low">0.01% 各</span></div>
+        <div class="drop-item"><span class="drop-name">七星龍珠</span><span class="drop-chance low">0.01%</span></div>
+        <div class="drop-item"><span class="drop-name">稀有製作秘笈</span><span class="drop-chance low">0.001%</span></div>
+      </div>
+
+    </div>
+    <p style="font-size:.8rem;color:var(--dim);margin-top:1.2rem;">※ 機率以地圖指定掉落計算（怪物本身掉落另計）。高 = 綠色 ≥ 5%、中 = 金色 0.1%~4.9%、低 = 灰色 &lt; 0.1%。</p>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- SERVER INFO -->
+<section id="info">
+  <div class="section-inner">
+    <div class="section-label">SERVER INFO</div>
+    <h2 class="section-title">伺服器資訊</h2>
+    <p class="section-desc">穩定運行的雲端私服，每日定時重啟確保記憶體最佳狀態。</p>
+    <div class="info-grid">
+      <div class="info-card"><div class="i-val">98</div><div class="i-label">等級上限</div></div>
+      <div class="info-card"><div class="i-val">6×</div><div class="i-label">經驗倍率</div></div>
+      <div class="info-card"><div class="i-val">3×</div><div class="i-label">金幣倍率</div></div>
+      <div class="info-card"><div class="i-val">15%</div><div class="i-label">武器祝福成功率</div></div>
+      <div class="info-card"><div class="i-val">20%</div><div class="i-label">防具祝福成功率</div></div>
+      <div class="info-card"><div class="i-val">18:00</div><div class="i-label">每日重啟時間（台灣）</div></div>
+      <div class="info-card"><div class="i-val">週四</div><div class="i-label">肯特城城戰日（21:10）</div></div>
+      <div class="info-card"><div class="i-val">7</div><div class="i-label">可選職業數</div></div>
+    </div>
+    <div style="margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.6rem;">
+      <span style="font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;color:var(--dim);">王族</span>
+      <span style="font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;color:var(--dim);">騎士</span>
+      <span style="font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;color:var(--dim);">妖精</span>
+      <span style="font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;color:var(--dim);">法師</span>
+      <span style="font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;color:var(--dim);">黑妖精</span>
+      <span style="font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;color:var(--dim);">龍騎士</span>
+      <span style="font-size:.82rem;background:var(--card);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;color:var(--dim);">幻術士</span>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- JOIN -->
+<section id="join">
+  <div class="section-inner">
+    <div class="join-inner">
+      <div class="section-label" style="text-align:center;">JOIN NOW</div>
+      <h2 class="section-title" style="text-align:center;">如何加入</h2>
+      <div class="join-steps">
+        <div class="join-step">
+          <div class="step-num">1</div>
+          <div class="step-txt">
+            <div class="step-title">下載遊戲客戶端</div>
+            <div class="step-body">點擊下方按鈕從 Google Drive 下載最新版遊戲主程式（Windows），解壓縮後即可執行，無需安裝。</div>
+          </div>
+        </div>
+        <div class="join-step">
+          <div class="step-num">2</div>
+          <div class="step-txt">
+            <div class="step-title">取得連線資訊</div>
+            <div class="step-body">加入我們的玩家群組（Discord / LINE），向管理員索取伺服器 IP 和連接設定。連線資訊不公開於網站，避免惡意攻擊。</div>
+          </div>
+        </div>
+        <div class="join-step">
+          <div class="step-num">3</div>
+          <div class="step-txt">
+            <div class="step-title">建立帳號並登入</div>
+            <div class="step-body">首次登入輸入任意帳號密碼即自動註冊，進入遊戲後前往「陸吼交易所」了解本服金融系統玩法。</div>
+          </div>
+        </div>
+        <div class="join-step">
+          <div class="step-num">4</div>
+          <div class="step-txt">
+            <div class="step-title">更新檔下載</div>
+            <div class="step-body">若遊戲提示需要更新，於同一個 Google Drive 資料夾下載最新更新包，覆蓋至遊戲目錄即可。</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <a href="#" class="btn btn-gold" style="margin-right:.8rem;font-size:1rem;padding:.85rem 2.2rem;">⬇ 下載遊戲主程式</a>
+        <a href="#" class="btn btn-outline" style="font-size:1rem;padding:.85rem 2.2rem;">💬 加入玩家群組</a>
+      </div>
+      <div class="security-note">
+        🔒 <strong style="color:var(--teal);">安全說明：</strong>本網站為純靜態頁面，不與遊戲伺服器有任何直接連接。伺服器 IP 及連接資訊僅透過私人管道提供，請勿輕信來路不明的連線設定。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>陸吼天堂雲端版 &nbsp;·&nbsp; Lineage 1 私服 &nbsp;·&nbsp; 長期穩定運營</p>
+  <p style="margin-top:.5rem;font-size:.74rem;">本站所有天堂相關名稱、圖像版權歸 NCsoft 所有，本伺服器僅供學習研究用途。</p>
+</footer>
+
+</body>
+</html>
