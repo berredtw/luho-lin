@@ -166,15 +166,22 @@ tbody tr:hover td{background:rgba(201,168,76,.04);color:var(--text);}
 .pet-type-card .pt-bonus{font-size:.78rem;color:var(--dim);line-height:1.7;margin-bottom:.7rem;}
 .pt-tier{display:flex;gap:.4rem;flex-wrap:wrap;}
 .pt-tier span{font-size:.68rem;padding:.15rem .5rem;border-radius:4px;background:rgba(255,255,255,.06);color:var(--dim);}
-.pet-list-table{width:100%;border-collapse:collapse;font-size:.82rem;}
-.pet-list-table thead th{background:rgba(201,168,76,.1);color:var(--gold);padding:.6rem .9rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
-.pet-list-table tbody td{padding:.55rem .9rem;border-bottom:1px solid rgba(28,28,64,.5);color:var(--dim);vertical-align:middle;}
-.pet-list-table tbody tr:hover td{background:rgba(201,168,76,.03);color:var(--text);}
-.badge-t0{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(255,136,85,.15);color:#ff8855;font-weight:700;}
-.badge-t1{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(0,229,170,.12);color:var(--teal);font-weight:700;}
-.badge-t2{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(136,153,255,.15);color:#8899ff;font-weight:700;}
-.badge-t3{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(221,136,255,.15);color:#dd88ff;font-weight:700;}
-.badge-end{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(255,68,85,.15);color:var(--red);font-weight:700;}
+.pet-img-section-label{font-size:.78rem;letter-spacing:.15em;color:var(--teal);margin:2rem 0 .8rem;font-weight:600;}
+.pet-img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.9rem;margin-bottom:1.6rem;}
+.pet-img-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:transform .22s,border-color .22s;}
+.pet-img-card:hover{transform:translateY(-4px);border-color:var(--gold);}
+.pet-img-card img{width:100%;height:140px;object-fit:cover;object-position:center top;display:block;}
+.pic-body{padding:.55rem .7rem .65rem;}
+.pic-name{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.2rem;}
+.pic-skill{font-size:.72rem;color:var(--dim);margin-bottom:.25rem;}
+.pic-badges{display:flex;gap:.3rem;flex-wrap:wrap;}
+.badge-t0{display:inline-block;font-size:.62rem;padding:.1rem .38rem;border-radius:3px;background:rgba(255,136,85,.15);color:#ff8855;font-weight:700;}
+.badge-t1{display:inline-block;font-size:.62rem;padding:.1rem .38rem;border-radius:3px;background:rgba(0,229,170,.12);color:var(--teal);font-weight:700;}
+.badge-t2{display:inline-block;font-size:.62rem;padding:.1rem .38rem;border-radius:3px;background:rgba(136,153,255,.15);color:#8899ff;font-weight:700;}
+.badge-t3{display:inline-block;font-size:.62rem;padding:.1rem .38rem;border-radius:3px;background:rgba(221,136,255,.15);color:#dd88ff;font-weight:700;}
+.badge-end{display:inline-block;font-size:.62rem;padding:.1rem .38rem;border-radius:3px;background:rgba(255,68,85,.15);color:var(--red);font-weight:700;}
+.badge-evo{display:inline-block;font-size:.62rem;padding:.1rem .38rem;border-radius:3px;background:rgba(255,200,50,.1);color:#ffcc33;font-weight:700;}
+.pet-img-card.golden{border-color:rgba(201,168,76,.4);background:linear-gradient(135deg,rgba(201,168,76,.08),var(--card));}
 
 /* ── CHANGELOG ── */
 #changelog{background:var(--bg2);}
@@ -469,6 +476,280 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 </section>
 <hr class="divider">
 
+<!-- PET SYSTEM -->
+<section id="pets">
+  <div class="section-inner">
+    <div class="section-label">PET SYSTEM</div>
+    <h2 class="section-title">寵物系統完全指南</h2>
+    <p class="section-desc">本服寵物最高 90 級，進化後戰力大幅提升；召喚中的寵物依類型持續提供被動屬性加成。</p>
+
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">🔄 進化路線（需達 Lv.30，將果實拖曳丟給召喚中的寵物）</h3>
+    <div class="pet-flow">
+      <div class="pet-flow-item"><div class="pet-flow-name">基本寵物</div><div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">牧羊犬/狼/熊等</div></div>
+      <div class="pet-flow-arrow">→<small>進化果實</small></div>
+      <div class="pet-flow-item tier2"><div class="pet-flow-name">高等寵物</div><div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">高等狼/高等熊等</div></div>
+      <div class="pet-flow-arrow">→<small>勝利果實</small></div>
+      <div class="pet-flow-item tier3"><div class="pet-flow-name">黃金龍 🐉</div><div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">終極·無被動加成</div></div>
+      <div style="flex:1;"></div>
+      <div style="font-size:.78rem;color:var(--dim);line-height:1.8;max-width:280px;padding-left:.8rem;border-left:2px solid var(--border);">
+        <strong style="color:var(--text);">進化果實</strong>：良心回收商人（13元寶）<br>
+        <strong style="color:var(--text);">勝利果實</strong>：貝利商人（200萬金幣）<br>
+        <strong style="color:var(--text);">進化後</strong>：HP/MP 減半，傷害與成長值提升
+      </div>
+    </div>
+
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">✨ 被動加成（召喚中持續生效，Lv.30/60/90 三段成長）</h3>
+    <div class="pet-type-grid">
+      <div class="pet-type-card t0"><div class="pt-icon">⚔️</div><div class="pt-name">傷害型</div>
+        <div class="pt-bonus">狼、杜賓狗、小獵犬、虎男、猴子及高等形態</div>
+        <div class="pt-tier"><span>Lv30 命中+1 傷害+1</span><span>Lv60 命中+3 傷害+3</span><span>Lv90 命中+5 傷害+5</span></div></div>
+      <div class="pet-type-card t1"><div class="pt-icon">🛡️</div><div class="pt-name">防禦型</div>
+        <div class="pt-bonus">熊、聖伯納犬、哈士奇、牧羊犬及高等形態</div>
+        <div class="pt-tier"><span>Lv30 減傷+1 HP+20</span><span>Lv60 減傷+3 HP+35</span><span>Lv90 減傷+5 HP+50</span></div></div>
+      <div class="pet-type-card t2"><div class="pt-icon">🔮</div><div class="pt-name">魔法型</div>
+        <div class="pt-bonus">貓、浣熊、狐狸、暴走兔、柯利、幼龍系及高等形態</div>
+        <div class="pt-tier"><span>Lv30 MP+20 魔防+1</span><span>Lv60 MP+35 魔防+3</span><span>Lv90 MP+50 魔防+5</span></div></div>
+      <div class="pet-type-card t3"><div class="pt-icon">⭐</div><div class="pt-name">特殊型</div>
+        <div class="pt-bonus">高麗幼犬、高麗犬、袋鼠、貓熊及高等形態</div>
+        <div class="pt-tier"><span>Lv30 迴避+1% 爆擊+1%</span><span>Lv60 迴避+2% 爆擊+2%</span><span>Lv90 迴避+3% 爆擊+3%</span></div></div>
+    </div>
+    <p style="font-size:.79rem;color:var(--dim);margin-bottom:2rem;">※ 同時攜帶 2 隻時加成疊加。黃金龍為終點形態，不提供被動加成。Lv.30 以下無加成。</p>
+
+    <div class="pet-img-section-label">— 野外捕獲（以漂浮之眼肉 / 胡蘿蔔馴服）—</div>
+    <div class="pet-img-grid">
+      <div class="pet-img-card">
+        <img src="img/pets/牧羊犬.png" alt="牧羊犬" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">牧羊犬</div>
+          <div class="pic-skill">技能：緩速術</div>
+          <div class="pic-badges">
+            <span class="badge-t1">防禦型</span>
+            <span class="badge-evo">→高等牧羊犬</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/狼.png" alt="狼" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">狼</div>
+          <div class="pic-skill">技能：弱化術</div>
+          <div class="pic-badges">
+            <span class="badge-t0">傷害型</span>
+            <span class="badge-evo">→高等狼</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/熊.png" alt="熊" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">熊</div>
+          <div class="pic-skill">技能：震裂術</div>
+          <div class="pic-badges">
+            <span class="badge-t1">防禦型</span>
+            <span class="badge-evo">→高等熊</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/杜賓狗.png" alt="杜賓狗" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">杜賓狗</div>
+          <div class="pic-skill">技能：疾病術</div>
+          <div class="pic-badges">
+            <span class="badge-t0">傷害型</span>
+            <span class="badge-evo">→高等杜賓狗</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/小獵犬.png" alt="小獵犬" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">小獵犬</div>
+          <div class="pic-skill">技能：地獄之牙</div>
+          <div class="pic-badges">
+            <span class="badge-t0">傷害型</span>
+            <span class="badge-evo">→高等小獵犬</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/聖伯納犬.png" alt="聖伯納犬" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">聖伯納犬</div>
+          <div class="pic-skill">技能：風刃</div>
+          <div class="pic-badges">
+            <span class="badge-t1">防禦型</span>
+            <span class="badge-evo">→高等聖伯納犬</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/哈士奇.png" alt="哈士奇" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">哈士奇</div>
+          <div class="pic-skill">技能：冰錐</div>
+          <div class="pic-badges">
+            <span class="badge-t1">防禦型</span>
+            <span class="badge-evo">→高等哈士奇</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/柯利.png" alt="柯利" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">柯利</div>
+          <div class="pic-skill">技能：弱化術</div>
+          <div class="pic-badges">
+            <span class="badge-t2">魔法型</span>
+            <span class="badge-evo">→高等柯利</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/狐狸.png" alt="狐狸" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">狐狸</div>
+          <div class="pic-skill">技能：火箭</div>
+          <div class="pic-badges">
+            <span class="badge-t2">魔法型</span>
+            <span class="badge-evo">→高等狐狸</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/貓.png" alt="貓" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">貓</div>
+          <div class="pic-skill">技能：寒冷顫慄</div>
+          <div class="pic-badges">
+            <span class="badge-t2">魔法型</span>
+            <span class="badge-evo">→高等貓</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/浣熊.png" alt="浣熊" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">浣熊</div>
+          <div class="pic-skill">技能：緩速+疾病+弱化</div>
+          <div class="pic-badges">
+            <span class="badge-t2">魔法型</span>
+            <span class="badge-evo">→高等浣熊</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/暴走兔.png" alt="暴走兔" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">暴走兔</div>
+          <div class="pic-skill">技能：冰錐</div>
+          <div class="pic-badges">
+            <span class="badge-t2">魔法型</span>
+            <span class="badge-evo">→高等暴走兔</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/虎男.png" alt="虎男" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">虎男</div>
+          <div class="pic-skill">技能：震裂術</div>
+          <div class="pic-badges">
+            <span class="badge-t0">傷害型</span>
+            <span class="badge-evo">→真．虎男</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pet-img-section-label">— 商店村固定位置（Lv.30 重生）—</div>
+    <div class="pet-img-grid">
+      <div class="pet-img-card">
+        <img src="img/pets/高麗幼犬.png" alt="高麗幼犬" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">高麗幼犬</div>
+          <div class="pic-skill">技能：弱化術</div>
+          <div class="pic-badges">
+            <span class="badge-t3">特殊型</span>
+            <span class="badge-evo">→高麗犬</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/袋鼠.png" alt="袋鼠" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">袋鼠</div>
+          <div class="pic-skill">技能：火焰拳</div>
+          <div class="pic-badges">
+            <span class="badge-t3">特殊型</span>
+            <span class="badge-evo">→高等袋鼠</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/貓熊.png" alt="貓熊" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">貓熊</div>
+          <div class="pic-skill">技能：貓熊臉</div>
+          <div class="pic-badges">
+            <span class="badge-t3">特殊型</span>
+            <span class="badge-evo">→高等貓熊</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/猴子.png" alt="猴子" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">猴子</div>
+          <div class="pic-skill">技能：疾病術</div>
+          <div class="pic-badges">
+            <span class="badge-t0">傷害型</span>
+            <span class="badge-evo">→高等猴子</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/頑皮幼龍.png" alt="頑皮幼龍" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">頑皮幼龍</div>
+          <div class="pic-skill">技能：燃燒的火球</div>
+          <div class="pic-badges">
+            <span class="badge-t2">魔法型</span>
+            <span class="badge-evo">→高等頑皮龍</span>
+          </div>
+        </div>
+      </div>
+      <div class="pet-img-card">
+        <img src="img/pets/淘氣幼龍.png" alt="淘氣幼龍" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">淘氣幼龍</div>
+          <div class="pic-skill">技能：冰錐</div>
+          <div class="pic-badges">
+            <span class="badge-t2">魔法型</span>
+            <span class="badge-evo">→高等淘氣龍</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pet-img-section-label">— 終極形態 —</div>
+    <div class="pet-img-grid" style="max-width:200px;">
+      <div class="pet-img-card golden">
+        <img src="img/pets/黃金龍.png" alt="黃金龍" loading="lazy">
+        <div class="pic-body">
+          <div class="pic-name">🐉 黃金龍</div>
+          <div class="pic-skill">火焰噴吐 · 燃燒的火球</div>
+          <div class="pic-badges">
+            <span class="badge-end">終點型</span>
+            <span style="font-size:.62rem;color:var(--dim);">勝利果實→任意高等寵</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
 <!-- GEAR SETS -->
 <section id="gear">
   <div class="section-inner">
@@ -729,179 +1010,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 </section>
 <hr class="divider">
 
-<!-- JOIN -->
-<section id="join">
-  <div class="section-inner">
-    <div class="join-inner">
-      <div class="section-label" style="text-align:center;">JOIN NOW</div>
-      <h2 class="section-title" style="text-align:center;">如何加入</h2>
-      <div class="join-steps">
-        <div class="join-step">
-          <div class="step-num">1</div>
-          <div class="step-txt">
-            <div class="step-title">下載遊戲客戶端</div>
-            <div class="step-body">點擊下方按鈕從 Google Drive 下載最新版遊戲主程式（Windows），解壓縮後即可執行，無需安裝。</div>
-          </div>
-        </div>
-        <div class="join-step">
-          <div class="step-num">2</div>
-          <div class="step-txt">
-            <div class="step-title">取得連線資訊</div>
-            <div class="step-body">加入我們的玩家群組（Discord / LINE），向管理員索取伺服器 IP 和連接設定。連線資訊不公開於網站，避免惡意攻擊。</div>
-          </div>
-        </div>
-        <div class="join-step">
-          <div class="step-num">3</div>
-          <div class="step-txt">
-            <div class="step-title">建立帳號並登入</div>
-            <div class="step-body">首次登入輸入任意帳號密碼即自動註冊，進入遊戲後前往「陸吼交易所」了解本服金融系統玩法。</div>
-          </div>
-        </div>
-        <div class="join-step">
-          <div class="step-num">4</div>
-          <div class="step-txt">
-            <div class="step-title">更新檔下載</div>
-            <div class="step-body">若遊戲提示需要更新，於同一個 Google Drive 資料夾下載最新更新包，覆蓋至遊戲目錄即可。</div>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;margin-bottom:1.5rem;">
-        <a href="https://drive.google.com/drive/folders/1KYwXhU0QD1SvVf6UiCAD0tMDx5zTqRlu?usp=drive_link" target="_blank" class="btn btn-gold" style="margin-right:.8rem;font-size:1rem;padding:.85rem 2.2rem;">⬇ 下載遊戲主程式</a>
-        <a href="https://discord.gg/5cRCpHSnzF" target="_blank" class="btn btn-outline" style="font-size:1rem;padding:.85rem 2.2rem;">💬 加入 Discord 群組</a>
-      </div>
-      <div class="security-note">
-        🔒 <strong style="color:var(--teal);">安全說明：</strong>本網站為純靜態頁面，不與遊戲伺服器有任何直接連接。伺服器 IP 及連接資訊僅透過私人管道提供，請勿輕信來路不明的連線設定。
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PET SYSTEM -->
-<hr class="divider">
-<section id="pets">
-  <div class="section-inner">
-    <div class="section-label">PET SYSTEM</div>
-    <h2 class="section-title">寵物系統完全指南</h2>
-    <p class="section-desc">本服寵物最高 90 級，進化後戰力大幅提升，召喚出來還能為你提供持續的被動屬性加成。</p>
-
-    <!-- 進化路線 -->
-    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">🔄 進化路線（需達 Lv.30 才可進化）</h3>
-    <div class="pet-flow">
-      <div class="pet-flow-item">
-        <div class="pet-flow-name">基本寵物</div>
-        <div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">牧羊犬/狼/熊/狐狸等</div>
-      </div>
-      <div class="pet-flow-arrow">→<small>進化果實</small></div>
-      <div class="pet-flow-item tier2">
-        <div class="pet-flow-name">高等寵物</div>
-        <div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">高等狼/高等熊等</div>
-      </div>
-      <div class="pet-flow-arrow">→<small>勝利果實</small></div>
-      <div class="pet-flow-item tier3">
-        <div class="pet-flow-name">黃金龍 🐉</div>
-        <div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">終極形態・無加成</div>
-      </div>
-      <div style="flex:1;"></div>
-      <div style="font-size:.78rem;color:var(--dim);line-height:1.7;max-width:320px;padding-left:.5rem;border-left:2px solid var(--border);">
-        <strong style="color:var(--text);">操作方式：</strong>把果實從背包拖曳丟給已召喚的寵物<br>
-        <strong style="color:var(--text);">進化果實</strong>：良心回收商人（13元寶）<br>
-        <strong style="color:var(--text);">勝利果實</strong>：貝利商人（200萬金幣）<br>
-        <strong style="color:var(--text);">進化後</strong>：HP/MP 減半，但傷害與成長值提升
-      </div>
-    </div>
-
-    <!-- 被動加成系統 -->
-    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">✨ 被動加成系統（寵物召喚時持續生效）</h3>
-    <div class="pet-type-grid">
-      <div class="pet-type-card t0">
-        <div class="pt-icon">⚔️</div>
-        <div class="pt-name">傷害型</div>
-        <div class="pt-bonus">
-          狼、杜賓狗、小獵犬、虎男、猴子<br>及其高等形態
-        </div>
-        <div class="pt-tier">
-          <span>Lv30 命中+1 傷害+1</span>
-          <span>Lv60 命中+3 傷害+3</span>
-          <span>Lv90 命中+5 傷害+5</span>
-        </div>
-      </div>
-      <div class="pet-type-card t1">
-        <div class="pt-icon">🛡️</div>
-        <div class="pt-name">防禦型</div>
-        <div class="pt-bonus">
-          熊、聖伯納犬、哈士奇、牧羊犬<br>及其高等形態
-        </div>
-        <div class="pt-tier">
-          <span>Lv30 減傷+1 HP+20</span>
-          <span>Lv60 減傷+3 HP+35</span>
-          <span>Lv90 減傷+5 HP+50</span>
-        </div>
-      </div>
-      <div class="pet-type-card t2">
-        <div class="pt-icon">🔮</div>
-        <div class="pt-name">魔法型</div>
-        <div class="pt-bonus">
-          貓、浣熊、狐狸、暴走兔、柯利<br>頑皮幼龍、淘氣幼龍及高等形態
-        </div>
-        <div class="pt-tier">
-          <span>Lv30 MP+20 魔防+1</span>
-          <span>Lv60 MP+35 魔防+3</span>
-          <span>Lv90 MP+50 魔防+5</span>
-        </div>
-      </div>
-      <div class="pet-type-card t3">
-        <div class="pt-icon">⭐</div>
-        <div class="pt-name">特殊型</div>
-        <div class="pt-bonus">
-          高麗幼犬、高麗犬<br>袋鼠、貓熊及其高等形態
-        </div>
-        <div class="pt-tier">
-          <span>Lv30 迴避+1% 爆擊+1%</span>
-          <span>Lv60 迴避+2% 爆擊+2%</span>
-          <span>Lv90 迴避+3% 爆擊+3%</span>
-        </div>
-      </div>
-    </div>
-    <p style="font-size:.79rem;color:var(--dim);margin-bottom:2.4rem;">※ 同時攜帶 2 隻寵物時，加成效果疊加。黃金龍為終點形態，不提供被動加成但擁有強力主動技能（火焰噴吐、燃燒火球）。Lv.30 以下無加成。</p>
-
-    <!-- 寵物清單 -->
-    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">📋 完整寵物清單</h3>
-    <div class="table-wrap">
-      <table class="pet-list-table">
-        <thead>
-          <tr><th>寵物名稱</th><th>類型</th><th>技能</th><th>馴服物品</th><th>進化後</th><th>取得方式</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>牧羊犬</td><td><span class="badge-t1">防禦型</span></td><td>緩速術</td><td>漂浮之眼肉</td><td>高等牧羊犬</td><td>野外捕獲</td></tr>
-          <tr><td>狼</td><td><span class="badge-t0">傷害型</span></td><td>弱化術</td><td>漂浮之眼肉</td><td>高等狼</td><td>野外捕獲</td></tr>
-          <tr><td>熊</td><td><span class="badge-t1">防禦型</span></td><td>震裂術</td><td>漂浮之眼肉</td><td>高等熊</td><td>野外捕獲</td></tr>
-          <tr><td>杜賓狗</td><td><span class="badge-t0">傷害型</span></td><td>疾病術</td><td>漂浮之眼肉</td><td>高等杜賓狗</td><td>野外捕獲</td></tr>
-          <tr><td>小獵犬</td><td><span class="badge-t0">傷害型</span></td><td>地獄之牙</td><td>漂浮之眼肉</td><td>高等小獵犬</td><td>野外捕獲</td></tr>
-          <tr><td>聖伯納犬</td><td><span class="badge-t1">防禦型</span></td><td>風刃</td><td>漂浮之眼肉</td><td>高等聖伯納犬</td><td>野外捕獲</td></tr>
-          <tr><td>哈士奇</td><td><span class="badge-t1">防禦型</span></td><td>冰錐</td><td>漂浮之眼肉</td><td>高等哈士奇</td><td>野外捕獲</td></tr>
-          <tr><td>柯利</td><td><span class="badge-t2">魔法型</span></td><td>弱化術</td><td>漂浮之眼肉</td><td>高等柯利</td><td>野外捕獲</td></tr>
-          <tr><td>狐狸</td><td><span class="badge-t2">魔法型</span></td><td>火箭</td><td>漂浮之眼肉</td><td>高等狐狸</td><td>野外捕獲</td></tr>
-          <tr><td>貓</td><td><span class="badge-t2">魔法型</span></td><td>寒冷顫慄</td><td>漂浮之眼肉</td><td>高等貓</td><td>野外捕獲</td></tr>
-          <tr><td>浣熊</td><td><span class="badge-t2">魔法型</span></td><td>緩速＋疾病＋弱化</td><td>漂浮之眼肉</td><td>高等浣熊</td><td>野外捕獲</td></tr>
-          <tr><td>暴走兔</td><td><span class="badge-t2">魔法型</span></td><td>冰錐</td><td>胡蘿蔔</td><td>高等暴走兔</td><td>野外捕獲</td></tr>
-          <tr><td>虎男</td><td><span class="badge-t0">傷害型</span></td><td>震裂術</td><td>漂浮之眼肉</td><td>真．虎男</td><td>野外捕獲（低機率）</td></tr>
-          <tr><td>高麗幼犬</td><td><span class="badge-t3">特殊型</span></td><td>弱化術</td><td>特別的高麗犬誘食</td><td>高麗犬</td><td>商店村（固定位置）</td></tr>
-          <tr><td>袋鼠</td><td><span class="badge-t3">特殊型</span></td><td>火焰拳</td><td>袋鼠的食物</td><td>高等袋鼠</td><td>商店村（固定位置）</td></tr>
-          <tr><td>貓熊</td><td><span class="badge-t3">特殊型</span></td><td>貓熊臉</td><td>貓熊的食物</td><td>高等貓熊</td><td>商店村（固定位置）</td></tr>
-          <tr><td>猴子</td><td><span class="badge-t0">傷害型</span></td><td>疾病術</td><td>香蕉</td><td>高等猴子</td><td>商店村（固定位置）</td></tr>
-          <tr><td>頑皮幼龍</td><td><span class="badge-t2">魔法型</span></td><td>燃燒的火球</td><td>漂浮之眼肉</td><td>高等頑皮龍</td><td>商店村（固定位置）</td></tr>
-          <tr><td>淘氣幼龍</td><td><span class="badge-t2">魔法型</span></td><td>冰錐</td><td>漂浮之眼肉</td><td>高等淘氣龍</td><td>商店村（固定位置）</td></tr>
-          <tr><td colspan="6" style="background:rgba(0,229,170,.04);color:var(--teal);font-size:.75rem;padding:.5rem .9rem;">— 以下為進化後形態（無法野外捕獲，僅可透過進化取得）—</td></tr>
-          <tr><td>高等系列（13種）</td><td>同原型</td><td>各有強化技能</td><td>—</td><td>黃金龍</td><td>進化果實→各基本寵</td></tr>
-          <tr><td>黃金龍 🐉</td><td><span class="badge-end">終點型</span></td><td>火焰噴吐、燃燒火球</td><td>—</td><td>—（終點）</td><td>勝利果實→任意高等寵</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
 <!-- CHANGELOG -->
-<hr class="divider">
 <section id="changelog">
   <div class="section-inner">
     <div class="section-label">CHANGELOG</div>
@@ -1019,6 +1128,54 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
   </div>
 </section>
 <hr class="divider">
+
+<!-- JOIN -->
+<section id="join">
+  <div class="section-inner">
+    <div class="join-inner">
+      <div class="section-label" style="text-align:center;">JOIN NOW</div>
+      <h2 class="section-title" style="text-align:center;">如何加入</h2>
+      <div class="join-steps">
+        <div class="join-step">
+          <div class="step-num">1</div>
+          <div class="step-txt">
+            <div class="step-title">下載遊戲客戶端</div>
+            <div class="step-body">點擊下方按鈕從 Google Drive 下載最新版遊戲主程式（Windows），解壓縮後即可執行，無需安裝。</div>
+          </div>
+        </div>
+        <div class="join-step">
+          <div class="step-num">2</div>
+          <div class="step-txt">
+            <div class="step-title">取得連線資訊</div>
+            <div class="step-body">加入我們的玩家群組（Discord / LINE），向管理員索取伺服器 IP 和連接設定。連線資訊不公開於網站，避免惡意攻擊。</div>
+          </div>
+        </div>
+        <div class="join-step">
+          <div class="step-num">3</div>
+          <div class="step-txt">
+            <div class="step-title">建立帳號並登入</div>
+            <div class="step-body">首次登入輸入任意帳號密碼即自動註冊，進入遊戲後前往「陸吼交易所」了解本服金融系統玩法。</div>
+          </div>
+        </div>
+        <div class="join-step">
+          <div class="step-num">4</div>
+          <div class="step-txt">
+            <div class="step-title">更新檔下載</div>
+            <div class="step-body">若遊戲提示需要更新，於同一個 Google Drive 資料夾下載最新更新包，覆蓋至遊戲目錄即可。</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <a href="https://drive.google.com/drive/folders/1KYwXhU0QD1SvVf6UiCAD0tMDx5zTqRlu?usp=drive_link" target="_blank" class="btn btn-gold" style="margin-right:.8rem;font-size:1rem;padding:.85rem 2.2rem;">⬇ 下載遊戲主程式</a>
+        <a href="https://discord.gg/5cRCpHSnzF" target="_blank" class="btn btn-outline" style="font-size:1rem;padding:.85rem 2.2rem;">💬 加入 Discord 群組</a>
+      </div>
+      <div class="security-note">
+        🔒 <strong style="color:var(--teal);">安全說明：</strong>本網站為純靜態頁面，不與遊戲伺服器有任何直接連接。伺服器 IP 及連接資訊僅透過私人管道提供，請勿輕信來路不明的連線設定。
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- FOOTER -->
 <footer>
