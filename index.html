@@ -146,6 +146,57 @@ tbody tr:hover td{background:rgba(201,168,76,.04);color:var(--text);}
 .step-txt .step-body{font-size:.82rem;color:var(--dim);line-height:1.6;}
 .security-note{margin-top:2rem;padding:1rem 1.4rem;background:rgba(0,229,170,.06);border:1px solid rgba(0,229,170,.2);border-radius:8px;font-size:.82rem;color:var(--dim);line-height:1.6;}
 
+/* ── PET SYSTEM ── */
+#pets{background:var(--bg);}
+.pet-flow{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:2.4rem;padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--border);border-radius:12px;}
+.pet-flow-item{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+.pet-flow-name{font-size:.82rem;font-weight:700;color:var(--text);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:.25rem .7rem;border-radius:6px;white-space:nowrap;}
+.pet-flow-item.tier2 .pet-flow-name{background:rgba(0,229,170,.08);border-color:rgba(0,229,170,.25);color:var(--teal);}
+.pet-flow-item.tier3 .pet-flow-name{background:rgba(255,68,85,.1);border-color:rgba(255,68,85,.3);color:var(--red);}
+.pet-flow-arrow{font-size:1.1rem;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:.1rem;}
+.pet-flow-arrow small{font-size:.6rem;color:var(--dim);white-space:nowrap;}
+.pet-type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:2.4rem;}
+.pet-type-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;}
+.pet-type-card .pt-icon{font-size:1.8rem;margin-bottom:.5rem;}
+.pet-type-card .pt-name{font-size:.95rem;font-weight:700;margin-bottom:.3rem;}
+.pet-type-card.t0 .pt-name{color:#ff8855;}
+.pet-type-card.t1 .pt-name{color:var(--teal);}
+.pet-type-card.t2 .pt-name{color:#8899ff;}
+.pet-type-card.t3 .pt-name{color:#dd88ff;}
+.pet-type-card .pt-bonus{font-size:.78rem;color:var(--dim);line-height:1.7;margin-bottom:.7rem;}
+.pt-tier{display:flex;gap:.4rem;flex-wrap:wrap;}
+.pt-tier span{font-size:.68rem;padding:.15rem .5rem;border-radius:4px;background:rgba(255,255,255,.06);color:var(--dim);}
+.pet-list-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.pet-list-table thead th{background:rgba(201,168,76,.1);color:var(--gold);padding:.6rem .9rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+.pet-list-table tbody td{padding:.55rem .9rem;border-bottom:1px solid rgba(28,28,64,.5);color:var(--dim);vertical-align:middle;}
+.pet-list-table tbody tr:hover td{background:rgba(201,168,76,.03);color:var(--text);}
+.badge-t0{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(255,136,85,.15);color:#ff8855;font-weight:700;}
+.badge-t1{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(0,229,170,.12);color:var(--teal);font-weight:700;}
+.badge-t2{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(136,153,255,.15);color:#8899ff;font-weight:700;}
+.badge-t3{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(221,136,255,.15);color:#dd88ff;font-weight:700;}
+.badge-end{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(255,68,85,.15);color:var(--red);font-weight:700;}
+
+/* ── CHANGELOG ── */
+#changelog{background:var(--bg2);}
+.cl-grid{display:flex;flex-direction:column;gap:.55rem;}
+.cl-row{display:grid;grid-template-columns:90px 80px 140px 1fr;gap:.8rem;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem 1.1rem;font-size:.83rem;transition:border-color .2s;}
+.cl-row:hover{border-color:rgba(201,168,76,.3);}
+.cl-row .cl-ver{font-weight:800;color:var(--gold);font-family:monospace;}
+.cl-row .cl-date{color:var(--dim);font-size:.77rem;}
+.cl-row .cl-type{display:flex;gap:.3rem;flex-wrap:wrap;}
+.cl-row .cl-desc{color:var(--text);line-height:1.5;}
+.cl-tag{font-size:.64rem;padding:.1rem .38rem;border-radius:3px;font-weight:700;white-space:nowrap;}
+.ct-java{background:rgba(255,136,0,.15);color:#ff8800;}
+.ct-db{background:rgba(0,229,170,.12);color:var(--teal);}
+.ct-config{background:rgba(136,136,255,.15);color:#8888ff;}
+.ct-fix{background:rgba(255,68,85,.15);color:var(--red);}
+.ct-new{background:rgba(201,168,76,.15);color:var(--gold);}
+@media(max-width:700px){
+  .cl-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;}
+  .cl-row .cl-desc{grid-column:1/-1;}
+  .pet-flow{flex-direction:column;align-items:flex-start;}
+}
+
 /* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--border);text-align:center;padding:2rem;color:var(--dim);font-size:.8rem;}
 
@@ -167,8 +218,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
     <li><a href="#clan">血盟系統</a></li>
     <li><a href="#gear">套裝裝備</a></li>
     <li><a href="#weapons">頂級武器</a></li>
+    <li><a href="#pets">寵物系統</a></li>
     <li><a href="#info">伺服器資訊</a></li>
     <li><a href="#join">立即加入</a></li>
+    <li><a href="#changelog">更新日誌</a></li>
   </ul>
 </nav>
 
@@ -722,6 +775,250 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
     </div>
   </div>
 </section>
+
+<!-- PET SYSTEM -->
+<hr class="divider">
+<section id="pets">
+  <div class="section-inner">
+    <div class="section-label">PET SYSTEM</div>
+    <h2 class="section-title">寵物系統完全指南</h2>
+    <p class="section-desc">本服寵物最高 90 級，進化後戰力大幅提升，召喚出來還能為你提供持續的被動屬性加成。</p>
+
+    <!-- 進化路線 -->
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">🔄 進化路線（需達 Lv.30 才可進化）</h3>
+    <div class="pet-flow">
+      <div class="pet-flow-item">
+        <div class="pet-flow-name">基本寵物</div>
+        <div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">牧羊犬/狼/熊/狐狸等</div>
+      </div>
+      <div class="pet-flow-arrow">→<small>進化果實</small></div>
+      <div class="pet-flow-item tier2">
+        <div class="pet-flow-name">高等寵物</div>
+        <div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">高等狼/高等熊等</div>
+      </div>
+      <div class="pet-flow-arrow">→<small>勝利果實</small></div>
+      <div class="pet-flow-item tier3">
+        <div class="pet-flow-name">黃金龍 🐉</div>
+        <div style="font-size:.68rem;color:var(--dim);margin-top:.2rem;">終極形態・無加成</div>
+      </div>
+      <div style="flex:1;"></div>
+      <div style="font-size:.78rem;color:var(--dim);line-height:1.7;max-width:320px;padding-left:.5rem;border-left:2px solid var(--border);">
+        <strong style="color:var(--text);">操作方式：</strong>把果實從背包拖曳丟給已召喚的寵物<br>
+        <strong style="color:var(--text);">進化果實</strong>：良心回收商人（13元寶）<br>
+        <strong style="color:var(--text);">勝利果實</strong>：貝利商人（200萬金幣）<br>
+        <strong style="color:var(--text);">進化後</strong>：HP/MP 減半，但傷害與成長值提升
+      </div>
+    </div>
+
+    <!-- 被動加成系統 -->
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">✨ 被動加成系統（寵物召喚時持續生效）</h3>
+    <div class="pet-type-grid">
+      <div class="pet-type-card t0">
+        <div class="pt-icon">⚔️</div>
+        <div class="pt-name">傷害型</div>
+        <div class="pt-bonus">
+          狼、杜賓狗、小獵犬、虎男、猴子<br>及其高等形態
+        </div>
+        <div class="pt-tier">
+          <span>Lv30 命中+1 傷害+1</span>
+          <span>Lv60 命中+3 傷害+3</span>
+          <span>Lv90 命中+5 傷害+5</span>
+        </div>
+      </div>
+      <div class="pet-type-card t1">
+        <div class="pt-icon">🛡️</div>
+        <div class="pt-name">防禦型</div>
+        <div class="pt-bonus">
+          熊、聖伯納犬、哈士奇、牧羊犬<br>及其高等形態
+        </div>
+        <div class="pt-tier">
+          <span>Lv30 減傷+1 HP+20</span>
+          <span>Lv60 減傷+3 HP+35</span>
+          <span>Lv90 減傷+5 HP+50</span>
+        </div>
+      </div>
+      <div class="pet-type-card t2">
+        <div class="pt-icon">🔮</div>
+        <div class="pt-name">魔法型</div>
+        <div class="pt-bonus">
+          貓、浣熊、狐狸、暴走兔、柯利<br>頑皮幼龍、淘氣幼龍及高等形態
+        </div>
+        <div class="pt-tier">
+          <span>Lv30 MP+20 魔防+1</span>
+          <span>Lv60 MP+35 魔防+3</span>
+          <span>Lv90 MP+50 魔防+5</span>
+        </div>
+      </div>
+      <div class="pet-type-card t3">
+        <div class="pt-icon">⭐</div>
+        <div class="pt-name">特殊型</div>
+        <div class="pt-bonus">
+          高麗幼犬、高麗犬<br>袋鼠、貓熊及其高等形態
+        </div>
+        <div class="pt-tier">
+          <span>Lv30 迴避+1% 爆擊+1%</span>
+          <span>Lv60 迴避+2% 爆擊+2%</span>
+          <span>Lv90 迴避+3% 爆擊+3%</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:.79rem;color:var(--dim);margin-bottom:2.4rem;">※ 同時攜帶 2 隻寵物時，加成效果疊加。黃金龍為終點形態，不提供被動加成但擁有強力主動技能（火焰噴吐、燃燒火球）。Lv.30 以下無加成。</p>
+
+    <!-- 寵物清單 -->
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem;">📋 完整寵物清單</h3>
+    <div class="table-wrap">
+      <table class="pet-list-table">
+        <thead>
+          <tr><th>寵物名稱</th><th>類型</th><th>技能</th><th>馴服物品</th><th>進化後</th><th>取得方式</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>牧羊犬</td><td><span class="badge-t1">防禦型</span></td><td>緩速術</td><td>漂浮之眼肉</td><td>高等牧羊犬</td><td>野外捕獲</td></tr>
+          <tr><td>狼</td><td><span class="badge-t0">傷害型</span></td><td>弱化術</td><td>漂浮之眼肉</td><td>高等狼</td><td>野外捕獲</td></tr>
+          <tr><td>熊</td><td><span class="badge-t1">防禦型</span></td><td>震裂術</td><td>漂浮之眼肉</td><td>高等熊</td><td>野外捕獲</td></tr>
+          <tr><td>杜賓狗</td><td><span class="badge-t0">傷害型</span></td><td>疾病術</td><td>漂浮之眼肉</td><td>高等杜賓狗</td><td>野外捕獲</td></tr>
+          <tr><td>小獵犬</td><td><span class="badge-t0">傷害型</span></td><td>地獄之牙</td><td>漂浮之眼肉</td><td>高等小獵犬</td><td>野外捕獲</td></tr>
+          <tr><td>聖伯納犬</td><td><span class="badge-t1">防禦型</span></td><td>風刃</td><td>漂浮之眼肉</td><td>高等聖伯納犬</td><td>野外捕獲</td></tr>
+          <tr><td>哈士奇</td><td><span class="badge-t1">防禦型</span></td><td>冰錐</td><td>漂浮之眼肉</td><td>高等哈士奇</td><td>野外捕獲</td></tr>
+          <tr><td>柯利</td><td><span class="badge-t2">魔法型</span></td><td>弱化術</td><td>漂浮之眼肉</td><td>高等柯利</td><td>野外捕獲</td></tr>
+          <tr><td>狐狸</td><td><span class="badge-t2">魔法型</span></td><td>火箭</td><td>漂浮之眼肉</td><td>高等狐狸</td><td>野外捕獲</td></tr>
+          <tr><td>貓</td><td><span class="badge-t2">魔法型</span></td><td>寒冷顫慄</td><td>漂浮之眼肉</td><td>高等貓</td><td>野外捕獲</td></tr>
+          <tr><td>浣熊</td><td><span class="badge-t2">魔法型</span></td><td>緩速＋疾病＋弱化</td><td>漂浮之眼肉</td><td>高等浣熊</td><td>野外捕獲</td></tr>
+          <tr><td>暴走兔</td><td><span class="badge-t2">魔法型</span></td><td>冰錐</td><td>胡蘿蔔</td><td>高等暴走兔</td><td>野外捕獲</td></tr>
+          <tr><td>虎男</td><td><span class="badge-t0">傷害型</span></td><td>震裂術</td><td>漂浮之眼肉</td><td>真．虎男</td><td>野外捕獲（低機率）</td></tr>
+          <tr><td>高麗幼犬</td><td><span class="badge-t3">特殊型</span></td><td>弱化術</td><td>特別的高麗犬誘食</td><td>高麗犬</td><td>商店村（固定位置）</td></tr>
+          <tr><td>袋鼠</td><td><span class="badge-t3">特殊型</span></td><td>火焰拳</td><td>袋鼠的食物</td><td>高等袋鼠</td><td>商店村（固定位置）</td></tr>
+          <tr><td>貓熊</td><td><span class="badge-t3">特殊型</span></td><td>貓熊臉</td><td>貓熊的食物</td><td>高等貓熊</td><td>商店村（固定位置）</td></tr>
+          <tr><td>猴子</td><td><span class="badge-t0">傷害型</span></td><td>疾病術</td><td>香蕉</td><td>高等猴子</td><td>商店村（固定位置）</td></tr>
+          <tr><td>頑皮幼龍</td><td><span class="badge-t2">魔法型</span></td><td>燃燒的火球</td><td>漂浮之眼肉</td><td>高等頑皮龍</td><td>商店村（固定位置）</td></tr>
+          <tr><td>淘氣幼龍</td><td><span class="badge-t2">魔法型</span></td><td>冰錐</td><td>漂浮之眼肉</td><td>高等淘氣龍</td><td>商店村（固定位置）</td></tr>
+          <tr><td colspan="6" style="background:rgba(0,229,170,.04);color:var(--teal);font-size:.75rem;padding:.5rem .9rem;">— 以下為進化後形態（無法野外捕獲，僅可透過進化取得）—</td></tr>
+          <tr><td>高等系列（13種）</td><td>同原型</td><td>各有強化技能</td><td>—</td><td>黃金龍</td><td>進化果實→各基本寵</td></tr>
+          <tr><td>黃金龍 🐉</td><td><span class="badge-end">終點型</span></td><td>火焰噴吐、燃燒火球</td><td>—</td><td>—（終點）</td><td>勝利果實→任意高等寵</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CHANGELOG -->
+<hr class="divider">
+<section id="changelog">
+  <div class="section-inner">
+    <div class="section-label">CHANGELOG</div>
+    <h2 class="section-title">版本更新日誌</h2>
+    <p class="section-desc">記錄伺服器每次重大更新，讓你清楚知道我們做了什麼。</p>
+    <div class="cl-grid">
+
+      <div class="cl-row">
+        <div class="cl-ver">第37版</div>
+        <div class="cl-date">2026/06/11</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🐾 寵物被動加成系統上線——召喚寵物時依類型（傷害/防禦/魔法/特殊）對玩家提供持續屬性加成，等級越高加成越強（Lv30/60/90 三階段）。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第36版</div>
+        <div class="cl-date">2026/06/11</div>
+        <div class="cl-type"><span class="cl-tag ct-fix">修正</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🛡 修正王稱號徽章被標記為「祝福的」導致無法正常使用的問題；修正大流士收到重複防禦王徽章的異常。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第35版</div>
+        <div class="cl-date">2026/06/10</div>
+        <div class="cl-type"><span class="cl-tag ct-new">改善</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🏦 銀行計息機制改為「累積在線時間」——改為個人在線累積 600 分鐘才計息一次，不再因每日重啟而讓玩家錯過計息時機。進度重開後保留。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第34版</div>
+        <div class="cl-date">2026/06/10</div>
+        <div class="cl-type"><span class="cl-tag ct-fix">修正</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">👑 修正王稱號補發邏輯：伺服器重啟後，若現任王背包沒有徽章（如重啟前為離線狀態），下次登入後自動補發。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第33版</div>
+        <div class="cl-date">2026/06/10</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">👑 新增「剿匪王」與「BOSS王」稱號；王稱號道具 ID 改為從資料庫動態讀取，新增 GM 指令 <code style="font-size:.8em;background:rgba(255,255,255,.08);padding:.1em .3em;border-radius:3px;">.封號重讀</code> 可即時觸發更新。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第32版</div>
+        <div class="cl-date">2026/06/09</div>
+        <div class="cl-type"><span class="cl-tag ct-fix">緊急修正</span><span class="cl-tag ct-db">DB</span></div>
+        <div class="cl-desc">🏦 銀行系統複利爆表事件處理：0.15%/小時複利 13 天造成餘額暴漲 65%，全服存款歸零並依數學反推發放補償元寶（合計 15,420,020 元寶補發 33 個帳號）。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第31版</div>
+        <div class="cl-date">2026/06/08</div>
+        <div class="cl-type"><span class="cl-tag ct-fix">修正</span></div>
+        <div class="cl-desc">⚔ 血盟技能選擇 HTML 修正：技能2/3按鈕 action 全部指向技能1的 bug，導致無論點哪個技能都只能學到鬥志（技能1）。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第30版</div>
+        <div class="cl-date">2026/06/07</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">📦 屬性武器卷軸掉落新增至四個屬性地圖（mapid 604~607）；格蘭肯的箱子合成材料需求降低（50→20）；陸吼交易所卡下架並可向良心回收商人回售。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第29版</div>
+        <div class="cl-date">2026/06/06</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">📊 股票/期貨手續費調整（5%→1%）；稅率分級制度（無/5%/10%）正式上線；分類選單 UI 優化（科技板塊/民生板塊/核心期貨/新興期貨）。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第28版</div>
+        <div class="cl-date">2026/06/05</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🗺 屬性地圖掉寶系統重構：8 種可堆疊損壞材料（ID 2402542~2402549）、格蘭肯信使合成系統（50個×4種 + 材料 → 格蘭肯的箱子）。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第27版</div>
+        <div class="cl-date">2026/06/04</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🌍 世界連動市場系統：股票/期貨價格引入 AI 驅動大盤情緒，5 小時自然衰減機制，±15% 護欄防止暴漲暴跌，每 6 小時自動搜尋市場新聞。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第26版</div>
+        <div class="cl-date">2026/06/01</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">👑 王稱號系統上線：9 種王（財富/課金/股票/期貨/殺人/等級/防禦/虧損王），每小時自動掃描排名，每日 20:00 全服廣播，獲得專屬 VIP 稱號顯示。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第25版</div>
+        <div class="cl-date">2026/05/29</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🏦 銀行存款系統上線；貸款 Plan B 完整重寫（本金/利息分離、5天寬限、複利10%、上限100萬元寶）。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第24版</div>
+        <div class="cl-date">2026/05/27</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🎰 奇岩賽狗場賭場系統上線（NPC 波金）；娛樂城小瑪莉系統優化。</div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-ver">第23版</div>
+        <div class="cl-date">2026/05/26</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">📈 股票系統擴充至 20 支（科技板塊 10 + 民生板塊 10）；期貨系統擴充至 20 個標的；分類選單初版上線。</div>
+      </div>
+
+    </div>
+    <p style="font-size:.78rem;color:var(--dim);margin-top:1.2rem;">※ 顯示最近 15 個版本重大更新，詳細技術記錄另存於開發日誌（第1~37版共 155+ 條目）。</p>
+  </div>
+</section>
+<hr class="divider">
 
 <!-- FOOTER -->
 <footer>
