@@ -113,6 +113,44 @@ tbody tr:hover td{background:rgba(201,168,76,.04);color:var(--text);}
 .wpn-info .wpn-name{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.25rem;}
 .wpn-info .wpn-meta{font-size:.78rem;color:var(--dim);}
 
+/* ── WEAPON SERIES v2 ── */
+.wpn-sv2{display:flex;flex-direction:column;gap:1.6rem;}
+.wpn-sv2-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.wpn-sv2-hdr{display:flex;align-items:center;gap:.75rem;padding:1rem 1.4rem;background:rgba(201,168,76,.07);border-bottom:1px solid var(--border);}
+.wpn-sname{font-size:1.05rem;font-weight:800;color:var(--gold);}
+.wpn-sdesc{font-size:.78rem;color:var(--teal);margin-left:auto;}
+.wpn-sv2-sub{font-size:.75rem;letter-spacing:.08em;color:var(--dim);padding:.5rem 1.4rem .2rem;font-weight:600;}
+.wt{width:100%;border-collapse:collapse;font-size:.82rem;}
+.wt th{background:rgba(0,0,0,.25);color:var(--dim);padding:.5rem .85rem;text-align:left;white-space:nowrap;font-weight:600;}
+.wt td{padding:.48rem .85rem;border-bottom:1px solid rgba(28,28,64,.5);white-space:nowrap;}
+.wt tr:last-child td{border-bottom:none;}
+.wt tr:hover td{background:rgba(201,168,76,.04);}
+.wt .wn{color:var(--text);font-weight:600;}
+.wt .wa{color:var(--teal);font-family:monospace;font-weight:700;}
+.wt .wstat{color:var(--gold);font-size:.79rem;}
+.wt .wext{color:#ff9944;font-weight:700;}
+.wt .wpvp{color:var(--red);font-weight:700;}
+.wt .wdim{color:var(--dim);}
+.wpn-sv2-note{font-size:.74rem;color:var(--dim);padding:.55rem 1.4rem;border-top:1px solid rgba(28,28,64,.4);background:rgba(0,0,0,.12);}
+
+/* ── GEAR SETS v2 ── */
+.gset-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.4rem;}
+.gset-c{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
+.gset-hd{padding:1.1rem 1.4rem;background:rgba(201,168,76,.07);border-bottom:1px solid var(--border);}
+.gset-hn{font-size:1.05rem;font-weight:800;color:var(--gold);display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem;}
+.gset-ht{font-size:.76rem;color:var(--teal);margin-bottom:.25rem;}
+.gset-hac{font-size:.79rem;color:var(--dim);}
+.gset-body{flex:1;}
+.gset-row{display:flex;flex-direction:column;padding:.5rem 1.3rem;border-bottom:1px solid rgba(28,28,64,.4);}
+.gset-row:last-child{border-bottom:none;}
+.gset-rn{display:flex;justify-content:space-between;align-items:center;margin-bottom:.18rem;}
+.gset-pname{color:var(--text);font-size:.85rem;font-weight:600;}
+.gset-pac{color:var(--teal);font-family:monospace;font-weight:700;}
+.gset-pbonus{font-size:.73rem;color:var(--dim);line-height:1.45;}
+.gset-total{padding:.85rem 1.3rem;background:rgba(0,0,0,.2);border-top:1px solid rgba(28,28,64,.5);}
+.gset-tlbl{font-size:.68rem;letter-spacing:.12em;color:var(--teal);font-weight:700;margin-bottom:.35rem;}
+.gset-tval{font-size:.79rem;color:var(--gold);line-height:1.75;}
+
 /* ── DROP MAPS ── */
 #drops{background:var(--bg2);}
 .drop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem;}
@@ -473,7 +511,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
         </tbody>
       </table>
     </div>
-    <p style="font-size:.8rem;color:var(--dim);margin-top:.8rem;">※ 技能升級需要元寶＋金幣，高等級還需稀有/英雄/傳說製作秘笈。三條技能線可獨立升級，不互相干擾。</p>
+    <p style="font-size:.8rem;color:var(--dim);margin-top:.8rem;">※ 技能升級需要元寶＋金幣，高等級還需稀有/英雄/傳說製作秘笈。三種加成選擇一種。</p>
   </div>
 </section>
 <hr class="divider">
@@ -775,67 +813,117 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 <section id="gear">
   <div class="section-inner">
     <div class="section-label">ARMOR SETS</div>
-    <h2 class="section-title">頂級套裝裝備</h2>
-    <p class="section-desc">以下為本服防禦值最高的套裝盔甲，數字越小防禦越強。</p>
-    <div class="gear-grid">
+    <h2 class="section-title">頂級套裝介紹</h2>
+    <p class="section-desc">本服三套特色套裝，每套五件，各有不同加成方向。AC 數字越小防禦越強。</p>
+    <div class="gset-g">
 
-      <div class="gear-set">
-        <div class="gear-set-title">古老系列 <span class="tier tier-s">S 級</span></div>
-        <div class="gear-row"><span class="gear-name">古老的鱗甲</span><span class="gear-ac">AC -20</span><span class="gear-class"><span class="cls">王族</span></span></div>
-        <div class="gear-row"><span class="gear-name">古老的金屬盔甲</span><span class="gear-ac">AC -16</span><span class="gear-class"><span class="cls">騎士</span><span class="cls">妖精</span><span class="cls">黑妖</span></span></div>
-        <div class="gear-row"><span class="gear-name">古老的皮盔甲</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">妖精</span></span></div>
+      <!-- 麥卡倫 -->
+      <div class="gset-c">
+        <div class="gset-hd">
+          <div class="gset-hn">麥卡倫套裝 <span class="tier tier-a">A 級</span></div>
+          <div class="gset-ht">🛡 傷害減免 · 全屬性保護型</div>
+          <div class="gset-hac">5 件合計 AC −29</div>
+        </div>
+        <div class="gset-body">
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">麥卡倫的頭盔</span><span class="gset-pac">AC −6</span></div>
+            <div class="gset-pbonus">精+1 · 血+10 · 魔+5 · 魔防+5 · 回血+1 · 傷減+1 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">麥卡倫的盔甲</span><span class="gset-pac">AC −5</span></div>
+            <div class="gset-pbonus">力+1 · 精+1 · 血+10 · 魔+5 · 魔防+5 · 回血+1 · 傷減+1 · 水屬+10 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">麥卡倫的斗篷</span><span class="gset-pac">AC −8</span></div>
+            <div class="gset-pbonus">體+1 · 智+1 · 血+10 · 魔+5 · 魔防+5 · 回血+1 · 風屬+10 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">麥卡倫的護手</span><span class="gset-pac">AC −5</span></div>
+            <div class="gset-pbonus">力+1 · 敏+1 · 血+10 · 魔+5 · 魔防+5 · 回血+1 · 火屬+10 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">麥卡倫的靴子</span><span class="gset-pac">AC −5</span></div>
+            <div class="gset-pbonus">敏+1 · 智+1 · 血+10 · 魔+5 · 魔防+5 · 回血+1 · 地屬+10 · PVP減+1</div>
+          </div>
+        </div>
+        <div class="gset-total">
+          <div class="gset-tlbl">▸ 全套加成</div>
+          <div class="gset-tval">力+2 · 體+1 · 敏+2 · 智+2 · 精+3 · 血+50 · 魔+25 · 魔防+25 · 回血+5 · 傷害減免+2 · PVP減免+5<br>水 / 風 / 火 / 地 屬性各 +10</div>
+        </div>
       </div>
 
-      <div class="gear-set">
-        <div class="gear-set-title">真．林德拜爾系列 <span class="tier tier-s">S 級</span></div>
-        <div class="gear-row"><span class="gear-name">真．林德拜爾的力量</span><span class="gear-ac">AC -17</span><span class="gear-class"><span class="cls">騎士</span></span></div>
-        <div class="gear-row"><span class="gear-name">真．林德拜爾的霸氣</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
-        <div class="gear-row"><span class="gear-name">真．林德拜爾的泉源</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
+      <!-- 艾格文 -->
+      <div class="gset-c">
+        <div class="gset-hd">
+          <div class="gset-hn">艾格文套裝 <span class="tier tier-a">A 級</span></div>
+          <div class="gset-ht">✨ 高魔量 · 回魔特化（法師 / 幻術首選）</div>
+          <div class="gset-hac">5 件合計 AC −24</div>
+        </div>
+        <div class="gset-body">
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">艾格文的頭箍</span><span class="gset-pac">AC −4</span></div>
+            <div class="gset-pbonus">智+1 · 精+1 · 魅+1 · 血+10 · 魔+5 · 魔防+5 · 回血+2 · 回魔+5 · 水+1 · 風+1 · 地+1 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">艾格文的斗篷</span><span class="gset-pac">AC −6</span></div>
+            <div class="gset-pbonus">智+1 · 精+1 · 魅+1 · 血+10 · 魔+10 · 魔防+5 · 回血+2 · 回魔+5 · 水+1 · 風+1 · 地+1 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">艾格文的長袍</span><span class="gset-pac">AC −6</span></div>
+            <div class="gset-pbonus">智+1 · 精+1 · 魅+1 · 血+10 · 魔+15 · 魔防+5 · 回血+2 · 回魔+5 · 風+1 · 地+1 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">艾格文的手套</span><span class="gset-pac">AC −4</span></div>
+            <div class="gset-pbonus">智+1 · 魅+2 · 血+10 · 魔+15 · 魔防+5 · 回血+2 · 回魔+5 · 水+1 · 風+1 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">艾格文的長靴</span><span class="gset-pac">AC −4</span></div>
+            <div class="gset-pbonus">敏+1 · 智+1 · 魅+2 · 血+10 · 魔+10 · 魔防+5 · 回血+2 · 回魔+5 · 水+1 · 風+1 · 地+1 · PVP減+1</div>
+          </div>
+        </div>
+        <div class="gset-total">
+          <div class="gset-tlbl">▸ 全套加成</div>
+          <div class="gset-tval">敏+1 · 智+5 · 精+4 · 魅+7 · 血+50 · <strong style="color:var(--teal)">魔+55</strong> · 魔防+25 · 回血+10 · <strong style="color:var(--teal)">回魔+25</strong> · PVP減免+5</div>
+        </div>
       </div>
 
-      <div class="gear-set">
-        <div class="gear-set-title">真．安塔瑞斯系列 <span class="tier tier-a">A 級</span></div>
-        <div class="gear-row"><span class="gear-name">真．安塔瑞斯的力量</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
-        <div class="gear-row"><span class="gear-name">真．安塔瑞斯的霸氣</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
-        <div class="gear-row"><span class="gear-name">真．安塔瑞斯的泉源</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
-      </div>
-
-      <div class="gear-set">
-        <div class="gear-set-title">真．法利昂系列 <span class="tier tier-a">A 級</span></div>
-        <div class="gear-row"><span class="gear-name">真．法利昂的力量</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
-        <div class="gear-row"><span class="gear-name">真．法利昂的霸氣</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
-        <div class="gear-row"><span class="gear-name">真．法利昂的泉源</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
-      </div>
-
-      <div class="gear-set">
-        <div class="gear-set-title">古代龍鱗系列 <span class="tier tier-a">A 級</span></div>
-        <div class="gear-row"><span class="gear-name">古代火龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
-        <div class="gear-row"><span class="gear-name">古代風龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
-        <div class="gear-row"><span class="gear-name">古代地龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
-        <div class="gear-row"><span class="gear-name">古代水龍鱗盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">全職業</span></span></div>
-      </div>
-
-      <div class="gear-set">
-        <div class="gear-set-title">滅魔系列 <span class="tier tier-a">A 級</span></div>
-        <div class="gear-row"><span class="gear-name">滅魔的金屬盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
-        <div class="gear-row"><span class="gear-name">滅魔的鱗甲</span><span class="gear-ac">AC -14</span><span class="gear-class"><span class="cls">王族</span><span class="cls">龍騎</span></span></div>
-        <div class="gear-row"><span class="gear-name">滅魔的小藤甲</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">妖精</span><span class="cls">黑妖</span><span class="cls">龍騎</span><span class="cls">幻術</span></span></div>
-      </div>
-
-      <div class="gear-set">
-        <div class="gear-set-title">暗黑系列 <span class="tier tier-b">B 級</span></div>
-        <div class="gear-row"><span class="gear-name">黑暗執行者 金屬盔甲</span><span class="gear-ac">AC -15</span><span class="gear-class"><span class="cls">騎士</span></span></div>
-        <div class="gear-row"><span class="gear-name">墮落長袍</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">法師</span></span></div>
-      </div>
-
-      <div class="gear-set">
-        <div class="gear-set-title">騎士專屬 <span class="tier tier-b">B 級</span></div>
-        <div class="gear-row"><span class="gear-name">騎士盔甲</span><span class="gear-ac">AC -13</span><span class="gear-class"><span class="cls">騎士</span></span></div>
-        <div class="gear-row"><span class="gear-name">真、古老的金屬盔甲</span><span class="gear-ac">AC -16</span><span class="gear-class"><span class="cls">騎士</span></span></div>
+      <!-- 丹尼斯 -->
+      <div class="gset-c">
+        <div class="gset-hd">
+          <div class="gset-hn">丹尼斯套裝 <span class="tier tier-s">S 級</span></div>
+          <div class="gset-ht">❤ 超高回血 · 全屬性均衡型</div>
+          <div class="gset-hac">5 件合計 AC −26</div>
+        </div>
+        <div class="gset-body">
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">丹尼斯的頭飾</span><span class="gset-pac">AC −4</span></div>
+            <div class="gset-pbonus">力+1 · 敏+1 · 精+1 · 血+10 · 魔+5 · 魔防+5 · 回血+6 · 回魔+2 · 傷減+1 · 水屬+10 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">丹尼斯的盔甲</span><span class="gset-pac">AC −7</span></div>
+            <div class="gset-pbonus">敏+1 · 血+10 · 魔+10 · 魔防+5 · 回血+6 · 回魔+8 · 傷減+1 · 風屬+10 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">丹尼斯的斗篷</span><span class="gset-pac">AC −5</span></div>
+            <div class="gset-pbonus">敏+1 · 智+2 · 血+10 · 魔+10 · 魔防+5 · 回血+6 · 回魔+6 · 傷減+1 · 火屬+10 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">丹尼斯的手套</span><span class="gset-pac">AC −6</span></div>
+            <div class="gset-pbonus">力+2 · 敏+1 · 精+1 · 血+10 · 魔+5 · 魔防+5 · 回血+6 · 回魔+4 · 傷減+1 · 地屬+10 · PVP減+1</div>
+          </div>
+          <div class="gset-row">
+            <div class="gset-rn"><span class="gset-pname">丹尼斯的麂皮靴</span><span class="gset-pac">AC −4</span></div>
+            <div class="gset-pbonus">敏+2 · 血+10 · 魔+10 · 魔防+5 · 回血+6 · 回魔+6 · 傷減+1 · PVP減+1</div>
+          </div>
+        </div>
+        <div class="gset-total">
+          <div class="gset-tlbl">▸ 全套加成</div>
+          <div class="gset-tval">力+3 · 敏+6 · 智+2 · 精+2 · 血+50 · 魔+40 · 魔防+25 · <strong style="color:var(--red)">回血+30</strong> · 回魔+26 · 傷害減免+5 · PVP減免+5<br>水 / 風 / 火 / 地 屬性各 +10</div>
+        </div>
       </div>
 
     </div>
-    <p style="font-size:.8rem;color:var(--dim);margin-top:1.2rem;">※ 顯示部位為盔甲主體（armor 類型），完整套裝另含頭盔、手套、鞋子等部位。AC 值越小防禦越強。</p>
+    <p style="font-size:.8rem;color:var(--dim);margin-top:1.2rem;">※ 每套五件需全數裝備方可獲得完整加成。AC 數值為各部位個別值，越小防禦越強。</p>
   </div>
 </section>
 <hr class="divider">
@@ -844,19 +932,113 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 <section id="weapons">
   <div class="section-inner">
     <div class="section-label">TOP WEAPONS</div>
-    <h2 class="section-title">頂級武器排行</h2>
-    <p class="section-desc">以最大傷害值排列。攻擊力格式為「最小 / 最大」。</p>
-    <div class="weapon-grid">
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>29 / 48</div><div class="wpn-info"><div class="wpn-name">古老的巨劍</div><div class="wpn-meta">雙手劍 · 鐵材質</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>45 / 43</div><div class="wpn-info"><div class="wpn-name">暗黑十字弓</div><div class="wpn-meta">弓 · 白金材質</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>42 / 42</div><div class="wpn-info"><div class="wpn-name">吉爾塔斯之劍</div><div class="wpn-meta">雙手劍 · 暗黑米鐵</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>38 / 40</div><div class="wpn-info"><div class="wpn-name">狂暴巨斧</div><div class="wpn-meta">雙手鈍器 · 鐵材質</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>42 / 40</div><div class="wpn-info"><div class="wpn-name">霜之哀傷</div><div class="wpn-meta">雙手劍 · 暗黑米鐵</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>38 / 38</div><div class="wpn-info"><div class="wpn-name">底比斯歐西里斯雙手劍</div><div class="wpn-meta">雙手劍 · 黃金材質</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>28 / 38</div><div class="wpn-info"><div class="wpn-name">冰之矛</div><div class="wpn-meta">長矛 · 白金材質</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>3 / 38</div><div class="wpn-info"><div class="wpn-name">戰士巨劍</div><div class="wpn-meta">雙手劍 · 鐵材質</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>34 / 37</div><div class="wpn-info"><div class="wpn-name">真．冥皇執行劍</div><div class="wpn-meta">雙手劍 · 暗黑米鐵</div></div></div>
-      <div class="wpn-card"><div class="wpn-dmg"><span class="dmg-label">攻擊力</span>32 / 37</div><div class="wpn-info"><div class="wpn-name">屠龍劍</div><div class="wpn-meta">雙手劍 · 鋼材質</div></div></div>
+    <h2 class="section-title">開放系列武器</h2>
+    <p class="section-desc">本服四大武器系列，數值直接來自伺服器資料庫。攻擊力格式：最小 / 最大。</p>
+    <div class="wpn-sv2">
+
+      <!-- 魔獸系列 -->
+      <div class="wpn-sv2-card">
+        <div class="wpn-sv2-hdr">
+          <span class="wpn-sname">魔獸系列</span>
+          <span class="tier tier-s">S 級</span>
+          <span class="wpn-sdesc">全服最高攻擊力 · PVP 傷害最強</span>
+        </div>
+        <div class="table-wrap">
+          <table class="wt">
+            <thead><tr><th>武器名稱</th><th>攻擊力</th><th>命中</th><th>素質加成</th><th>額外傷害</th><th>PVP傷害</th></tr></thead>
+            <tbody>
+              <tr><td class="wn">霜之哀傷</td><td class="wa">42 / 40</td><td class="wdim">+20</td><td class="wstat">力+3 · 魔攻+1</td><td class="wext">+20</td><td class="wpvp">+20</td></tr>
+              <tr><td class="wn">艾辛諾斯戰刃</td><td class="wa">39 / 37</td><td class="wdim">+18</td><td class="wstat">力+3 · 敏+2 · 精+1 · 魔攻+1</td><td class="wext">+15</td><td class="wpvp">+20</td></tr>
+              <tr><td class="wn">龍怒。塔瑞克苟莎之眠</td><td class="wa">26 / 24</td><td class="wdim">+18</td><td class="wstat">智+3 · 精+3 · 魔量+50 · 魔攻+2</td><td class="wext">+15</td><td class="wpvp">+12</td></tr>
+              <tr><td class="wn">群星之怒</td><td class="wa">21 / 20</td><td class="wdim">+18</td><td class="wstat">力+3 · 敏+2 · 精+1 · 魔攻+1</td><td class="wext">+15</td><td class="wpvp">+12</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wpn-sv2-note">※ 霜之哀傷 / 艾辛諾斯戰刃 PVP 傷害並列全服第一，適合殺人王 / PVP 玩法。龍怒魔杖為法師極品選擇。</div>
+      </div>
+
+      <!-- 遠古系列 -->
+      <div class="wpn-sv2-card">
+        <div class="wpn-sv2-hdr">
+          <span class="wpn-sname">遠古系列</span>
+          <span class="tier tier-a">A 級</span>
+          <span class="wpn-sdesc">高額外傷害 · 全職業覆蓋</span>
+        </div>
+        <div class="table-wrap">
+          <table class="wt">
+            <thead><tr><th>武器名稱</th><th>攻擊力</th><th>命中</th><th>素質加成</th><th>額外傷害</th><th>PVP傷害</th></tr></thead>
+            <tbody>
+              <tr><td class="wn">遠古的雙手劍</td><td class="wa">39 / 37</td><td class="wdim">+12</td><td class="wstat">力+2 · 敏+1</td><td class="wext">+15</td><td class="wpvp">+2</td></tr>
+              <tr><td class="wn">遠古的雙刀</td><td class="wa">35 / 32</td><td class="wdim">+9</td><td class="wstat">力+2 · 敏+2</td><td class="wext">+10</td><td class="wpvp">+2</td></tr>
+              <tr><td class="wn">遠古的短劍</td><td class="wa">32 / 30</td><td class="wdim">+15</td><td class="wstat">敏+2</td><td class="wext">+20</td><td class="wpvp">+2</td></tr>
+              <tr><td class="wn">遠古的法杖</td><td class="wa">26 / 24</td><td class="wdim">+9</td><td class="wstat">智+2 · 精+2</td><td class="wext">+10</td><td class="wpvp">+2</td></tr>
+              <tr><td class="wn">遠古的弓</td><td class="wa">19 / 17</td><td class="wdim">+9</td><td class="wstat">力+2 · 敏+2 · 智+1</td><td class="wext">+10</td><td class="wpvp">+2</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wpn-sv2-note">※ 全系列 PVP+2，遠古短劍的額外傷害+20 是近戰系中最高。</div>
+      </div>
+
+      <!-- 奇岩反叛者系列 -->
+      <div class="wpn-sv2-card">
+        <div class="wpn-sv2-hdr">
+          <span class="wpn-sname">奇岩反叛者系列</span>
+          <span class="tier tier-a">A 級</span>
+          <span class="wpn-sdesc">普通版 + 強化版</span>
+        </div>
+        <div class="wpn-sv2-sub">── 普通版</div>
+        <div class="table-wrap">
+          <table class="wt">
+            <thead><tr><th>武器名稱</th><th>攻擊力</th><th>命中</th><th>額外傷害</th></tr></thead>
+            <tbody>
+              <tr><td class="wn">奇岩反叛者之劍</td><td class="wa">17 / 18</td><td class="wdim">+3</td><td class="wext">+3</td></tr>
+              <tr><td class="wn">奇岩反叛者之弓</td><td class="wa">12 / 13</td><td class="wdim">+3</td><td class="wext">+3</td></tr>
+              <tr><td class="wn">奇岩反叛者魔杖</td><td class="wa">13 / 15</td><td class="wdim">+3</td><td class="wext">+3</td></tr>
+              <tr><td class="wn">奇岩反叛者雙刀</td><td class="wa">19 / 15</td><td class="wdim">+3</td><td class="wext">+3</td></tr>
+              <tr><td class="wn">奇岩反叛者斧頭</td><td class="wa">21 / 21</td><td class="wdim">+3</td><td class="wext">+3</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wpn-sv2-sub">── 強化版（顯著提升）</div>
+        <div class="table-wrap">
+          <table class="wt">
+            <thead><tr><th>武器名稱</th><th>攻擊力</th><th>命中</th><th>素質加成</th><th>額外傷害</th><th>PVP傷害</th></tr></thead>
+            <tbody>
+              <tr><td class="wn">強化。之劍</td><td class="wa">35 / 36</td><td class="wdim">+15</td><td class="wstat">力+2 · 敏+2 · 智+1 · 魔量+50</td><td class="wext">+13</td><td class="wpvp">+8</td></tr>
+              <tr><td class="wn">強化。魔杖</td><td class="wa">29 / 27</td><td class="wdim">+15</td><td class="wstat">敏+1 · 智+2 · 精+1 · 魔量+50 · 魔攻+1</td><td class="wext">+13</td><td class="wpvp">+8</td></tr>
+              <tr><td class="wn">強化。之弓</td><td class="wa">23 / 21</td><td class="wdim">+15</td><td class="wstat">敏+2 · 智+1 · 精+1 · 魔量+50 · 魔攻+1</td><td class="wext">+13</td><td class="wpvp">+15</td></tr>
+              <tr><td class="wn">強化。雙刀</td><td class="wa">33 / 35</td><td class="wdim">+15</td><td class="wstat">力+1 · 敏+2 · 智+1 · 魔量+50</td><td class="wext">+13</td><td class="wpvp">+15</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wpn-sv2-note">※ 強化版攻擊力大幅提升，全系列附加魔量+50，弓與雙刀 PVP 傷害尤為突出。</div>
+      </div>
+
+      <!-- 神龍系列 -->
+      <div class="wpn-sv2-card">
+        <div class="wpn-sv2-hdr">
+          <span class="wpn-sname">神龍系列</span>
+          <span class="tier tier-a">A 級</span>
+          <span class="wpn-sdesc">8 種武器 · 全職業各有對應</span>
+        </div>
+        <div class="table-wrap">
+          <table class="wt">
+            <thead><tr><th>武器名稱</th><th>攻擊力</th><th>命中</th><th>素質加成</th><th>額外傷害</th><th>PVP傷害</th></tr></thead>
+            <tbody>
+              <tr><td class="wn">神龍懸念之刀</td><td class="wa">36 / 33</td><td class="wdim">+5</td><td class="wstat">力+1 · 體+1</td><td class="wext">+3</td><td class="wpvp">+1</td></tr>
+              <tr><td class="wn">神龍霸氣之劍</td><td class="wa">25 / 23</td><td class="wdim">+5</td><td class="wstat">力+1 · 體+1</td><td class="wext">+3</td><td class="wpvp">+1</td></tr>
+              <tr><td class="wn">神龍忍之鎖鏈劍</td><td class="wa">25 / 23</td><td class="wdim">+5</td><td class="wstat">力+1</td><td class="wext">+3</td><td class="wpvp">+1</td></tr>
+              <tr><td class="wn">神龍涅之奇古獸</td><td class="wa">25 / 23</td><td class="wdim">+5</td><td class="wstat">力+1 · 魔防+1</td><td class="wext">+3</td><td class="wpvp">+1</td></tr>
+              <tr><td class="wn">神龍隱之雙刀</td><td class="wa">25 / 23</td><td class="wdim">+5</td><td class="wstat">力+1 · 精+2</td><td class="wext">+8</td><td class="wpvp">+3</td></tr>
+              <tr><td class="wn">神龍悔恨之爪</td><td class="wa">25 / 23</td><td class="wdim">+10</td><td class="wstat">力+1 · 精+1</td><td class="wext">+8</td><td class="wpvp" style="color:#ff6644;font-weight:800">+9</td></tr>
+              <tr><td class="wn">神龍衝擊之杖</td><td class="wa">20 / 18</td><td class="wdim">+5</td><td class="wstat">力+1 · 智+2 · 精+2 · 魔攻+2</td><td class="wext">+3</td><td class="wpvp">+1</td></tr>
+              <tr><td class="wn">神龍幻想之弓</td><td class="wa">16 / 14</td><td class="wdim">+8</td><td class="wstat">力+1 · 敏+1</td><td class="wext">+7</td><td class="wpvp">+1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wpn-sv2-note">※ 神龍悔恨之爪 PVP+9 為本系列最高。神龍衝擊之杖魔攻+2 為法師首選。</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1204,5 +1386,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
   <p style="margin-top:.5rem;font-size:.74rem;">本站所有天堂相關名稱、圖像版權歸 NCsoft 所有，本伺服器僅供學習研究用途。</p>
 </footer>
 
+<!-- VISITOR TRACKING (GoatCounter) -->
+<!-- 使用說明：
+  1. 前往 https://www.goatcounter.com/ 免費註冊（用你的 email）
+  2. 建立 site，取得一個 site code（例如 luhou-lineage）
+  3. 將下方 YOURCODE 替換為你的 site code 即可
+  4. 之後登入 https://YOURCODE.goatcounter.com 查看每日 / 每週 / 每月訪客統計
+-->
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
