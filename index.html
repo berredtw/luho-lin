@@ -1383,14 +1383,32 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 <!-- FOOTER -->
 <footer>
   <p>陸吼天堂雲端版 &nbsp;·&nbsp; Lineage 1 私服 &nbsp;·&nbsp; 長期穩定運營</p>
-  <div style="margin:1rem 0;display:flex;justify-content:center;">
-    <a href="https://hits.seeyoufarm.com" target="_blank" style="display:inline-block;border:1px solid var(--border);border-radius:6px;overflow:hidden;opacity:.85;transition:opacity .2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.85">
-      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fberredtw.github.io%2Fluho-lin%2F&count_bg=%23C9A84C&title_bg=%230D0D24&icon=&icon_color=%23C9A84C&title=%E4%BB%8A%E6%97%A5%2F%E7%B4%AF%E8%A8%88&edge_flat=true" alt="造訪人數" style="display:block;height:22px;" />
-    </a>
+  <div style="margin:1rem 0;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div id="cnt-today" style="font-size:1.6rem;font-weight:900;color:var(--gold);line-height:1;min-width:3ch;">…</div>
+      <div style="font-size:.72rem;color:var(--dim);margin-top:.3rem;letter-spacing:.06em;">今日造訪</div>
+    </div>
+    <div style="width:1px;background:var(--border);align-self:stretch;"></div>
+    <div style="text-align:center;">
+      <div id="cnt-total" style="font-size:1.6rem;font-weight:900;color:var(--gold);line-height:1;min-width:3ch;">…</div>
+      <div style="font-size:.72rem;color:var(--dim);margin-top:.3rem;letter-spacing:.06em;">累計造訪</div>
+    </div>
   </div>
   <p style="font-size:.74rem;color:var(--dim);">本站所有天堂相關名稱、圖像版權歸 NCsoft 所有，本伺服器僅供學習研究用途。</p>
 </footer>
 
+<script>
+(function(){
+  var ns = 'luho-lin-berredtw';
+  var d = new Date();
+  var dayKey = 'd' + d.getFullYear() + ('0'+(d.getMonth()+1)).slice(-2) + ('0'+d.getDate()).slice(-2);
+  function set(id, n){ var e=document.getElementById(id); if(e) e.textContent=Number(n).toLocaleString(); }
+  fetch('https://api.counterapi.dev/v1/'+ns+'/'+dayKey+'/up')
+    .then(function(r){return r.json();}).then(function(j){set('cnt-today',j.count);}).catch(function(){set('cnt-today','—');});
+  fetch('https://api.counterapi.dev/v1/'+ns+'/total/up')
+    .then(function(r){return r.json();}).then(function(j){set('cnt-total',j.count);}).catch(function(){set('cnt-total','—');});
+})();
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CW804SKCL7"></script>
 <script>
