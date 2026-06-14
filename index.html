@@ -162,6 +162,8 @@ tbody tr:hover td{background:rgba(201,168,76,.04);color:var(--text);}
 .rune-shaha .rune-name{color:#77cc44;}
 .rune-mapure .rune-hdr{background:rgba(204,136,68,.07);}
 .rune-mapure .rune-name{color:#cc8844;}
+.rune-xiline .rune-hdr{background:rgba(178,118,232,.07);}
+.rune-xiline .rune-name{color:#b276e8;}
 
 /* ── GEAR SETS v2 ── */
 .gset-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.4rem;}
@@ -1079,8 +1081,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 <section id="runes">
   <div class="section-inner">
     <div class="section-label">RUNE SYSTEM</div>
-    <h2 class="section-title">六大紋樣強化系統</h2>
-    <p class="section-desc">每個角色可同時裝備六條紋樣，均可升至最高 33 等。強化材料向各 NPC 購買，以下數值直接取自伺服器資料庫。</p>
+    <h2 class="section-title">七大紋樣強化系統</h2>
+    <p class="section-desc">全服共七種紋樣強化系統，均可升至最高 33 等。強化材料向各 NPC 購買，以下數值直接取自伺服器資料庫。</p>
     <div class="rune-grid">
 
       <!-- 伊娃紋樣 -->
@@ -1092,12 +1094,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
         </div>
         <div class="table-wrap">
           <table class="wt rune-tbl">
-            <thead><tr><th>等級</th><th>魔量</th><th>水屬</th><th>魔攻</th><th>回魔</th><th>智力</th><th>經驗%</th></tr></thead>
+            <thead><tr><th>等級</th><th>魔量</th><th>水屬</th><th>魔攻</th><th>回魔</th><th>智力</th><th>寒冰耐</th><th>經驗%</th></tr></thead>
             <tbody>
-              <tr><td class="rlv">Lv.1</td><td>+5</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td class="rlv">Lv.15</td><td>+50</td><td>+7</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td class="rlv">Lv.30</td><td>+150</td><td>+14</td><td>+3</td><td>+4</td><td>+3</td><td>+15%</td></tr>
-              <tr><td class="rlv rmax">Max</td><td class="rmp">+180</td><td class="rmp">+20</td><td class="ratt">+5</td><td class="ratt">+5</td><td class="ratt">+4</td><td class="ratt">+30%</td></tr>
+              <tr><td class="rlv">Lv.1</td><td>+5</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td class="rlv">Lv.15</td><td>+50</td><td>+7</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td class="rlv">Lv.30</td><td>+150</td><td>+14</td><td>+3</td><td>+4</td><td>+3</td><td>+3</td><td>+21%</td></tr>
+              <tr><td class="rlv rmax">Max</td><td class="rmp">+180</td><td class="rmp">+20</td><td class="ratt">+5</td><td class="ratt">+5</td><td class="ratt">+4</td><td class="rdef">+5</td><td class="ratt">+30%</td></tr>
             </tbody>
           </table>
         </div>
@@ -1113,16 +1115,16 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
         </div>
         <div class="table-wrap">
           <table class="wt rune-tbl">
-            <thead><tr><th>等級</th><th>血量</th><th>回血</th><th>回魔</th><th>魔傷減</th><th>昏迷耐</th><th>PVP減</th></tr></thead>
+            <thead><tr><th>等級</th><th>血量</th><th>回血</th><th>回魔</th><th>魔傷減</th><th>昏迷耐</th><th>PVP減</th><th>經驗%</th></tr></thead>
             <tbody>
-              <tr><td class="rlv">Lv.1</td><td>+10</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td class="rlv">Lv.15</td><td>+150</td><td>+7</td><td>+7</td><td>—</td><td>—</td><td>+5</td></tr>
-              <tr><td class="rlv">Lv.30</td><td>+300</td><td>+20</td><td>+20</td><td>+4</td><td>+5</td><td>+9</td></tr>
-              <tr><td class="rlv rmax">Max</td><td class="rhp">+400</td><td class="ratt">+30</td><td class="ratt">+30</td><td class="rdef">+7</td><td class="rdef">+8</td><td class="rpvp">+12</td></tr>
+              <tr><td class="rlv">Lv.1</td><td>+10</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td class="rlv">Lv.15</td><td>+150</td><td>+7</td><td>+7</td><td>—</td><td>—</td><td>+5</td><td>—</td></tr>
+              <tr><td class="rlv">Lv.30</td><td>+300</td><td>+20</td><td>+20</td><td>+4</td><td>+5</td><td>+9</td><td>+35%</td></tr>
+              <tr><td class="rlv rmax">Max</td><td class="rhp">+400</td><td class="ratt">+30</td><td class="ratt">+30</td><td class="rdef">+7</td><td class="rdef">+8</td><td class="rpvp">+12</td><td class="ratt">+50%</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="rune-note">全服最高血量加成 · Max 另附魔量+100、魔攻+5</div>
+        <div class="rune-note">全服最高血量加成 · Max 另附魔量+100、魔攻+5、力量/智力各+5、四屬性各+5、HP藥水回復+15</div>
       </div>
 
       <!-- 帕格里奧紋樣 -->
@@ -1138,12 +1140,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
             <tbody>
               <tr><td class="rlv">Lv.1</td><td>+5</td><td>+1</td><td>+1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
               <tr><td class="rlv">Lv.15</td><td>+50</td><td>+3</td><td>+3</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td class="rlv">Lv.30</td><td>+150</td><td>+10</td><td>+12</td><td>+3</td><td>+4</td><td>+2</td><td>+15%</td></tr>
-              <tr><td class="rlv rmax">Max</td><td class="rhp">+180</td><td class="ratt">+15</td><td class="ratt">+25</td><td class="ratt">+4</td><td class="ratt">+10</td><td class="rpvp">+10</td><td class="ratt">+30%</td></tr>
+              <tr><td class="rlv">Lv.30</td><td>+150</td><td>+7</td><td>+8</td><td>+3</td><td>+4</td><td>+3</td><td>+15%</td></tr>
+              <tr><td class="rlv rmax">Max</td><td class="rhp">+180</td><td class="ratt">+9</td><td class="ratt">+10</td><td class="ratt">+4</td><td class="ratt">+10</td><td class="rpvp">+5</td><td class="ratt">+30%</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="rune-note">騎士 / 黑妖精首選 · Max 另附暗黑耐性+30</div>
+        <div class="rune-note">騎士 / 黑妖精首選 · Max 另附火屬+20、物傷減+4、睡眠耐性+8、PVP命中+5</div>
       </div>
 
       <!-- 殷海薩紋樣 -->
@@ -1151,20 +1153,20 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
         <div class="rune-hdr">
           <span class="rune-name">殷海薩紋樣</span>
           <span class="tier tier-b">均衡型</span>
-          <span class="rune-sub">血魔齊升 · 睡眠耐 · 命中</span>
+          <span class="rune-sub">血魔齊升 · 攻防兼備 · 高經驗</span>
         </div>
         <div class="table-wrap">
           <table class="wt rune-tbl">
-            <thead><tr><th>等級</th><th>血/魔各</th><th>睡眠耐</th><th>命中×2</th><th>回魔</th><th>經驗%</th></tr></thead>
+            <thead><tr><th>等級</th><th>血/魔各</th><th>睡眠耐</th><th>命中×2</th><th>傷害×2</th><th>回血魔</th><th>經驗%</th></tr></thead>
             <tbody>
-              <tr><td class="rlv">Lv.1</td><td>+5</td><td>—</td><td>—</td><td>—</td><td>+1%</td></tr>
-              <tr><td class="rlv">Lv.15</td><td>+20</td><td>+7</td><td>—</td><td>—</td><td>+15%</td></tr>
-              <tr><td class="rlv">Lv.30</td><td>+50</td><td>+14</td><td>+5</td><td>+7</td><td>+26%</td></tr>
-              <tr><td class="rlv rmax">Max</td><td class="rmp">+180</td><td class="rdef">+20</td><td class="ratt">+5</td><td class="ratt">+7</td><td class="ratt">+30%</td></tr>
+              <tr><td class="rlv">Lv.1</td><td>+5</td><td>—</td><td>—</td><td>—</td><td>—</td><td>+1%</td></tr>
+              <tr><td class="rlv">Lv.15</td><td>+20</td><td>+7</td><td>—</td><td>—</td><td>—</td><td>+15%</td></tr>
+              <tr><td class="rlv">Lv.30</td><td>+80</td><td>+14</td><td>+4</td><td>+4</td><td>+7</td><td>+45%</td></tr>
+              <tr><td class="rlv rmax">Max</td><td class="rmp">+100</td><td class="rdef">+20</td><td class="ratt">+5</td><td class="ratt">+5</td><td class="ratt">+10</td><td class="ratt">+60%</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="rune-note">血量與魔量同步提升 · 全職業適用 · Max 另附防禦+6</div>
+        <div class="rune-note">血量與魔量同步提升 · 近戰/遠攻傷害與命中同步加成 · Max 另附防禦+6、魔傷減+5 · 經驗加成全紋樣第二高</div>
       </div>
 
       <!-- 沙哈紋樣 -->
@@ -1176,16 +1178,16 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
         </div>
         <div class="table-wrap">
           <table class="wt rune-tbl">
-            <thead><tr><th>等級</th><th>血量</th><th>遠傷</th><th>遠命</th><th>敏捷</th><th>經驗%</th></tr></thead>
+            <thead><tr><th>等級</th><th>血量</th><th>遠傷</th><th>遠命</th><th>敏捷</th><th>風屬</th><th>回血</th><th>經驗%</th></tr></thead>
             <tbody>
-              <tr><td class="rlv">Lv.1</td><td>+5</td><td>—</td><td>+1</td><td>—</td><td>—</td></tr>
-              <tr><td class="rlv">Lv.15</td><td>+50</td><td>—</td><td>+2</td><td>—</td><td>—</td></tr>
-              <tr><td class="rlv">Lv.30</td><td>+150</td><td>+7</td><td>+5</td><td>+3</td><td>+15%</td></tr>
-              <tr><td class="rlv rmax">Max</td><td class="rhp">+180</td><td class="ratt">+10</td><td class="ratt">+10</td><td class="ratt">+4</td><td class="ratt">+30%</td></tr>
+              <tr><td class="rlv">Lv.1</td><td>+5</td><td>—</td><td>+1</td><td>—</td><td>—</td><td>+1</td><td>—</td></tr>
+              <tr><td class="rlv">Lv.15</td><td>+50</td><td>—</td><td>+2</td><td>—</td><td>+7</td><td>+5</td><td>—</td></tr>
+              <tr><td class="rlv">Lv.30</td><td>+90</td><td>+7</td><td>+5</td><td>+3</td><td>+14</td><td>+10</td><td>+21%</td></tr>
+              <tr><td class="rlv rmax">Max</td><td class="rhp">+120</td><td class="ratt">+10</td><td class="ratt">+10</td><td class="ratt">+4</td><td class="rdef">+20</td><td class="ratt">+20</td><td class="ratt">+30%</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="rune-note">妖精 / 龍騎士遠攻特化 · 敏捷同步提升攻速與迴避</div>
+        <div class="rune-note">妖精 / 龍騎士遠攻特化 · 敏捷同步提升攻速與迴避 · Max 另附睡眠耐性+15</div>
       </div>
 
       <!-- 馬普勒紋樣 -->
@@ -1201,12 +1203,33 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
             <tbody>
               <tr><td class="rlv">Lv.1</td><td>+5</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
               <tr><td class="rlv">Lv.15</td><td>+50</td><td>+3</td><td>+1</td><td>—</td><td>+7</td><td>+4</td><td>—</td><td>—</td></tr>
-              <tr><td class="rlv">Lv.30</td><td>+150</td><td>+6</td><td>+6</td><td>+9</td><td>+14</td><td>+15</td><td>+2</td><td>+15%</td></tr>
-              <tr><td class="rlv rmax">Max</td><td class="rhp">+180</td><td class="rdef">+10</td><td class="rdef">+10</td><td class="rdef">+20</td><td class="rdef">+20</td><td class="rdef">+30</td><td class="ratt">+5</td><td class="ratt">+30%</td></tr>
+              <tr><td class="rlv">Lv.30</td><td>+90</td><td>+6</td><td>+6</td><td>+9</td><td>+14</td><td>+15</td><td>+2</td><td>+15%</td></tr>
+              <tr><td class="rlv rmax">Max</td><td class="rhp">+100</td><td class="rdef">+10</td><td class="rdef">+10</td><td class="rdef">+20</td><td class="rdef">+20</td><td class="rdef">+30</td><td class="ratt">+5</td><td class="ratt">+30%</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="rune-note">最強雙重傷害減免 · Max 昏迷耐性+30、魔防+20、防禦+15</div>
+        <div class="rune-note">最強雙重傷害減免 · Max 昏迷耐性+30、魔防+20 · 另附防禦+15、石化耐性+25、回血+15</div>
+      </div>
+
+      <!-- 席琳紋樣 -->
+      <div class="rune-card rune-xiline">
+        <div class="rune-hdr">
+          <span class="rune-name">席琳紋樣</span>
+          <span class="tier tier-s">法盾型</span>
+          <span class="rune-sub">血魔 · 雙減傷 · 超高經驗</span>
+        </div>
+        <div class="table-wrap">
+          <table class="wt rune-tbl">
+            <thead><tr><th>等級</th><th>血量</th><th>回血</th><th>回魔</th><th>物傷減</th><th>魔傷減</th><th>智力</th><th>PVP減</th><th>經驗%</th></tr></thead>
+            <tbody>
+              <tr><td class="rlv">Lv.1</td><td>+10</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>+10%</td></tr>
+              <tr><td class="rlv">Lv.15</td><td>+150</td><td>+7</td><td>+7</td><td>+4</td><td>+4</td><td>+2</td><td>+5</td><td>+50%</td></tr>
+              <tr><td class="rlv">Lv.30</td><td>+300</td><td>+20</td><td>+20</td><td>+9</td><td>+9</td><td>+5</td><td>+9</td><td>+130%</td></tr>
+              <tr><td class="rlv rmax">Max</td><td class="rhp">+400</td><td class="ratt">+30</td><td class="ratt">+30</td><td class="rdef">+10</td><td class="rdef">+10</td><td class="ratt">+6</td><td class="rpvp">+12</td><td class="ratt">+160%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="rune-note">第七紋樣 · 攻守兼備並擁有全紋樣最高經驗加成 · Max 另附魔量+100、精神+6、魔攻+5、昏迷/石化/睡眠耐性各+10、HP藥水回復+20</div>
       </div>
 
     </div>
