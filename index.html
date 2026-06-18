@@ -961,6 +961,43 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 </section>
 <hr class="divider">
 
+<!-- DEFENSE / AC MECHANIC -->
+<section id="defense">
+  <div class="section-inner">
+    <div class="section-label">DEFENSE / AC</div>
+    <h2 class="section-title">防禦（AC）怎麼運作？</h2>
+    <p class="section-desc">很多人以為防禦是「直接扣傷害」，其實本服的防禦是<strong>「閃避」機制</strong>——AC 數字越小（越負），敵人越容易揮空。但要注意：一旦被打中，傷害是<strong>吃滿的</strong>。防禦負責的是「讓對方打不中」，不是「打中後少痛一點」。</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.2rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.4rem;">⚔ 打怪（PvE）</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.6;">對怪物而言，防禦堆到一定程度後，降低命中的效益會逐漸遞減；同樣的防禦對<strong>低階怪</strong>比對高階怪更有效。</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.2rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.4rem;">🛡 打人（PvP）</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.6;">防禦效果<strong>加倍計算</strong>——堆防禦在<strong>玩家對戰</strong>中收益最大，高防玩家非常吃香。</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>防禦 AC</th><th>打怪・敵人命中率<br><span style="font-weight:400;font-size:.8em;">（中階怪示意）</span></th><th>PvP・對手命中率<br><span style="font-weight:400;font-size:.8em;">（中階對手示意）</span></th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="lv">0</td><td>約 95%</td><td>約 96%</td></tr>
+          <tr><td class="lv">−100</td><td>約 84%</td><td>約 75%</td></tr>
+          <tr><td class="lv">−200</td><td>約 74%</td><td>約 47%</td></tr>
+          <tr><td class="lv">−250</td><td>約 73%</td><td>約 42%</td></tr>
+          <tr><td class="lv">−300</td><td>約 71%</td><td>約 38%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.8rem;color:var(--dim);margin-top:1rem;">※ 上表為示意值，實際命中率會依攻方等級、命中加成與雙方狀態而變動。可以看出：<strong>防禦在 PvP 的收益遠大於打怪</strong>，且越往極限堆疊，邊際效益越小。本服戰鬥防禦上限為 <strong>AC −300</strong>。</p>
+  </div>
+</section>
+<hr class="divider">
+
 <!-- WEAPONS -->
 <section id="weapons">
   <div class="section-inner">
@@ -1414,6 +1451,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
     <h2 class="section-title">版本更新日誌</h2>
     <p class="section-desc">記錄伺服器每次重大更新，讓你清楚知道我們做了什麼。</p>
     <div class="cl-grid">
+
+      <div class="cl-row">
+        <div class="cl-ver">第60版</div>
+        <div class="cl-date">2026/06/18</div>
+        <div class="cl-type"><span class="cl-tag ct-new">改善</span><span class="cl-tag ct-java">Java</span></div>
+        <div class="cl-desc">🛡 <strong>防禦上限再提升</strong>：戰鬥用的防禦上限由 AC −250 進一步開放至 <strong>AC −300</strong>，讓主打防禦的流派（尤其在 PvP 對戰）還有成長空間。狀態列數值仍會停在顯示上限，實際防禦以真實數值計算，可用 <code style="font-size:.8em;background:rgba(255,255,255,.08);padding:.1em .3em;border-radius:3px;">查防禦</code> 查看真實值。防禦的詳細運作方式請見上方「防禦（AC）怎麼運作？」。</div>
+      </div>
 
       <div class="cl-row">
         <div class="cl-ver">第59版</div>
