@@ -28,6 +28,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,15,.92);
 .nav-links{display:flex;gap:1.6rem;list-style:none;}
 .nav-links a{color:var(--dim);text-decoration:none;font-size:.88rem;transition:color .2s;}
 .nav-links a:hover{color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;color:var(--gold);font-size:1.6rem;line-height:1;cursor:pointer;padding:.2rem .5rem;}
 
 /* ── HERO ── */
 #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 2rem 4rem;position:relative;overflow:hidden;}
@@ -279,7 +280,20 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 
 /* ── RESPONSIVE ── */
 @media(max-width:640px){
-  nav .nav-links{display:none;}
+  .nav-toggle{display:block;}                      /* 手機顯示漢堡按鈕 */
+  nav .nav-links{
+    display:none;                                   /* 預設收合 */
+    position:fixed;top:56px;left:0;right:0;
+    flex-direction:column;gap:0;
+    background:rgba(5,5,15,.98);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+    max-height:calc(100vh - 56px);overflow-y:auto;
+    padding:.4rem 0;
+  }
+  nav .nav-links.open{display:flex;}               /* 點漢堡後展開 */
+  nav .nav-links li{width:100%;}
+  nav .nav-links a{display:block;padding:.85rem 2rem;font-size:1rem;
+    border-bottom:1px solid rgba(255,255,255,.05);}
   .hero-stats{gap:1.5rem;}
 }
 </style>
@@ -289,7 +303,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 <!-- NAV -->
 <nav>
   <div class="nav-logo">⚔ 陸吼天堂雲端版</div>
-  <ul class="nav-links">
+  <!-- 手機版漢堡選單按鈕（桌面版隱藏） -->
+  <button class="nav-toggle" aria-label="開啟選單" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  <!-- 點到任一連結後自動收合選單 -->
+  <ul class="nav-links" onclick="if(event.target.closest('a'))this.classList.remove('open')">
     <li><a href="#unique">特色功能</a></li>
     <li><a href="#economy">金融系統</a></li>
     <li><a href="#clan">血盟系統</a></li>
