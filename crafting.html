@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>製作路徑圖 — 陸吼天堂雲端版</title>
+<style>
+:root{
+  --bg:#0d1018; --bg2:#141925; --card:#1b2230; --border:#2b3242;
+  --gold:#e0b66a; --green:#5fcf8e; --dim:#8a93a6; --text:#e6e9f0;
+  --mk:#2a3550; --base:#26211a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:"Microsoft JhengHei","Noto Sans TC",sans-serif;line-height:1.5;}
+a{color:var(--gold);text-decoration:none;}
+.wrap{max-width:1200px;margin:0 auto;padding:1.2rem;}
+header.top{position:sticky;top:0;z-index:20;background:rgba(13,16,24,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(6px);}
+header.top .wrap{display:flex;align-items:center;gap:1rem;padding:.8rem 1.2rem;}
+.logo{font-weight:800;font-size:1.15rem;color:var(--gold);}
+.logo small{color:var(--dim);font-weight:400;font-size:.8rem;margin-left:.4rem;}
+.back{margin-left:auto;font-size:.9rem;color:var(--dim);}
+.back:hover{color:var(--gold);}
+h1.title{font-size:1.5rem;margin:.4rem 0;}
+.sub{color:var(--dim);font-size:.9rem;margin-bottom:1rem;}
+.searchbar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
+#search{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:.7rem 1rem;font-size:1rem;}
+#search:focus{outline:none;border-color:var(--gold);}
+.count{color:var(--dim);font-size:.85rem;}
+#results{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem;}
+.chip{display:flex;align-items:center;gap:.4rem;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.35rem .6rem;cursor:pointer;font-size:.9rem;}
+.chip:hover{border-color:var(--gold);background:#222b3c;}
+.chip img{width:26px;height:26px;image-rendering:pixelated;}
+.chip.active{border-color:var(--gold);background:#2a3550;}
+.hint{color:var(--dim);font-size:.9rem;padding:.5rem 0;}
+
+/* 成品標頭 */
+.recipe-head{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.2rem;}
+.rh-top{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;}
+.rh-top img{width:44px;height:44px;image-rendering:pixelated;background:#000;border-radius:6px;}
+.rh-name{font-size:1.3rem;font-weight:800;color:var(--gold);}
+.rh-npc{color:var(--green);font-size:.95rem;}
+.rh-mats{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--border);font-size:.9rem;color:var(--dim);}
+.rh-mats b{color:var(--text);}
+
+/* 流程樹 */
+.tree{overflow-x:auto;padding:1rem 0;}
+.cnode{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top;}
+.cresult{display:flex;flex-direction:column;align-items:center;gap:.15rem;border:1px solid var(--border);border-radius:9px;padding:.4rem .5rem;min-width:74px;background:var(--card);}
+.cresult.mk{border-color:#3c4a6b;background:var(--mk);}
+.cresult.base{border-color:#4a3f2c;background:var(--base);}
+.cresult img{width:38px;height:38px;image-rendering:pixelated;}
+.cresult .noicon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:1.4rem;}
+.cname{font-size:.78rem;text-align:center;max-width:96px;line-height:1.2;}
+.camt{font-size:.8rem;color:var(--gold);font-weight:700;}
+.ctag{font-size:.66rem;color:var(--dim);background:rgba(0,0,0,.3);border-radius:3px;padding:0 .3rem;}
+.carrow{font-size:.78rem;color:var(--green);margin:.25rem 0;white-space:nowrap;}
+.carrow b{color:var(--text);}
+.cinputs{display:flex;align-items:flex-start;gap:.3rem;flex-wrap:nowrap;}
+.cplus{align-self:center;color:var(--dim);font-weight:700;font-size:1rem;padding:0 .1rem;}
+.note{color:var(--dim);font-size:.8rem;margin-top:.8rem;}
+footer{color:var(--dim);font-size:.8rem;text-align:center;padding:2rem 1rem;border-top:1px solid var(--border);margin-top:2rem;}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="logo">⚒ 製作路徑圖 <small>陸吼天堂雲端版</small></span>
+    <a class="back" href="index.html">← 回首頁</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1 class="title">道具製作路徑查詢</h1>
+  <p class="sub">輸入想製作的道具名稱，點選後展開完整製作流程（含所需材料、數量、製作 NPC）。藍框＝可再製作、棕框＝基礎材料。</p>
+
+  <div class="searchbar">
+    <input id="search" type="text" placeholder="🔍 輸入道具名稱（例：龍鱗、米索莉、金屬板）" autocomplete="off">
+    <span class="count" id="count"></span>
+  </div>
+  <div id="results"></div>
+
+  <div id="diagram"></div>
+</div>
+
+<footer>共 <span id="rcount"></span> 種可製作道具 ｜ 資料來源：伺服器製作配方 ＋ 道具圖示對照表</footer>
+
+<script src="crafting-data.js"></script>
+<script>
+const IT = CRAFT_DATA.items, RC = CRAFT_DATA.recipes, PI = CRAFT_DATA.prodIndex;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nameOf = id => (IT[id] && IT[id].n) || ('#'+id);
+const hasIcon = id => IT[id] && IT[id].i;
+const craftable = id => !!PI[id];
+const iconImg = (id, cls) => hasIcon(id)
+  ? `<img class="${cls||''}" src="img/craft-icons/${id}.png" alt="">`
+  : `<span class="noicon">▢</span>`;
+
+// 可製作產物清單（去重、依名稱排序）
+const products = Object.keys(PI).map(id => ({id, n: nameOf(id)}))
+  .sort((a,b)=>a.n.localeCompare(b.n,'zh-Hant'));
+document.getElementById('rcount').textContent = products.length;
+
+// ---- 攤平基礎材料（製作 1 批成品所需，含倍率；防循環） ----
+function flatten(id, qty, acc, path, depth){
+  if(depth>12){ return; }
+  if(craftable(id) && !path.has(id)){
+    const r = RC[PI[id][0]];
+    const pe = r.p.find(x=>x[0]==id); const pAmt = pe ? pe[1] : 1;
+    const batches = Math.max(1, Math.ceil(qty / pAmt));
+    const np = new Set(path); np.add(id);
+    r.m.forEach(m => flatten(m[0], m[1]*batches, acc, np, depth+1));
+  } else {
+    acc[id] = (acc[id]||0) + qty;
+  }
+}
+
+// ---- 遞迴渲染流程樹（顯示各配方原始數量；藍框可展開） ----
+function renderNode(id, amt, path, depth){
+  const isMk = craftable(id) && !path.has(id) && depth<10;
+  let h = '<div class="cnode">';
+  h += `<div class="cresult ${isMk?'mk':'base'}">${iconImg(id)}`
+     + `<span class="cname">${esc(nameOf(id))}</span>`
+     + `<span class="camt">×${amt.toLocaleString()}</span>`
+     + (isMk?'':'<span class="ctag">基礎材料</span>')
+     + '</div>';
+  if(isMk){
+    const r = RC[PI[id][0]];
+    h += `<div class="carrow">⬇ <b>${esc(r.npc||'製作')}</b></div>`;
+    h += '<div class="cinputs">';
+    const np = new Set(path); np.add(id);
+    r.m.forEach((m,i)=>{
+      if(i>0) h += '<div class="cplus">＋</div>';
+      h += renderNode(m[0], m[1], np, depth+1);
+    });
+    h += '</div>';
+  }
+  h += '</div>';
+  return h;
+}
+
+function showRecipe(id){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+  const r = RC[PI[id][0]];
+  const pe = r.p.find(x=>x[0]==id); const pAmt = pe ? pe[1] : 1;
+  // 攤平材料
+  const acc = {}; flatten(id, pAmt, acc, new Set(), 0);
+  const matStr = Object.keys(acc).sort((a,b)=> acc[b]-acc[a])
+    .map(mid => `<b>${esc(nameOf(mid))}</b>×${acc[mid].toLocaleString()}`).join('、') || '（皆為基礎材料）';
+  // NPC（最外層製作者）
+  const npc = r.npc ? `製作者：<span class="rh-npc">${esc(r.npc)}</span>` : '';
+  let h = '<div class="recipe-head">';
+  h += `<div class="rh-top">${iconImg(id)}<span class="rh-name">${esc(nameOf(id))}</span>`
+     + `<span style="color:var(--gold)">×${pAmt}</span> ${npc}</div>`;
+  h += `<div class="rh-mats">總材料（製作 1 次所需，已攤平至基礎材料）：${matStr}</div>`;
+  h += '</div>';
+  h += '<div class="tree">' + renderNode(id, pAmt, new Set(), 0) + '</div>';
+  h += '<p class="note">※ 流程圖各格顯示「該配方步驟」所需數量；上方「總材料」為換算到底層基礎材料的總量。藍框可再製作、棕框為基礎材料（來自掉落／商店）。</p>';
+  const d = document.getElementById('diagram'); d.innerHTML = h;
+  d.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ---- 搜尋 ----
+const $s = document.getElementById('search'), $r = document.getElementById('results'), $c = document.getElementById('count');
+function renderList(q){
+  q = q.trim();
+  let list = products;
+  if(q) list = products.filter(p => p.n.includes(q) || p.id.includes(q));
+  $c.textContent = q ? `找到 ${list.length} 種` : `輸入關鍵字搜尋（共 ${products.length} 種可製作道具）`;
+  $r.innerHTML = list.slice(0,80).map(p =>
+    `<div class="chip" data-id="${p.id}">${iconImg(p.id)}<span>${esc(p.n)}</span></div>`).join('')
+    + (list.length>80 ? `<div class="hint">…還有 ${list.length-80} 種，請輸入更精確的關鍵字</div>` : '');
+  $r.querySelectorAll('.chip').forEach(c => c.onclick = ()=>showRecipe(c.dataset.id));
+}
+$s.addEventListener('input', e=>renderList(e.target.value));
+renderList('');
+</script>
+</body>
+</html>
