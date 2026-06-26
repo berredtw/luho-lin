@@ -87,6 +87,8 @@ footer{color:var(--dim);font-size:.8rem;text-align:center;padding:2rem 1rem;bord
 <script src="crafting-data.js"></script>
 <script>
 const IT = CRAFT_DATA.items, RC = CRAFT_DATA.recipes, PI = CRAFT_DATA.prodIndex;
+// 視為「基礎材料」、不再往下展開其配方（金幣/元寶是貨幣，展開會牽出「如何製作金幣」與一堆 VIP，太亂）
+const STOP = new Set([40308, 44070]);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nameOf = id => (IT[id] && IT[id].n) || ('#'+id);
 const hasIcon = id => IT[id] && IT[id].i;
@@ -102,8 +104,8 @@ document.getElementById('rcount').textContent = products.length;
 
 // ---- 攤平基礎材料（製作 1 批成品所需，含倍率；防循環） ----
 function flatten(id, qty, acc, path, depth){
-  if(depth>12){ return; }
-  if(craftable(id) && !path.has(id)){
+  if(depth>12){ acc[id]=(acc[id]||0)+qty; return; }
+  if(craftable(id) && !STOP.has(id) && !path.has(id)){
     const r = RC[PI[id][0]];
     const pe = r.p.find(x=>x[0]==id); const pAmt = pe ? pe[1] : 1;
     const batches = Math.max(1, Math.ceil(qty / pAmt));
@@ -116,7 +118,7 @@ function flatten(id, qty, acc, path, depth){
 
 // ---- 遞迴渲染流程樹（顯示各配方原始數量；藍框可展開） ----
 function renderNode(id, amt, path, depth){
-  const isMk = craftable(id) && !path.has(id) && depth<10;
+  const isMk = craftable(id) && !STOP.has(id) && !path.has(id) && depth<10;
   let h = '<div class="cnode">';
   h += `<div class="cresult ${isMk?'mk':'base'}">${iconImg(id)}`
      + `<span class="cname">${esc(nameOf(id))}</span>`
@@ -125,7 +127,7 @@ function renderNode(id, amt, path, depth){
      + '</div>';
   if(isMk){
     const r = RC[PI[id][0]];
-    h += `<div class="carrow">⬇ <b>${esc(r.npc||'製作')}</b></div>`;
+    h += `<div class="carrow">⬆ <b>${esc(r.npc||'製作')}</b></div>`;
     h += '<div class="cinputs">';
     const np = new Set(path); np.add(id);
     r.m.forEach((m,i)=>{
