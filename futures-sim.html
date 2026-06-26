@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>期貨市場模擬器 — 陸吼天堂雲端版</title>
+<!--
+  期貨市場模擬器（網頁版・純前端）
+  ───────────────────────────────────────────────
+  ‧ 完全在玩家瀏覽器內以 JavaScript 運算，無任何後端 / 伺服器 / 資料庫連線。
+  ‧ 期貨數值為靜態快照（對照 DB fin_futures_config，2026-06-27）。
+  ‧ 模擬數學 1:1 移植自玩家版 exe 的 gen_path 演算法（gbm / 回歸 / 震盪 / 跳空 / 先漲後跌）。
+  ‧ 僅供娛樂參考，非投資建議。
+-->
+<style>
+:root{
+  --bg:#0d1018; --bg2:#141925; --card:#1b2230; --border:#2b3242;
+  --gold:#e0b66a; --green:#5fcf8e; --red:#ff6b6b; --blue:#4a9eff;
+  --dim:#8a93a6; --text:#e6e9f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:"Microsoft JhengHei","Noto Sans TC",sans-serif;line-height:1.5;}
+a{color:var(--gold);text-decoration:none;}
+.wrap{max-width:1100px;margin:0 auto;padding:1.2rem;}
+header.top{position:sticky;top:0;z-index:20;background:rgba(13,16,24,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(6px);}
+header.top .wrap{display:flex;align-items:center;gap:1rem;padding:.8rem 1.2rem;}
+.logo{font-weight:800;font-size:1.15rem;color:var(--gold);}
+.logo small{color:var(--dim);font-weight:400;font-size:.8rem;margin-left:.4rem;}
+.back{margin-left:auto;font-size:.9rem;color:var(--dim);}
+.back:hover{color:var(--gold);}
+h1.title{font-size:1.5rem;margin:.4rem 0;}
+.sub{color:var(--dim);font-size:.9rem;margin-bottom:1.1rem;}
+.sub b{color:var(--green);}
+
+/* 控制面板 */
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem;margin-bottom:1.1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem .9rem;}
+.field{display:flex;flex-direction:column;gap:.3rem;}
+.field label{font-size:.82rem;color:var(--dim);}
+.field select,.field input{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);
+  padding:.55rem .6rem;font-size:1rem;font-family:inherit;}
+.field select:focus,.field input:focus{outline:none;border-color:var(--gold);}
+.btnrow{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;margin-top:1rem;}
+.btn{background:#1c5f3f;border:1px solid #2c8a5b;color:#eafff3;border-radius:9px;padding:.7rem 1.4rem;
+  font-size:1.02rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn:hover{background:#23774e;}
+.btn.ghost{background:var(--card);border-color:var(--border);color:var(--text);font-weight:500;}
+.btn.ghost:hover{border-color:var(--gold);}
+.statusline{color:var(--dim);font-size:.85rem;}
+
+/* 圖表 */
+.chartbox{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:.8rem;margin-bottom:1.1rem;}
+#chart{width:100%;display:block;border-radius:8px;background:#0b0e16;}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;font-size:.8rem;color:var(--dim);padding:.6rem .3rem 0;}
+.legend i{display:inline-block;width:14px;height:0;border-top-width:3px;border-top-style:solid;vertical-align:middle;margin-right:.35rem;}
+
+/* 統計卡 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem;margin-bottom:1.1rem;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem .9rem;text-align:center;}
+.stat .k{font-size:.78rem;color:var(--dim);margin-bottom:.25rem;}
+.stat .v{font-size:1.25rem;font-weight:800;}
+.note{color:var(--dim);font-size:.82rem;line-height:1.7;border-top:1px dashed var(--border);padding-top:1rem;margin-top:.4rem;}
+.note b{color:var(--gold);}
+@media(max-width:560px){ h1.title{font-size:1.25rem;} .stat .v{font-size:1.1rem;} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="logo">陸吼天堂雲端版 <small>期貨市場模擬器</small></span>
+    <a class="back" href="index.html">← 回首頁</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1 class="title">📈 期貨市場模擬器</h1>
+  <p class="sub">選一支期貨、設定參數，模擬未來可能的走勢區間。<b>全程在你的瀏覽器內運算，不連任何伺服器或資料庫</b>，純屬娛樂參考。</p>
+
+  <!-- 控制面板 -->
+  <div class="panel">
+    <div class="grid">
+      <div class="field">
+        <label>期貨標的</label>
+        <select id="sym"></select>
+      </div>
+      <div class="field">
+        <label>市場模型</label>
+        <select id="model"></select>
+      </div>
+      <div class="field">
+        <label>現價（起跌點）</label>
+        <input id="price" type="number" min="1" step="1">
+      </div>
+      <div class="field">
+        <label>波動率 %</label>
+        <input id="vol" type="number" min="1" max="60" step="1">
+      </div>
+      <div class="field">
+        <label>價格下限</label>
+        <input id="min" type="number" min="1" step="1">
+      </div>
+      <div class="field">
+        <label>價格上限</label>
+        <input id="max" type="number" min="1" step="1">
+      </div>
+      <div class="field">
+        <label>模擬時數（小時）</label>
+        <input id="hours" type="number" min="1" max="168" step="1" value="24">
+      </div>
+      <div class="field">
+        <label>模擬次數（路徑）</label>
+        <input id="paths" type="number" min="5" max="200" step="5" value="30">
+      </div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" id="run">▶ 開始模擬</button>
+      <button class="btn ghost" id="reset">↺ 還原此標的預設值</button>
+      <span class="statusline" id="status">就緒：選好標的與模型後按「開始模擬」。</span>
+    </div>
+  </div>
+
+  <!-- 圖表 -->
+  <div class="chartbox">
+    <canvas id="chart" height="430"></canvas>
+    <div class="legend">
+      <span><i style="border-color:var(--blue)"></i>個別模擬路徑</span>
+      <span><i style="border-color:#3a6ea8;border-top-style:solid"></i>P10~P90 可能區間</span>
+      <span><i style="border-color:#aab4ff;border-top-style:dashed"></i>中位數</span>
+      <span><i style="border-color:var(--gold);border-top-style:dashed"></i>起跌基準價</span>
+    </div>
+  </div>
+
+  <!-- 統計 -->
+  <div class="stats" id="stats">
+    <div class="stat"><div class="k">中位數收盤</div><div class="v" id="s_med">—</div></div>
+    <div class="stat"><div class="k">平均漲跌幅</div><div class="v" id="s_chg">—</div></div>
+    <div class="stat"><div class="k">最好情境 (P90)</div><div class="v" id="s_best" style="color:var(--green)">—</div></div>
+    <div class="stat"><div class="k">最壞情境 (P10)</div><div class="v" id="s_worst" style="color:var(--red)">—</div></div>
+  </div>
+
+  <p class="note">
+    <b>怎麼看：</b>中間那條虛線是「最可能」的走勢，淡藍色細線是每一次隨機模擬的結果，藍色區間帶代表約 80% 的機率會落在裡面（P10~P90）。<br>
+    <b>注意：</b>這是用隨機亂數跑出來的「可能性」，<b>每次按都會不一樣</b>，不是預測、不保證、更不是投資建議，純粹好玩。實際市場以遊戲內為準。
+  </p>
+</div>
+
+<script>
+"use strict";
+// ── 20 支期貨靜態快照（對照 DB fin_futures_config，2026-06-27；依 futures_id 排序）──
+const SYMBOLS = [
+  {sym:'ADEN',  name:'亞丁皇家開發',   price:1960, vol:14, min:10, max:4000},
+  {sym:'GIRAN', name:'奇岩黃金商貿',   price:446,  vol:12, min:10, max:4000},
+  {sym:'IVORY', name:'象牙塔精煉製藥', price:672,  vol:10, min:10, max:4000},
+  {sym:'TEROS', name:'特羅斯復國基金', price:241,  vol:14, min:10, max:4000},
+  {sym:'KEN',   name:'肯恩黃金傭兵',   price:267,  vol:10, min:10, max:4000},
+  {sym:'HEINE', name:'海音水產航運',   price:339,  vol:12, min:10, max:4000},
+  {sym:'ORC',   name:'妖魔要塞聯合',   price:52,   vol:8,  min:10, max:4000},
+  {sym:'ELF',   name:'妖精森林生態材料',price:596, vol:12, min:10, max:4000},
+  {sym:'TIE',   name:'說話之島教育基礎',price:278, vol:8,  min:10, max:4000},
+  {sym:'DRGN',  name:'亞丁地底巨龍開發',price:365, vol:10, min:10, max:4000},
+  {sym:'DIAD',  name:'狄亞得要塞重工',  price:180, vol:10, min:10, max:4000},
+  {sym:'OREN',  name:'歐瑞冰晶魔法',    price:413, vol:10, min:10, max:4000},
+  {sym:'DEM',   name:'黑色妖精黃金團',  price:165, vol:12, min:10, max:4000},
+  {sym:'RKV',   name:'紅騎士團風險投資',price:123, vol:12, min:10, max:4000},
+  {sym:'WIND',  name:'風木荒漠能源',    price:2514,vol:10, min:10, max:4000},
+  {sym:'KENT',  name:'肯特鋼鐵礦業',    price:44,  vol:8,  min:10, max:4000},
+  {sym:'HADIN', name:'哈汀幻術與時空',  price:2109,vol:10, min:10, max:4000},
+  {sym:'DDC',   name:'狄亞得暗黑水晶',  price:294, vol:12, min:10, max:4000},
+  {sym:'SING',  name:'歌唱之島演藝經紀',price:63,  vol:8,  min:10, max:4000},
+  {sym:'FIE',   name:'遺忘之島遠洋探勘',price:151, vol:15, min:10, max:4000},
+];
+
+// ── 5 個市場模型（中性命名，演算法 1:1 對照玩家版 exe）──
+const MODELS = {
+  '模型 1':{algo:'gbm',        vol:3},
+  '模型 2':{algo:'mean_revert',vol:4, theta:0.07},
+  '模型 3':{algo:'chop',       vol:6, drift:-0.0005},
+  '模型 4':{algo:'jump',       vol:3, jump_prob:0.006, jump_size:0.15},
+  '模型 5':{algo:'bear_trap',  vol:3, pump_drift:0.001, dump_drift:-0.0008, pump_ratio:0.25},
+};
+
+const TICK_MIN = 5; // 每 tick 5 分鐘（固定，與 exe 一致）
+
+// ── 路徑生成（移植自 gen_path）──
+function clamp(v,mn,mx){ return Math.max(mn, Math.min(mx, v)); }
+function genPath(open, volPct, mn, mx, model, ticks){
+  const path=[open]; let cur=open; const v=volPct/100; const a=model.algo;
+  for(let i=0;i<ticks;i++){
+    let next;
+    if(a==='gbm'){
+      next = cur*(1+(Math.random()*2-1)*v);
+    }else if(a==='mean_revert'){
+      const rnd=(Math.random()*2-1)*v;
+      const pull = open ? model.theta*(open-cur)/open : 0;
+      next = cur*(1+rnd+pull);
+    }else if(a==='chop'){
+      next = cur*(1+(Math.random()*2-1)*v+model.drift);
+    }else if(a==='jump'){
+      const rnd=(Math.random()*2-1)*v;
+      const jump = Math.random()<model.jump_prob ? (Math.random()<0.5?1:-1)*model.jump_size : 0;
+      next = cur*(1+rnd+jump);
+    }else if(a==='bear_trap'){
+      const rnd=(Math.random()*2-1)*v;
+      const cut = Math.floor(ticks*model.pump_ratio);
+      const d = i<cut ? model.pump_drift : model.dump_drift;
+      next = cur*(1+rnd+d);
+    }
+    cur = clamp(Math.round(next), mn, mx);
+    path.push(cur);
+  }
+  return path;
+}
+
+// 百分位（線性內插，對齊 numpy.percentile）
+function pct(sorted, p){
+  const idx=(sorted.length-1)*p, lo=Math.floor(idx), hi=Math.ceil(idx);
+  return lo===hi ? sorted[lo] : sorted[lo]+(sorted[hi]-sorted[lo])*(idx-lo);
+}
+
+// ── DOM ──
+const $ = id => document.getElementById(id);
+const elSym=$('sym'), elModel=$('model'), elPrice=$('price'), elVol=$('vol'),
+      elMin=$('min'), elMax=$('max'), elHours=$('hours'), elPaths=$('paths'),
+      elStatus=$('status'), canvas=$('chart'), ctx=canvas.getContext('2d');
+
+let lastResult=null; // 保存最近一次模擬，供視窗縮放時重畫
+
+// 初始化下拉選單
+SYMBOLS.forEach((s,i)=>{
+  const o=document.createElement('option');
+  o.value=i; o.textContent=`${s.sym}　${s.name}`;
+  elSym.appendChild(o);
+});
+Object.keys(MODELS).forEach(name=>{
+  const o=document.createElement('option');
+  o.value=name; o.textContent=name;
+  elModel.appendChild(o);
+});
+
+// 帶入某標的的預設值
+function loadSymbolDefaults(){
+  const s=SYMBOLS[+elSym.value];
+  elPrice.value=s.price; elVol.value=s.vol; elMin.value=s.min; elMax.value=s.max;
+}
+// 選模型 → 套用該模型特性波動率（與 exe 的 _apply_model 一致，玩家仍可手動改）
+function applyModelVol(){ elVol.value = MODELS[elModel.value].vol; }
+
+elSym.addEventListener('change', loadSymbolDefaults);
+elModel.addEventListener('change', applyModelVol);
+// reset：把此標的的價格/波動/上下限還原成 DB 快照預設值
+$('reset').addEventListener('click', ()=>{ loadSymbolDefaults(); setStatus('已還原此標的預設值。'); });
+
+function setStatus(t){ elStatus.textContent=t; }
+
+// ── 主流程：執行模擬 ──
+function runSim(){
+  const sIdx=+elSym.value, s=SYMBOLS[sIdx];
+  const open=Math.round(+elPrice.value), vol=+elVol.value,
+        mn=Math.round(+elMin.value), mx=Math.round(+elMax.value),
+        hours=Math.round(+elHours.value), nPaths=Math.round(+elPaths.value);
+  const model=MODELS[elModel.value];
+
+  // 基本檢查
+  if(!(open>0)||!(vol>0)||!(mn>0)||!(mx>mn)){ setStatus('⚠ 請確認價格/波動/上下限為有效數字，且上限大於下限。'); return; }
+  if(!(hours>=1&&hours<=168)){ setStatus('⚠ 模擬時數請介於 1~168 小時。'); return; }
+  if(!(nPaths>=5&&nPaths<=200)){ setStatus('⚠ 模擬次數請介於 5~200。'); return; }
+
+  const ticks=Math.max(1, Math.floor(hours*60/TICK_MIN));
+  const paths=[];
+  for(let p=0;p<nPaths;p++) paths.push(genPath(clamp(open,mn,mx), vol, mn, mx, model, ticks));
+
+  // 逐 tick 統計
+  const n=ticks+1, p10=new Array(n), p50=new Array(n), p90=new Array(n), mean=new Array(n);
+  for(let t=0;t<n;t++){
+    const col=new Array(nPaths);
+    let sum=0;
+    for(let p=0;p<nPaths;p++){ col[p]=paths[p][t]; sum+=col[p]; }
+    col.sort((a,b)=>a-b);
+    p10[t]=pct(col,0.10); p50[t]=pct(col,0.50); p90[t]=pct(col,0.90); mean[t]=sum/nPaths;
+  }
+
+  lastResult={paths,p10,p50,p90,mean,open,mn,mx,hours,ticks,modelName:elModel.value,
+              symLabel:`${s.sym} ${s.name}`,vol};
+  drawChart();
+
+  // 統計卡
+  const medClose=p50[n-1], chg=open? (mean[n-1]-open)/open*100 : 0;
+  $('s_med').textContent=Math.round(medClose).toLocaleString();
+  const chgEl=$('s_chg');
+  chgEl.textContent=(chg>=0?'+':'')+chg.toFixed(1)+'%';
+  chgEl.style.color = chg>=0 ? 'var(--green)' : 'var(--red)';
+  $('s_best').textContent=Math.round(p90[n-1]).toLocaleString();
+  $('s_worst').textContent=Math.round(p10[n-1]).toLocaleString();
+
+  setStatus(`模擬完成：${elModel.value}　${hours} 小時 / ${nPaths} 條路徑　(每次結果都不同)`);
+}
+
+// ── Canvas 繪圖 ──
+function drawChart(){
+  const R=lastResult; if(!R) return;
+  const dpr=window.devicePixelRatio||1;
+  const cssW=canvas.clientWidth||canvas.parentElement.clientWidth-16;
+  const cssH=430;
+  canvas.width=Math.round(cssW*dpr); canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,cssW,cssH);
+
+  const padL=58, padR=14, padT=34, padB=30;
+  const W=cssW-padL-padR, H=cssH-padT-padB;
+  const n=R.ticks+1;
+
+  // Y 範圍：取所有 P10/P90 + 開盤價 的範圍，留 8% 邊
+  let lo=Math.min(R.open, ...R.p10), hi=Math.max(R.open, ...R.p90);
+  if(hi<=lo) hi=lo+1;
+  const margin=(hi-lo)*0.08; lo=Math.max(0, lo-margin); hi=hi+margin;
+  const X=t=> padL + (n<=1?0: t/(n-1)*W);
+  const Y=v=> padT + (1-(v-lo)/(hi-lo))*H;
+
+  // 背景格線 + Y 標籤
+  ctx.font='11px "Microsoft JhengHei",sans-serif'; ctx.textBaseline='middle';
+  for(let g=0;g<=4;g++){
+    const v=lo+(hi-lo)*g/4, y=Y(v);
+    ctx.strokeStyle='#1c2433'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(padL+W,y); ctx.stroke();
+    ctx.fillStyle='#6b7690'; ctx.textAlign='right';
+    ctx.fillText(Math.round(v).toLocaleString(), padL-7, y);
+  }
+  // X 標籤（小時）
+  ctx.textAlign='center'; ctx.textBaseline='top';
+  const xticks=Math.min(6, R.hours);
+  for(let g=0;g<=xticks;g++){
+    const hr=Math.round(R.hours*g/xticks), t=Math.round((hr*60/TICK_MIN));
+    const x=X(Math.min(t,n-1));
+    ctx.fillStyle='#6b7690'; ctx.fillText(hr+'h', x, padT+H+8);
+  }
+
+  // 個別路徑（淡）
+  ctx.strokeStyle='rgba(74,158,255,0.13)'; ctx.lineWidth=0.8;
+  for(const path of R.paths){
+    ctx.beginPath();
+    for(let t=0;t<n;t++){ const x=X(t),y=Y(path[t]); t?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+    ctx.stroke();
+  }
+  // P10~P90 區間帶
+  ctx.fillStyle='rgba(74,158,255,0.18)';
+  ctx.beginPath();
+  for(let t=0;t<n;t++){ const x=X(t),y=Y(R.p90[t]); t?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+  for(let t=n-1;t>=0;t--){ ctx.lineTo(X(t),Y(R.p10[t])); }
+  ctx.closePath(); ctx.fill();
+
+  // 起跌基準價（金色虛線）
+  ctx.strokeStyle='rgba(224,182,106,0.8)'; ctx.lineWidth=1; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(padL,Y(R.open)); ctx.lineTo(padL+W,Y(R.open)); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // 中位數線（淺紫虛線）
+  ctx.strokeStyle='#aab4ff'; ctx.lineWidth=1.4; ctx.setLineDash([6,3]);
+  ctx.beginPath();
+  for(let t=0;t<n;t++){ const x=X(t),y=Y(R.p50[t]); t?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+  ctx.stroke(); ctx.setLineDash([]);
+
+  // 平均線（藍實線）
+  ctx.strokeStyle='#4a9eff'; ctx.lineWidth=1.8;
+  ctx.beginPath();
+  for(let t=0;t<n;t++){ const x=X(t),y=Y(R.mean[t]); t?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+  ctx.stroke();
+
+  // 標題
+  ctx.fillStyle='#e6e9f0'; ctx.textAlign='left'; ctx.textBaseline='middle';
+  ctx.font='bold 13px "Microsoft JhengHei",sans-serif';
+  ctx.fillText(`${R.symLabel}　【${R.modelName}】　${R.hours}h / ${R.paths.length} 路徑`, padL, 16);
+}
+
+// 視窗縮放時重畫（手機橫直切換、桌面拉寬）
+let rT; window.addEventListener('resize', ()=>{ clearTimeout(rT); rT=setTimeout(drawChart,150); });
+
+$('run').addEventListener('click', runSim);
+
+// 啟動：預設第一支 + 第一個模型，先跑一次給玩家看
+elSym.value=0; elModel.value='模型 1';
+loadSymbolDefaults(); applyModelVol();
+runSim();
+</script>
+</body>
+</html>
