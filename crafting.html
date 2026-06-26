@@ -140,10 +140,11 @@ function renderNode(id, amt, path, depth){
 
 function showRecipe(id){
   document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+  const nid = Number(id);
   const r = RC[PI[id][0]];
-  const pe = r.p.find(x=>x[0]==id); const pAmt = pe ? pe[1] : 1;
+  const pe = r.p.find(x=>x[0]==nid); const pAmt = pe ? pe[1] : 1;
   // 攤平材料
-  const acc = {}; flatten(id, pAmt, acc, new Set(), 0);
+  const acc = {}; flatten(nid, pAmt, acc, new Set(), 0);
   const matStr = Object.keys(acc).sort((a,b)=> acc[b]-acc[a])
     .map(mid => `<b>${esc(nameOf(mid))}</b>×${acc[mid].toLocaleString()}`).join('、') || '（皆為基礎材料）';
   // NPC（最外層製作者）
@@ -153,7 +154,7 @@ function showRecipe(id){
      + `<span style="color:var(--gold)">×${pAmt}</span> ${npc}</div>`;
   h += `<div class="rh-mats">總材料（製作 1 次所需，已攤平至基礎材料）：${matStr}</div>`;
   h += '</div>';
-  h += '<div class="tree">' + renderNode(id, pAmt, new Set(), 0) + '</div>';
+  h += '<div class="tree">' + renderNode(nid, pAmt, new Set(), 0) + '</div>';
   h += '<p class="note">※ 流程圖各格顯示「該配方步驟」所需數量；上方「總材料」為換算到底層基礎材料的總量。藍框可再製作、棕框為基礎材料（來自掉落／商店）。</p>';
   const d = document.getElementById('diagram'); d.innerHTML = h;
   d.scrollIntoView({behavior:'smooth', block:'start'});
