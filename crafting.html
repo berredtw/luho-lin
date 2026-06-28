@@ -84,7 +84,7 @@ footer{color:var(--dim);font-size:.8rem;text-align:center;padding:2rem 1rem;bord
 
 <footer>共 <span id="rcount"></span> 種可製作道具 ｜ 資料來源：伺服器製作配方 ＋ 道具圖示對照表</footer>
 
-<script src="crafting-data.js"></script>
+<script src="crafting-data.js?v=20260629"></script>
 <script>
 const IT = CRAFT_DATA.items, RC = CRAFT_DATA.recipes, PI = CRAFT_DATA.prodIndex;
 // 視為「基礎材料」、不再往下展開其配方（金幣/元寶是貨幣，展開會牽出「如何製作金幣」與一堆 VIP，太亂）
@@ -94,7 +94,7 @@ const nameOf = id => (IT[id] && IT[id].n) || ('#'+id);
 const hasIcon = id => IT[id] && IT[id].i;
 const craftable = id => !!PI[id];
 const iconImg = (id, cls) => hasIcon(id)
-  ? `<img class="${cls||''}" src="img/craft-icons/${id}.png" alt="">`
+  ? `<img class="${cls||''}" src="img/craft-icons/${id}.png?v=20260629" alt="">`
   : `<span class="noicon">▢</span>`;
 
 // 可製作產物清單（去重、依名稱排序）
