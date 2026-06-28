@@ -97,9 +97,12 @@ const iconImg = (id, cls) => hasIcon(id)
   ? `<img class="${cls||''}" src="img/craft-icons/${id}.png?v=20260629" alt="">`
   : `<span class="noicon">▢</span>`;
 
-// 可製作產物清單（去重、依名稱排序）
+// 可製作產物清單（依名稱排序，並「同名去重」只留一個代表 id，
+//   避免同名不同 item_id 的道具如卡立普袋子/斗篷重複佔格）
+const _seenName = new Set();
 const products = Object.keys(PI).map(id => ({id, n: nameOf(id)}))
-  .sort((a,b)=>a.n.localeCompare(b.n,'zh-Hant'));
+  .sort((a,b)=>a.n.localeCompare(b.n,'zh-Hant'))
+  .filter(p => { if(_seenName.has(p.n)) return false; _seenName.add(p.n); return true; });
 document.getElementById('rcount').textContent = products.length;
 
 // ---- 攤平基礎材料（製作 1 批成品所需，含倍率；防循環） ----
