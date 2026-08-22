@@ -1990,10 +1990,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
   var d = new Date();
   var dayKey = 'd' + d.getFullYear() + ('0'+(d.getMonth()+1)).slice(-2) + ('0'+d.getDate()).slice(-2);
   function set(id, n){ var e=document.getElementById(id); if(e) e.textContent=Number(n).toLocaleString(); }
-  fetch('https://api.counterapi.dev/v1/'+ns+'/'+dayKey+'/up')
-    .then(function(r){return r.json();}).then(function(j){set('cnt-today',j.count);}).catch(function(){set('cnt-today','—');});
-  fetch('https://api.counterapi.dev/v1/'+ns+'/total/up')
-    .then(function(r){return r.json();}).then(function(j){set('cnt-total',j.count);}).catch(function(){set('cnt-total','—');});
+  // 計數服務用 Abacus（原 counterapi.dev v1 已於 2026-08 停用回 410）；/hit=+1並回傳，欄位是 value
+  fetch('https://abacus.jasoncameron.dev/hit/'+ns+'/'+dayKey)
+    .then(function(r){return r.json();}).then(function(j){set('cnt-today',j.value);}).catch(function(){set('cnt-today','—');});
+  fetch('https://abacus.jasoncameron.dev/hit/'+ns+'/totalv2')
+    .then(function(r){return r.json();}).then(function(j){set('cnt-total',j.value);}).catch(function(){set('cnt-total','—');});
 })();
 </script>
 <!-- Google tag (gtag.js) -->
