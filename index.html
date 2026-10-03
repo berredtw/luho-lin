@@ -316,6 +316,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
     <li><a href="#pets">寵物系統</a></li>
     <li><a href="#rift">時空裂痕</a></li>
     <li><a href="#rings">戒靈之戒</a></li>
+    <li><a href="#jobchange">轉職系統</a></li>
     <li><a href="#info">伺服器資訊</a></li>
     <li><a href="#join">立即加入</a></li>
     <li><a href="#changelog">更新日誌</a></li>
@@ -1668,6 +1669,88 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
       </table>
     </div>
     <p style="font-size:.8rem;color:var(--dim);margin-top:1rem;">※ 一人最多配戴一枚魔戒；搶到多枚也只能戴一枚。轉生與否不影響配戴。經驗加成為配戴期間生效，脫下即還原。</p>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- CLASS CHANGE（第124版 §330/§331，2026-10-03 上線） -->
+<section id="jobchange">
+  <div class="section-inner">
+    <div class="section-label">CLASS CHANGE</div>
+    <h2 class="section-title">強制轉換職業 · 不用重練，換個職業再出發</h2>
+    <p class="section-desc">練了一隻妖精，卻突然想當騎士衝前線？在陸吼天堂<strong>不用砍掉重練</strong>！使用「<strong>強製轉換職業</strong>」道具，就能把現有角色直接換成其他職業 —— <strong>等級、經驗值、背包與倉庫的所有道具、金幣通通保留</strong>，只要重新學技能、重新分配素質，馬上就能用新職業繼續冒險。</p>
+
+    <!-- 七大職業 -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:1.5rem 0;">
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="color:var(--gold);font-weight:700;font-size:1.1rem;">👑 王族</div>
+        <div style="font-size:.8rem;color:var(--dim);line-height:1.6;margin-top:.4rem;">初始素質<br>力13 敏10 體10<br>精11 魅13 智10</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="color:var(--gold);font-weight:700;font-size:1.1rem;">🛡 騎士</div>
+        <div style="font-size:.8rem;color:var(--dim);line-height:1.6;margin-top:.4rem;">初始素質<br>力16 敏12 體14<br>精9 魅12 智8</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="color:var(--gold);font-weight:700;font-size:1.1rem;">🏹 妖精</div>
+        <div style="font-size:.8rem;color:var(--dim);line-height:1.6;margin-top:.4rem;">初始素質<br>力11 敏12 體12<br>精12 魅9 智12</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="color:var(--gold);font-weight:700;font-size:1.1rem;">🔮 法師</div>
+        <div style="font-size:.8rem;color:var(--dim);line-height:1.6;margin-top:.4rem;">初始素質<br>力8 敏7 體12<br>精12 魅8 智12</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="color:var(--gold);font-weight:700;font-size:1.1rem;">🗡 黑暗妖精</div>
+        <div style="font-size:.8rem;color:var(--dim);line-height:1.6;margin-top:.4rem;">初始素質<br>力12 敏15 體8<br>精10 魅9 智11</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="color:var(--gold);font-weight:700;font-size:1.1rem;">🐉 龍騎士</div>
+        <div style="font-size:.8rem;color:var(--dim);line-height:1.6;margin-top:.4rem;">初始素質<br>力13 敏11 體14<br>精12 魅8 智11</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="color:var(--gold);font-weight:700;font-size:1.1rem;">✨ 幻術士</div>
+        <div style="font-size:.8rem;color:var(--dim);line-height:1.6;margin-top:.4rem;">初始素質<br>力11 敏10 體12<br>精12 魅8 智12</div>
+      </div>
+    </div>
+    <p style="font-size:.85rem;color:var(--dim);margin-top:-.5rem;">共 7 種轉職道具，一種對應一個職業 —— 想轉成哪個職業，就使用該職業的道具。道具<strong>無法交易</strong>，雙擊即可使用；取得方式另行公告。</p>
+
+    <!-- 保留 vs 重來 -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1.5rem 0;">
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">✅ 轉職後保留</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.9;">等級、經驗值<br>最大 HP／MP<br>背包、倉庫裡的所有道具與金幣<br>血盟成員身分<br>角色名稱、性別</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">🔄 轉職後重來</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.9;">所有已學技能（需重新學習）<br>基本素質（重設為新職業初始值）<br>身上的增益狀態、變身<br>妖精屬性<br>穿戴中的裝備（自動脫下放回背包）</div>
+      </div>
+    </div>
+
+    <!-- 使用條件 -->
+    <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;margin:1.5rem 0;">
+      <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">📋 使用條件（不符合時道具不會被扣除）</div>
+      <div style="font-size:.9rem;color:var(--dim);line-height:1.9;">
+        ・不能轉成自己目前的職業<br>
+        ・<strong>轉生過的角色無法轉職</strong><br>
+        ・<strong>血盟盟主無法轉職</strong>，請先將盟主轉讓給其他成員<br>
+        ・背包請保留 <strong>20 格以上</strong>空位（轉職時全身裝備會脫下放回背包）<br>
+        ・角色需在存活狀態，且不在重新配點中
+      </div>
+    </div>
+
+    <!-- 轉職流程 -->
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:64px;">步驟</th><th>轉職流程</th></tr></thead>
+        <tbody>
+          <tr><td class="lv">1</td><td>確認符合使用條件後，<strong>雙擊</strong>想要轉成的職業的轉職道具。</td></tr>
+          <tr><td class="lv">2</td><td>系統清除身上狀態、<strong>脫下全身裝備放回背包</strong>、遺忘所有技能，並把外觀換成新職業的樣子（依角色性別）。</td></tr>
+          <tr><td class="lv">3</td><td>基本素質重設為新職業初始值，同時獲贈 <strong>1 支「回憶蠟燭」</strong>；<strong>5 秒後自動回到登入畫面</strong>。</td></tr>
+          <tr><td class="lv">4</td><td>重新登入後，帶著回憶蠟燭找<strong>人生規劃師「露露」</strong>，依新職業重新分配素質。</td></tr>
+          <tr><td class="lv">5</td><td>使用新職業的<strong>魔法書重新學習技能</strong>，換上新職業可以穿戴的裝備，正式以新職業出發！</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.8rem;color:var(--dim);margin-top:1rem;">※ 轉職後技能與素質分配都會重來，請想清楚再使用！</p>
   </div>
 </section>
 <hr class="divider">
