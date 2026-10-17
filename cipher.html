@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加密通信器 — 陸吼天堂雲端版</title>
+<!--
+  加密通信器（網頁版・純前端）
+  ───────────────────────────────────────────────
+  ‧ 恩尼格碼 M3 模擬，完全在瀏覽器內運算，無任何後端 / 伺服器 / 資料庫連線。
+  ‧ 網頁本身不含鑰匙：鑰匙由使用者輸入通關密語或匯入密碼本檔，只存在自己的瀏覽器。
+  ‧ 與電腦版 enigma.exe 演算法相同、可互通（核心在 cipher-core.js）。
+  ‧ 恩尼格碼二戰時已被破解，僅供娛樂，請勿用來保護真正的機密。
+-->
+<style>
+:root{
+  --bg:#0d1018; --bg2:#141925; --card:#1b2230; --border:#2b3242;
+  --gold:#e0b66a; --green:#5fcf8e; --red:#ff6b6b; --blue:#4a9eff;
+  --dim:#8a93a6; --text:#e6e9f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:"Microsoft JhengHei","Noto Sans TC",sans-serif;line-height:1.5;}
+a{color:var(--gold);text-decoration:none;}
+.wrap{max-width:1100px;margin:0 auto;padding:1.2rem 16px;}
+header.top{position:sticky;top:0;z-index:20;background:rgba(13,16,24,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(6px);}
+header.top .wrap{display:flex;align-items:center;gap:1rem;padding:.8rem 16px;}
+.logo{font-weight:800;font-size:1.15rem;color:var(--gold);}
+.logo small{color:var(--dim);font-weight:400;font-size:.8rem;margin-left:.4rem;}
+.back{margin-left:auto;font-size:.9rem;color:var(--dim);white-space:nowrap;}
+.back:hover{color:var(--gold);}
+h1.title{font-size:1.5rem;margin:.4rem 0;}
+.sub{color:var(--dim);font-size:.9rem;margin-bottom:1.1rem;}
+.sub b{color:var(--green);}
+
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem;margin-bottom:1.1rem;}
+.panel h2{font-size:1.05rem;color:var(--gold);margin-bottom:.6rem;}
+.keyline{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;}
+.keyline .fp{font-family:Consolas,monospace;color:var(--green);font-weight:700;letter-spacing:.08em;}
+.keyline .none{color:var(--red);font-weight:700;}
+.tabs{display:flex;gap:.4rem;margin:.9rem 0 .7rem;flex-wrap:wrap;}
+.tab{background:var(--card);border:1px solid var(--border);color:var(--dim);border-radius:8px;padding:.45rem .9rem;cursor:pointer;font-family:inherit;font-size:.95rem;}
+.tab.on{border-color:var(--gold);color:var(--gold);font-weight:700;}
+.field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.7rem;}
+.field label{font-size:.85rem;color:var(--dim);}
+input[type=text],input[type=password],select,textarea{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);
+  padding:.6rem .7rem;font-size:1rem;font-family:inherit;width:100%;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);}
+.passrow{display:flex;gap:.5rem;}
+.passrow input{flex:1;min-width:0;}
+.check{display:flex;align-items:center;gap:.4rem;font-size:.88rem;color:var(--dim);margin:.2rem 0 .7rem;}
+.hint{font-size:.82rem;color:var(--dim);}
+
+.btnrow{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;}
+.btn{background:#1c5f3f;border:1px solid #2c8a5b;color:#eafff3;border-radius:9px;padding:.65rem 1.2rem;
+  font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn:hover{background:#23774e;}
+.btn.blue{background:#1d4673;border-color:#2f6aa8;}
+.btn.blue:hover{background:#245891;}
+.btn.ghost{background:var(--card);border-color:var(--border);color:var(--text);font-weight:500;}
+.btn.ghost:hover{border-color:var(--gold);}
+.btn.small{padding:.4rem .8rem;font-size:.88rem;}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+
+.tools{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:.8rem;}
+.tools select{width:auto;min-width:8.5rem;}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.col h3{font-size:.9rem;color:var(--dim);font-weight:500;margin-bottom:.35rem;}
+.col textarea{min-height:300px;resize:vertical;line-height:1.55;}
+#output{font-family:Consolas,"Courier New",monospace;}
+.mid{display:none;}
+.status{margin-top:.7rem;font-size:.9rem;color:var(--dim);min-height:1.4em;word-break:break-all;}
+.status.err{color:var(--red);}
+.status.ok{color:var(--green);}
+
+.notes{font-size:.9rem;color:var(--dim);}
+.notes li{margin:.3rem 0 .3rem 1.2rem;}
+.notes b{color:var(--text);}
+.warn{color:var(--gold);}
+
+@media (max-width:720px){
+  h1.title{font-size:1.3rem;}
+  .cols{grid-template-columns:1fr;}
+  .col textarea{min-height:150px;}
+  .desk{display:none;}
+  .mid{display:flex;}
+  .btn{flex:1 1 auto;}
+  .btn.small{flex:0 0 auto;}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="logo">陸吼天堂雲端版 <small>加密通信器</small></span>
+    <a class="back" href="index.html">← 回首頁</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="title">🔐 加密通信器</h1>
+  <p class="sub">仿二戰「恩尼格碼」密碼機。加密後的訊息可以貼到 LINE 等聊天軟體傳給朋友，對方用同一把鑰匙就能解開。<b>全程在你的瀏覽器內運算，不連任何伺服器</b>。</p>
+
+  <!-- 鑰匙 -->
+  <section class="panel" id="keyPanel">
+    <h2>① 鑰匙</h2>
+    <div class="keyline">
+      <span id="keyState"></span>
+      <button class="btn ghost small" id="btnChangeKey" type="button">更換鑰匙</button>
+      <button class="btn ghost small" id="btnForget" type="button">清除這台裝置的鑰匙</button>
+    </div>
+
+    <div id="keySetup">
+      <div class="tabs">
+        <button class="tab on" data-tab="pass" type="button">通關密語</button>
+        <button class="tab" data-tab="file" type="button">匯入密碼本檔</button>
+      </div>
+
+      <div id="tabPass">
+        <div class="field">
+          <label for="pass">通關密語（雙方輸入同一句，就會得到同一把鑰匙；至少 6 個字，越長越難猜）</label>
+          <div class="passrow">
+            <input type="password" id="pass" autocomplete="off" placeholder="例如：一句只有你們知道的話">
+            <button class="btn ghost small" id="btnShowPass" type="button">顯示</button>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="remember1" checked> 在這台裝置記住鑰匙（不會記住通關密語本身）</label>
+        <div class="btnrow"><button class="btn" id="btnApplyPass" type="button">套用通關密語</button></div>
+      </div>
+
+      <div id="tabFile" hidden>
+        <div class="field">
+          <label for="bookFile">選擇電腦版 enigma.exe 旁邊的 codebooks.json</label>
+          <input type="file" id="bookFile" accept=".json,application/json">
+        </div>
+        <div class="field">
+          <label for="bookText">或把 codebooks.json 的內容整份貼在這裡</label>
+          <textarea id="bookText" rows="4" placeholder='[ { "number": 1, "rotors": [...], ... } ]'></textarea>
+        </div>
+        <label class="check"><input type="checkbox" id="remember2" checked> 在這台裝置記住鑰匙</label>
+        <div class="btnrow"><button class="btn" id="btnImport" type="button">匯入密碼本</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 加解密 -->
+  <section class="panel">
+    <h2>② 加密 / 解密</h2>
+    <div class="tools">
+      <label for="book" class="hint">加密用</label>
+      <select id="book"></select>
+      <span class="desk btnrow">
+        <button class="btn" data-act="enc" type="button">加密 →</button>
+        <button class="btn blue" data-act="dec" type="button">← 解密</button>
+      </span>
+      <button class="btn ghost small" id="btnPaste" type="button">📋 貼上</button>
+      <button class="btn ghost small" id="btnClear" type="button">清空</button>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h3>訊息（要加密的原文，或貼上收到的密文）</h3>
+        <textarea id="input" placeholder="在這裡打字，或貼上密文…"></textarea>
+      </div>
+      <div class="btnrow mid">
+        <button class="btn" data-act="enc" type="button">加密 ↓</button>
+        <button class="btn blue" data-act="dec" type="button">解密 ↓</button>
+      </div>
+      <div class="col">
+        <h3>結果</h3>
+        <textarea id="output" readonly placeholder="結果會出現在這裡"></textarea>
+        <div class="btnrow" style="margin-top:.6rem"><button class="btn" id="btnCopy" type="button">複製結果</button></div>
+      </div>
+    </div>
+    <div class="status" id="status"></div>
+  </section>
+
+  <section class="panel notes">
+    <h2>使用說明</h2>
+    <ul>
+      <li><b>第一次使用</b>：跟朋友當面約好一句通關密語，雙方都在「① 鑰匙」輸入同一句。下方顯示的 <b>6 碼鑰匙指紋</b>一樣，就代表鑰匙相同。</li>
+      <li><b>傳訊息</b>：左邊打字 → 按「加密」→「複製結果」→ 貼到 LINE 送出。</li>
+      <li><b>收訊息</b>：在 LINE 長按密文複製 → 貼到左邊 → 按「解密」。密文開頭的「07-KXQ」寫著用哪一本，會自動對上，不用自己選。</li>
+      <li><b>同一句話每次加密結果都不同</b>，這是正常的（每則訊息都有自己的隨機訊息鑰匙）。</li>
+      <li>手機建議用 Chrome / Safari 開啟並「加到主畫面」；在 LINE 內建瀏覽器開啟時，鑰匙可能不會被記住。</li>
+      <li>電腦版 enigma.exe 選「改用通關密語」輸入同一句，就能跟網頁互通。</li>
+    </ul>
+    <h2 style="margin-top:1rem">安全提醒</h2>
+    <ul>
+      <li class="warn">恩尼格碼在二戰時就被破解了。這是好玩的密碼遊戲，<b>請勿用來保護真正的機密</b>（帳號密碼、個資、金錢）。</li>
+      <li>通關密語<b>不要透過 LINE 傳</b>，要當面或用別的管道講；被看到通關密語就等於被看到所有訊息。</li>
+      <li>公用電腦請不要勾「記住鑰匙」，用完按「清除這台裝置的鑰匙」。</li>
+    </ul>
+  </section>
+</main>
+
+<script src="cipher-core.js"></script>
+<script>
+(function () {
+  'use strict';
+  const C = window.LuhoCipher;
+  const STORE = 'luhoCipher.v1';
+  const $ = (id) => document.getElementById(id);
+  let key = null; // { source: 'pass'|'file', books: [...], fp: 'XXXXXX' }
+
+  // ── 狀態列 ──
+  function say(msg, kind) {
+    const s = $('status');
+    s.textContent = msg;
+    s.className = 'status' + (kind ? ' ' + kind : '');
+  }
+
+  // ── 本機儲存（任何錯誤都忽略：私密瀏覽、LINE 內建瀏覽器可能不給存） ──
+  function saveKey(k) { try { localStorage.setItem(STORE, JSON.stringify(k)); } catch (e) {} }
+  function loadKey() {
+    try {
+      const raw = localStorage.getItem(STORE);
+      if (!raw) return null;
+      const k = JSON.parse(raw);
+      k.books = C.validateBooks(k.books);
+      return k;
+    } catch (e) { return null; }
+  }
+  function forgetKey() { try { localStorage.removeItem(STORE); } catch (e) {} }
+
+  // ── 畫面更新 ──
+  function render() {
+    const has = !!key;
+    $('keyState').innerHTML = has
+      ? `目前鑰匙：${key.source === 'pass' ? '通關密語' : '匯入的密碼本檔'}　指紋 <span class="fp">${key.fp}</span>`
+      : '<span class="none">尚未設定鑰匙</span>　請先輸入通關密語或匯入密碼本';
+    $('btnChangeKey').hidden = !has;
+    $('btnForget').hidden = !has;
+    if (!has) $('keySetup').hidden = false;
+    const sel = $('book');
+    const keep = sel.value;
+    sel.innerHTML = '';
+    for (let i = 1; i <= C.BOOK_COUNT; i++) {
+      const o = document.createElement('option');
+      o.value = String(i);
+      o.textContent = `第 ${String(i).padStart(2, '0')} 本`;
+      sel.appendChild(o);
+    }
+    if (keep) sel.value = keep;
+    document.querySelectorAll('[data-act]').forEach((b) => { b.disabled = !has; });
+    sel.disabled = !has;
+  }
+
+  async function useBooks(books, source, remember) {
+    const fp = await C.fingerprint(books);
+    key = { source, books, fp };
+    if (remember) saveKey(key); else forgetKey();
+    $('keySetup').hidden = true;
+    render();
+    say(`鑰匙已設定，指紋 ${fp}${remember ? '（已記在這台裝置）' : '（只在這次開啟有效）'}。跟對方確認指紋一樣就能互通。`, 'ok');
+  }
+
+  // ── 分頁切換 ──
+  document.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('on', x === t));
+    $('tabPass').hidden = t.dataset.tab !== 'pass';
+    $('tabFile').hidden = t.dataset.tab !== 'file';
+  }));
+
+  $('btnShowPass').addEventListener('click', () => {
+    const p = $('pass');
+    p.type = p.type === 'password' ? 'text' : 'password';
+    $('btnShowPass').textContent = p.type === 'password' ? '顯示' : '隱藏';
+  });
+
+  async function applyPass() {
+    const btn = $('btnApplyPass');
+    btn.disabled = true;
+    say('正在用通關密語計算鑰匙…（手機約需 1～3 秒）');
+    try {
+      const books = await C.fromPassphrase($('pass').value);
+      $('pass').value = '';
+      await useBooks(books, 'pass', $('remember1').checked);
+    } catch (e) {
+      say(e.message, 'err');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+  $('btnApplyPass').addEventListener('click', applyPass);
+  $('pass').addEventListener('keydown', (e) => { if (e.key === 'Enter') applyPass(); });
+
+  $('bookFile').addEventListener('change', () => {
+    const f = $('bookFile').files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => { $('bookText').value = String(r.result); say('檔案已讀入，按「匯入密碼本」。'); };
+    r.onerror = () => say('讀不到這個檔案', 'err');
+    r.readAsText(f, 'utf-8');
+  });
+
+  $('btnImport').addEventListener('click', async () => {
+    try {
+      let data;
+      try { data = JSON.parse($('bookText').value); } catch (e) { throw new Error('內容不是正確的密碼本檔（JSON 格式錯誤）'); }
+      const books = C.validateBooks(data);
+      $('bookText').value = '';
+      $('bookFile').value = '';
+      await useBooks(books, 'file', $('remember2').checked);
+    } catch (e) {
+      say(e.message, 'err');
+    }
+  });
+
+  $('btnChangeKey').addEventListener('click', () => { $('keySetup').hidden = !$('keySetup').hidden; });
+  $('btnForget').addEventListener('click', () => {
+    forgetKey();
+    key = null;
+    $('output').value = '';
+    render();
+    say('已清除這台裝置記住的鑰匙。');
+  });
+
+  // ── 加密 / 解密 ──
+  function act(kind) {
+    if (!key) { say('請先設定鑰匙', 'err'); return; }
+    const text = $('input').value;
+    try {
+      if (kind === 'enc') {
+        const n = parseInt($('book').value, 10);
+        $('output').value = C.encrypt(key.books[n - 1], text);
+        say(`已用第 ${String(n).padStart(2, '0')} 本加密，按「複製結果」貼到聊天軟體。`, 'ok');
+      } else {
+        const r = C.decrypt(key.books, text);
+        $('output').value = r.text;
+        say(`已用第 ${String(r.number).padStart(2, '0')} 本解密。`, 'ok');
+      }
+    } catch (e) {
+      say(e.message, 'err');
+    }
+  }
+  document.querySelectorAll('[data-act]').forEach((b) => b.addEventListener('click', () => act(b.dataset.act)));
+
+  // ── 剪貼簿 ──
+  $('btnCopy').addEventListener('click', async () => {
+    const t = $('output').value;
+    if (!t) { say('右邊還沒有結果', 'err'); return; }
+    try {
+      await navigator.clipboard.writeText(t);
+    } catch (e) {
+      const o = $('output');
+      o.focus(); o.select();
+      try { document.execCommand('copy'); } catch (e2) { say('無法自動複製，請長按結果框手動複製', 'err'); return; }
+    }
+    say('已複製，可以貼到聊天軟體了。', 'ok');
+  });
+  $('btnPaste').addEventListener('click', async () => {
+    try {
+      const t = await navigator.clipboard.readText();
+      $('input').value = t;
+      say('已貼上。是密文就按「解密」。');
+    } catch (e) {
+      $('input').focus();
+      say('瀏覽器不允許自動貼上，請在左邊框內長按 → 貼上。', 'err');
+    }
+  });
+  $('btnClear').addEventListener('click', () => { $('input').value = ''; $('output').value = ''; say(''); });
+
+  // ── 啟動 ──
+  key = loadKey();
+  if (key) $('keySetup').hidden = true;
+  render();
+  if (!window.crypto || !window.crypto.subtle) say('這個瀏覽器不支援加密功能，請改用新版 Chrome / Safari / Edge。', 'err');
+})();
+</script>
+</body>
+</html>
