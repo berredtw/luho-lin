@@ -317,6 +317,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
     <li><a href="#rift">時空裂痕</a></li>
     <li><a href="#rings">戒靈之戒</a></li>
     <li><a href="#jobchange">轉職系統</a></li>
+    <li><a href="#autologin">自動登入器</a></li>
     <li><a href="#info">伺服器資訊</a></li>
     <li><a href="#join">立即加入</a></li>
     <li><a href="#changelog">更新日誌</a></li>
@@ -1760,6 +1761,70 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
 </section>
 <hr class="divider">
 
+<!-- AUTO LOGIN (2026-10-25 V1.1) -->
+<section id="autologin">
+  <div class="section-inner">
+    <div class="section-label">AUTO LOGIN</div>
+    <h2 class="section-title">天堂自動登入器 · 掛機好幫手</h2>
+    <p class="section-desc">上班、睡覺、出門也能安心掛！陸吼天堂有專屬的<strong>自動登入器</strong>：幫你自動登入、自動開掛機、斷線自動重登，角色發呆了還會<strong>自己回村重新出發</strong>。最新的 <strong>V1.1 版</strong>改成<strong>直接讀伺服器的資料</strong>判斷角色狀況，不再靠「看畫面」猜，比以前準很多！</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">🖥 視窗掛機</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.8;">自動開遊戲、輸入帳密、選角色、叫出 LinHelperZ、找傳送師去練功點、開內掛，全部一鍵完成。</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">🌙 背景掛機</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.8;">不開遊戲視窗也能掛，電腦負擔更小；可以單獨讓某一隻角色暫停下線、再繼續上線，其他角色照常掛。</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">🔁 斷線自動重登</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.8;">網路斷線、每天 18:00 伺服器例行重啟後，都會自動重新登入、回到練功點繼續掛。</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">🏠 發呆自動救回</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.8;">角色站著不動、內掛停了，會自動回主村、重新傳送到練功點、再開掛機；角色死亡也會自動處理後重登。</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">📱 手機遙控</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.8;">搭配 Telegram，斷線、死亡會通知你的手機；人在外面也能查狀態、看遊戲截圖、叫角色換練功點。</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">🆓 7 天免費試用</div>
+        <div style="font-size:.9rem;color:var(--dim);line-height:1.8;">試用版可免費用 7 天（視窗掛機、背景掛機各 1 隻角色），覺得好用再索取正式版啟動碼。</div>
+      </div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--gold);border-radius:10px;padding:1.2rem 1.3rem;margin:1.5rem 0;">
+      <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">✨ V1.1 改了什麼？（跟以前看畫面的版本比）</div>
+      <div style="font-size:.9rem;color:var(--dim);line-height:1.9;">
+        ・明明在打怪卻被當成發呆、拉回村 → <strong>不會了</strong>，有出手、有吃經驗就是在打怪<br>
+        ・畫面卡住或全黑一直誤判 → <strong>不看畫面了</strong>，螢幕關掉、視窗縮小都沒差<br>
+        ・NPC 對話框被誤認成死亡 → <strong>不會了</strong>，死了沒是伺服器說的<br>
+        ・內掛自己停了要等很久才發現 → 內掛一停<strong>馬上知道</strong><br>
+        ・找傳送師找半天、點錯人 → 直接知道傳送師站哪，<strong>幾秒就走到</strong><br>
+        ・傳送沒成功也照樣開掛機、在村莊打小怪 → 會<strong>確認真的傳走了</strong>才開掛機，沒成功就重來<br>
+        ・影像辨識很吃電腦效能 → 現在<strong>幾乎不吃資源</strong>，筆電也跑得動<br>
+        ・開好掛機後自動關掉 LinHelperZ 視窗和掛機視窗，畫面更乾淨
+      </div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.2rem 1.3rem;margin:1.5rem 0;">
+      <div style="color:var(--gold);font-weight:700;margin-bottom:.5rem;">💡 使用小提醒</div>
+      <div style="font-size:.9rem;color:var(--dim);line-height:1.9;">
+        ・自動登入時伺服器清單會顯示「LH」，這是正常的，實際上還是連到陸吼天堂；自己手動開遊戲時清單跟以前一樣<br>
+        ・資料夾裡的「轉接站.exe」是新功能用的，<strong>不用自己開</strong>，登入器會自動處理；少數防毒軟體可能會擋它，被擋時登入器會自動改回看畫面的方式，一樣能掛<br>
+        ・關掉自動登入器時，它掛著的遊戲視窗會一起斷線，要繼續掛就不要關登入器<br>
+        ・想讓角色發呆時自動回村，記得到「⚙ 設定」勾選「角色發呆時自動回村重新出發」<br>
+        ・遊戲視窗請維持預設的 800×600 大小，找傳送師才會準<br>
+        ・同一台電腦<strong>視窗＋背景合計最多 4 個帳號</strong>（超過會跳警告、不能開始），避免被伺服器的連線保護擋下
+      </div>
+    </div>
+    <p style="font-size:.85rem;color:var(--dim);margin-top:1rem;">📥 <strong>取得方式</strong>：請到官方 LINE 群組索取試用版或正式版（正式版需要啟動碼）。更新時把新版整個蓋過舊的資料夾即可，原本的設定與啟動碼都會保留。</p>
+  </div>
+</section>
+<hr class="divider">
+
 <!-- SERVER INFO -->
 <section id="info">
   <div class="section-inner">
@@ -1796,6 +1861,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);text-align:cente
     <h2 class="section-title">版本更新日誌</h2>
     <p class="section-desc">記錄伺服器每次重大更新，讓你清楚知道我們做了什麼。</p>
     <div class="cl-grid">
+
+      <div class="cl-row">
+        <div class="cl-ver">自動登入器 V1.1</div>
+        <div class="cl-date">2026/10/25</div>
+        <div class="cl-type"><span class="cl-tag ct-new">新功能</span><span class="cl-tag ct-new">改善</span></div>
+        <div class="cl-desc">🤖 <strong>自動登入器大改版！掛機判斷從「看畫面猜」改成「直接問伺服器」</strong>，打怪、發呆、死亡判斷都比以前準，找傳送師幾秒就走到，傳送沒成功會自動重來，也幾乎不吃電腦效能。這週陸續加入的功能：<br>
+        🌙 <strong>背景掛機</strong>整合進登入器：不開遊戲視窗也能掛，還能讓單一角色暫停下線、再繼續上線，其他角色不受影響。<br>
+        🛡 <strong>連線保護</strong>：多個帳號會排隊依序登入，避免同時連線被伺服器擋下；視窗＋背景合計超過 4 個帳號時會跳出警告，要先減少帳號才能開始。<br>
+        🩺 附贈「<strong>電腦檢查</strong>」小工具，登入器開不起來、遊戲閃退時可以先用它檢查。<br>
+        🆓 <strong>試用版</strong>：免費試用 7 天（視窗、背景各 1 隻）。<br>
+        完整介紹與使用小提醒請見本頁〈<a href="#autologin" style="color:var(--gold);">自動登入器</a>〉，請到官方 LINE 群組索取。</div>
+      </div>
 
       <div class="cl-row">
         <div class="cl-ver">舊大陸再起</div>
